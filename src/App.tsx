@@ -1,39 +1,62 @@
-import './App.css';
-import { Input } from './components/ui/input';
-import { auctionMock } from './mock/auction';
+import { useEffect, useState } from "react";
+import "./App.css";
+import { AuctionCard } from "./components/AuctionCard";
+import { Header } from "./components/Header";
+import { auctionMock } from "./mock/auction.mock";
+import { Vehicles } from "./interfaces/vehicle.interface";
+import auctionService from "./services/auction.service";
+import { Auction } from "./interfaces/auction.interface";
 
 function App() {
-  const initialVisibility = auctionMock.flatMap((auction) => auction.veiculos);
+  const [searchVehicle, setSearchVehicle] = useState("");
+  const [auctionVehicles, setAuctionVehicles] = useState<Array<Vehicles>>([]);
+  const [auctionVehiclesData, setAuctionVehiclesData] = useState<Auction>();
+
+  const initialVisibility =  auctionVehiclesData?.results || []
+  const cityFilterOptions = auctionMock.map((auction) => {
+    return { value: auction.cidade, label: auction.cidade };
+  });
+
+  const handleChangeAuctionVehicles = (newSearchValue: string) => {
+    const newAuctionVehicles = initialVisibility.filter((vehicle) => {
+      const vehicleName = vehicle.marca_modelo.toLowerCase();
+      const searchVehiclename = newSearchValue.toLowerCase();
+
+      return vehicleName.includes(searchVehiclename);
+    });
+    setAuctionVehicles(newAuctionVehicles);
+  };
+
+  const handleChangeSearch = (newSearchValue: string) => {
+    setSearchVehicle(newSearchValue);
+
+    handleChangeAuctionVehicles(newSearchValue);
+  };
+
+  const auctionLoader = async () => {
+    const getAuctionData = await auctionService.getAuction()
+    console.log(getAuctionData);
+    
+    setAuctionVehiclesData(getAuctionData)
+  }
+  
+  useEffect(() => {
+    auctionLoader()
+    setAuctionVehicles(initialVisibility);
+  }, []);
 
   return (
     <main className="bg-blue-100 flex flex-col min-h-screen">
-      <header className="bg-white px-12 w-full items-center flex flex-col gap-4 py-4">
-        <span className="text-blue-600 font-semibold text-2xl flex items-center">
-          Auction Shopping
-        </span>
-        <Input placeholder='Buscar veiculo' />
-      </header>
+      <Header handleChangeSearch={handleChangeSearch} search={searchVehicle} cityFilterOptions={cityFilterOptions}/>
       <div className="px-12 py-8 grid grid-cols-12 gap-4">
-        {initialVisibility.map((item, index) => (
-          <div
+        {auctionVehicles.slice(0,20).map((item, index) => (
+          <AuctionCard
             key={index}
-            className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col col-span-12 sm:col-span-6 lg:col-span-4"
-          >
-            <span className="text-xs text-gray-600">{item.tipo}</span>
-            <span className="text-slate-950 font-medium mb-2">{item.nome}</span>
-            <div className='flex justify-between'>
-              <div className='flex flex-col gap-1'>
-                <span className="text-xs text-gray-600">Lance inicial</span>
-
-                <strong>R$ {item.lance_inicial}</strong>
-              </div>
-              <div className='flex flex-col gap-1'>
-                <span className="text-xs text-gray-600">Tabela Fipe</span>
-
-                <strong>R$ {item.tabela_fipe}</strong>
-              </div>
-            </div>
-          </div>
+            year={item.ano}
+            avaliacao={item.avaliacao}
+            name={item.marca_modelo}
+            type={item.tipo}
+          />
         ))}
       </div>
     </main>
