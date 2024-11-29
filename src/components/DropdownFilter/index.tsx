@@ -39,7 +39,7 @@ export const DropdownFilter = ({ emptyList, options, label = "Selecione uma opç
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-auto justify-between"
+          className=" justify-between md:w-full w-auto"
         >
           {value
             ? options.find((option) => option.value === value)?.label
@@ -49,7 +49,7 @@ export const DropdownFilter = ({ emptyList, options, label = "Selecione uma opç
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0 ">
         <Command >
-          <CommandInput placeholder="Search framework..." className="h-9" />
+          <CommandInput placeholder="Search..." className="h-9" />
           <CommandList>
             <CommandEmpty>{emptyList}</CommandEmpty>
             <CommandGroup>

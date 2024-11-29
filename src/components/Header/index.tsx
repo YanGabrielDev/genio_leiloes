@@ -1,7 +1,7 @@
 import { cities } from "@/mock/cities.mock";
 import { DropdownFilter } from "../DropdownFilter";
 import { Input } from "../ui/input";
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 
 interface HeaderProps {
   search: string;
@@ -14,7 +14,7 @@ interface HeaderProps {
 export const Header = ({
   handleChangeSearch,
   search,
-  cityFilterOptions,
+  // cityFilterOptions,
 }: HeaderProps) => {
 
   const cityOptions = useMemo(() => {
@@ -29,7 +29,7 @@ export const Header = ({
       <span className="text-blue-600 font-semibold text-2xl flex items-center">
         Busca leilões
       </span>
-      <div className="flex gap-1 items-center w-full">
+      <div className="flex gap-1 items-start w-full md:flex-row flex-col ">
         <div className="md:w-1/3 w-full">
           <Input
             placeholder="Buscar veiculo"
