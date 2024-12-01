@@ -8,17 +8,15 @@ import { Vehicles } from "./interfaces/vehicle.interface";
 import { Skeleton } from "./components/ui/skeleton";
 import { PaginationSection } from "./components/PaginationSection";
 import { useListAuction } from "./hooks/useGetAuction";
-import { Auction } from "./interfaces/auction.interface";
 
 function App() {
   const [searchVehicle, setSearchVehicle] = useState("");
 
   const [auctionVehicles, setAuctionVehicles] = useState<Array<Vehicles>>([]);
-  const [auctionVehiclesData, setAuctionVehiclesData] = useState<Auction>();
   const [page, setPage] = useState<number>(1);
 
   const listAuction = useListAuction({ page });
-  const initialVisibility = auctionVehiclesData?.results || [];
+  const initialVisibility = listAuction.data?.results || [];
   const cityFilterOptions = auctionMock.map((auction) => {
     return { value: auction.cidade, label: auction.cidade };
   });
