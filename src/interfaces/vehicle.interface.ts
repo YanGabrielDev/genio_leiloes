@@ -7,6 +7,8 @@ export interface Vehicles {
   marca_modelo: string;
   motor: string;
   cor: string;
+  imagens: string[];
+  link_lance_atual: string;
   ano: number;
   avaliacao: string;
   tipo: string;

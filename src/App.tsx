@@ -1,4 +1,4 @@
-import {useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import "./App.css";
 import { AuctionCard } from "./components/AuctionCard";
 import { Header } from "./components/Header";
@@ -18,7 +18,11 @@ function App() {
   );
 
   const cityFilterOptions = useMemo(
-    () => auctionMock.map((auction) => ({ value: auction.cidade, label: auction.cidade })),
+    () =>
+      auctionMock.map((auction) => ({
+        value: auction.cidade,
+        label: auction.cidade,
+      })),
     []
   );
 
@@ -28,6 +32,7 @@ function App() {
   };
 
   const handlePageChange = (newPage: number) => setPage(newPage);
+console.log(filteredVehicles);
 
   return (
     <main className="bg-blue-100 flex flex-col min-h-screen">
@@ -41,13 +46,38 @@ function App() {
           <SkeletonLoaderGrid count={24} />
         ) : (
           filteredVehicles.map((item) => (
-            <AuctionCard
-              key={item.id}
-              year={item.ano}
-              avaliacao={item.avaliacao}
-              name={item.marca_modelo}
-              type={item.tipo}
-            />
+            // <Dialog key={item.id}>
+            //   <DialogTrigger asChild>
+                <AuctionCard
+                  year={item.ano}
+                  avaliacao={item.avaliacao}
+                  name={item.marca_modelo}
+                  type={item.tipo}
+                  imagens={item.imagens}
+                  link={item.link_lance_atual}
+                />
+            //   </DialogTrigger>
+            //   <DialogContent className="sm:max-w-[425px]">
+            //     <div className="p-4">
+            //       <h2 className="text-xl font-bold mb-2">{item.marca_modelo}</h2>
+            //       <p className="text-gray-600 mb-1">Tipo: {item.tipo}</p>
+            //       <p className="text-gray-600 mb-1">Ano: {item.ano}</p>
+            //       <p className="text-gray-600 mb-1">
+            //         Avaliação: R$ {item.avaliacao}
+            //       </p>
+            //       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-4">
+            //         {item.imagens.map((img, index) => (
+            //           <img
+            //             key={index}
+            //             src={img}
+            //             alt={`Imagem ${index + 1}`}
+            //             className="w-full h-auto object-cover rounded"
+            //           />
+            //         ))}
+            //       </div>
+            //     </div>
+            //   </DialogContent>
+            // </Dialog>
           ))
         )}
       </div>
