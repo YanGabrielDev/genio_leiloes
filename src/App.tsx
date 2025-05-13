@@ -54,7 +54,6 @@ console.log(filteredVehicles);
                   name={item.marca_modelo}
                   type={item.tipo}
                   imagens={item.imagens}
-                  link={item.link_lance_atual}
                 />
             //   </DialogTrigger>
             //   <DialogContent className="sm:max-w-[425px]">
