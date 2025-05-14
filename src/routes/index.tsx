@@ -40,7 +40,6 @@ function App() {
   };
 
   const handlePageChange = (newPage: number) => setPage(newPage);
-  console.log(filteredVehicles);
 
   return (
     <Template

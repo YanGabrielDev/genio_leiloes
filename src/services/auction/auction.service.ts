@@ -1,6 +1,6 @@
 import { Auction } from "@/interfaces/auction.interface"
 import { api } from "@/lib/api"
-import { getAuctionParams, GetVehicleById } from "./action.interface"
+import { PostAnalysis, getAuctionParams, GetVehicleById } from "./action.interface"
 import { Vehicles } from "@/interfaces/vehicle.interface"
 
 export const apiUrl = import.meta.env.VITE_API_URL ?? ''
@@ -17,4 +17,10 @@ const getVehicleById = async ({veiculo_id}: GetVehicleById): Promise<Vehicles> =
     return response?.data?.results[0]
 }
 
-export default { getAuction, getVehicleById}
+const getAnalysis = async (data: PostAnalysis): Promise<any> => {
+    const response = await api.post(apiUrl + "analisar-veiculo/", data)
+    
+    return response?.data?.avaliacao_visual
+}
+
+export default { getAuction, getVehicleById, getAnalysis}
