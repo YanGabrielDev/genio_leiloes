@@ -1,5 +1,4 @@
 import { AuctionCard } from "@/components/AuctionCard";
-import { Header } from "@/components/Header";
 import { PaginationSection } from "@/components/PaginationSection";
 import { SkeletonLoaderGrid } from "@/components/SkeletonLoaderGrid";
 import { Template } from "@/components/Template";

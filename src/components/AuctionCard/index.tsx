@@ -1,13 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogClose,
-} from "../ui/dialog";
+
 import {
   Carousel,
   CarouselContent,
@@ -27,7 +18,7 @@ interface AuctionCardProps {
   id: number
 }
 
-export const AuctionCard = ({ year, avaliacao, name, type, imagens, id, setVehicleId }: AuctionCardProps) => {
+export const AuctionCard = ({ year, avaliacao, name, imagens, id, setVehicleId }: AuctionCardProps) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
