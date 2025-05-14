@@ -15,6 +15,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "../ui/carousel";
+import { useNavigate } from "@tanstack/react-router";
 
 interface AuctionCardProps {
   type: string;
@@ -22,122 +23,138 @@ interface AuctionCardProps {
   avaliacao: string;
   imagens: string[];
   year: number;
+  setVehicleId: any
+  id: number
 }
 
-export const AuctionCard = ({ year, avaliacao, name, type, imagens }: AuctionCardProps) => {
+export const AuctionCard = ({ year, avaliacao, name, type, imagens, id, setVehicleId }: AuctionCardProps) => {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate({ to: '/details/$vehicleId', params: { vehicleId: id.toString() } })
+  }
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <div className="bg-white rounded-lg border border-gray-200 p-4 flex flex-col col-span-12 sm:col-span-6 lg:col-span-4 cursor-pointer hover:shadow-lg transition-shadow duration-300">
-          <Carousel className="w-full">
+    <>
+      {/* <DialogTrigger asChild> */}
+        <div onClick={handleClick} className="group bg-white rounded-xl border border-gray-200 p-4 flex flex-col col-span-12 sm:col-span-6 lg:col-span-4 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+          <Carousel className="w-full relative overflow-hidden rounded-lg">
             <CarouselContent>
               {imagens?.map((img, index) => (
                 <CarouselItem key={index}>
-                  <img
-                    src={img}
-                    alt={`${name} imagem ${index + 1}`}
-                    className="w-full h-48 object-cover rounded transform hover:scale-105 transition-transform duration-200"
-                  />
+                  <div className="relative aspect-video overflow-hidden">
+                    <img
+                      src={img}
+                      alt={`${name} imagem ${index + 1}`}
+                      className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
             {imagens.length > 1 && (
               <>
-                <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
-                <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
+                <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-sm" />
+                <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-sm" />
               </>
             )}
           </Carousel>
 
-          {/* <span className="text-xs text-gray-600 mt-4">{type}</span> */}
-          <span className="text-slate-950 font-medium mb-2">{name}</span>
-          <div className="flex justify-between">
-            <div className="flex flex-col gap-1">
-              <span className="text-xs text-gray-600">Avaliação</span>
-              <strong>R$ {avaliacao}</strong>
+          <div className="mt-4 space-y-3">
+            <h3 className="text-lg font-bold text-gray-900 truncate">{name}</h3>
+            
+            <div className="flex justify-between items-center">
+              <div className="space-y-1">
+                <span className="text-xs font-medium text-gray-500 uppercase">Avaliação</span>
+                <p className="text-lg font-bold text-emerald-600">R$ {avaliacao}</p>
+              </div>
+              
+              <div className="space-y-1 text-right">
+                <span className="text-xs font-medium text-gray-500 uppercase">Ano</span>
+                <p className="text-lg font-semibold text-gray-900">{year}</p>
+              </div>
+              <button onClick={() => setVehicleId(id)}>teste</button>
             </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-xs text-gray-600">Ano</span>
-              <strong>{year}</strong>
-            </div>
+
+            {/* <div className="inline-flex bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">
+              {type}
+            </div> */}
           </div>
         </div>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] bg-gradient-to-b from-white to-gray-50 rounded-xl shadow-2xl">
+      {/* </DialogTrigger> */}
+
+      {/* <DialogContent className="sm:max-w-[600px] bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl">
         <AnimatePresence>
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
           >
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-gray-800">
+              <DialogTitle className="text-3xl font-extrabold text-gray-900">
                 {name}
               </DialogTitle>
-              <DialogDescription className="text-gray-500">
-                Detalhes do veículo
+              <DialogDescription className="text-gray-500 mt-1">
+                Detalhes completos do veículo
               </DialogDescription>
             </DialogHeader>
-            <div className="p-6">
+
+            <div className="mt-6">
               <Carousel className="w-full">
                 <CarouselContent>
                   {imagens.map((img, index) => (
                     <CarouselItem key={index}>
-                      <motion.img
-                        src={img}
-                        alt={`${name} imagem ${index + 1}`}
-                        className="w-full h-64 object-cover rounded-lg shadow-sm"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 * index, duration: 0.2 }}
-                      />
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                        className="relative aspect-video overflow-hidden rounded-xl"
+                      >
+                        <img
+                          src={img}
+                          alt={`${name} imagem ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </motion.div>
                     </CarouselItem>
                   ))}
                 </CarouselContent>
                 {imagens.length > 1 && (
                   <>
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    <CarouselPrevious className="bg-white/80 hover:bg-white" />
+                    <CarouselNext className="bg-white/80 hover:bg-white" />
                   </>
                 )}
               </Carousel>
 
-              <div className="mt-6 space-y-4">
-                <motion.p
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1, duration: 0.2 }}
-                  className="text-gray-600"
-                >
-                  Tipo: {type}
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2, duration: 0.2 }}
-                  className="text-gray-600"
-                >
-                  Ano: {year}
-                </motion.p>
-                <motion.p
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3, duration: 0.2 }}
-                  className="text-gray-600"
-                >
-                  Avaliação: R$ {avaliacao}
-                </motion.p>
+              <div className="grid grid-cols-2 gap-6 mt-8 p-4 bg-gray-50 rounded-xl">
+                <div className="space-y-2">
+                  <span className="text-sm font-medium text-gray-500">Tipo</span>
+                  <p className="text-lg font-semibold text-gray-900">{type}</p>
+                </div>
+                
+                <div className="space-y-2">
+                  <span className="text-sm font-medium text-gray-500">Ano</span>
+                  <p className="text-lg font-semibold text-gray-900">{year}</p>
+                </div>
+                
+                <div className="space-y-2 col-span-2">
+                  <span className="text-sm font-medium text-gray-500">Avaliação</span>
+                  <p className="text-2xl font-bold text-emerald-600">R$ {avaliacao}</p>
+                </div>
               </div>
-            </div>
-            <DialogClose asChild>
-              <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors duration-200">
-                ✕
+            </div> */}
+
+            {/* <DialogClose asChild>
+              <button className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
-            </DialogClose>
-          </motion.div>
+            </DialogClose> */}
+          {/* </motion.div>
         </AnimatePresence>
-      </DialogContent>
-    </Dialog>
+      </DialogContent> */}
+    </>
   );
 };
