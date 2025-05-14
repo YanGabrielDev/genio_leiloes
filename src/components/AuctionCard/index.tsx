@@ -64,7 +64,6 @@ export const AuctionCard = ({ year, avaliacao, name, imagens, id, setVehicleId }
                 <span className="text-xs font-medium text-gray-500 uppercase">Ano</span>
                 <p className="text-lg font-semibold text-gray-900">{year}</p>
               </div>
-              <button onClick={() => setVehicleId(id)}>teste</button>
             </div>
 
             {/* <div className="inline-flex bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">
