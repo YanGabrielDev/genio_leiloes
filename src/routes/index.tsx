@@ -4,7 +4,6 @@ import { SkeletonLoaderGrid } from "@/components/SkeletonLoaderGrid";
 import { Template } from "@/components/Template";
 import { useFilteredVehicles } from "@/hooks/useFilteredVehicles";
 import { useListAuction } from "@/hooks/useGetAuction";
-import { useGetVehicleById } from "@/hooks/useGetVehicleById";
 import { auctionMock } from "@/mock/auction.mock";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
