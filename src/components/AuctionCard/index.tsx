@@ -14,11 +14,10 @@ interface AuctionCardProps {
   avaliacao: string;
   imagens: string[];
   year: number;
-  setVehicleId: any
   id: number
 }
 
-export const AuctionCard = ({ year, avaliacao, name, imagens, id, setVehicleId }: AuctionCardProps) => {
+export const AuctionCard = ({ year, avaliacao, name, imagens, id }: AuctionCardProps) => {
   const navigate = useNavigate()
 
   const handleClick = () => {

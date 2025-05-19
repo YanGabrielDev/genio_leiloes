@@ -16,9 +16,7 @@ export const Route = createFileRoute("/")({
 function App() {
   const [searchVehicle, setSearchVehicle] = useState("");
   const [page, setPage] = useState<number>(1);
-  const [vehicleId, setVehicleId] = useState<number | undefined>(undefined);
 
-  const {} = useGetVehicleById({ vehicleId });
   const listAuction = useListAuction({ page });
   const { filteredVehicles, filterBySearch } = useFilteredVehicles(
     listAuction.data?.results || []
@@ -57,7 +55,6 @@ function App() {
               name={item.marca_modelo}
               type={item.tipo}
               imagens={item.imagens}
-              setVehicleId={setVehicleId}
               id={item.id}
             />
           ))
