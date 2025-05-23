@@ -1609,7 +1609,6 @@
 //   },
 // ];
 
-
 export const cities = ["Minas Gerais", "Rio de Janeiro", "São Paulo"]
 
 // export const cities = citiesArray.flatMap((item) =>

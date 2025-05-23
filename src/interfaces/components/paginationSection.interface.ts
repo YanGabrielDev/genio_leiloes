@@ -1,5 +1,5 @@
-export interface PaginationSectionProps{
-totalItems: number
-page: number
-handleChangePage: (page: number) => void
+export interface PaginationSectionProps {
+  totalItems: number
+  page: number
+  handleChangePage: (page: number) => void
 }

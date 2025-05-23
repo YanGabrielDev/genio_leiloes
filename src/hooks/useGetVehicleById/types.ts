@@ -1,3 +1,3 @@
-export interface UseGetVehicleById{
-    vehicleId?: number
+export interface UseGetVehicleById {
+  vehicleId?: number
 }

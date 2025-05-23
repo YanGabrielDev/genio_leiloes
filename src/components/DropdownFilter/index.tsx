@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import * as React from "react"
+import { Check, ChevronsUpDown } from "lucide-react"
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 import {
   Command,
   CommandEmpty,
@@ -11,13 +11,13 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/command"
+import { Button } from "@/components/ui/button"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/ui/popover"
 
 interface DropdownFilter {
   emptyList: string;
@@ -29,11 +29,11 @@ interface DropdownFilter {
 }
 
 export const DropdownFilter = ({ emptyList, options, label = "Selecione uma opção..." }: DropdownFilter) => {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [open, setOpen] = React.useState(false)
+  const [value, setValue] = React.useState("")
 
   return (
-    <Popover open={open} onOpenChange={setOpen} >
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -48,7 +48,7 @@ export const DropdownFilter = ({ emptyList, options, label = "Selecione uma opç
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0 ">
-        <Command >
+        <Command>
           <CommandInput placeholder="Search..." className="h-9" />
           <CommandList>
             <CommandEmpty>{emptyList}</CommandEmpty>
@@ -58,8 +58,8 @@ export const DropdownFilter = ({ emptyList, options, label = "Selecione uma opç
                   key={framework.value}
                   value={framework.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
+                    setValue(currentValue === value ? "" : currentValue)
+                    setOpen(false)
                   }}
                 >
                   {framework.label}
@@ -76,5 +76,5 @@ export const DropdownFilter = ({ emptyList, options, label = "Selecione uma opç
         </Command>
       </PopoverContent>
     </Popover>
-  );
-};
+  )
+}

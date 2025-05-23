@@ -1,31 +1,31 @@
 // src/routes/details.$vehicleId.tsx
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useGetVehicleById } from "@/hooks/useGetVehicleById";
-import { Template } from "@/components/Template";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AnimatePresence, motion } from "framer-motion";
+import { createFileRoute, Link } from "@tanstack/react-router"
+import { useGetVehicleById } from "@/hooks/useGetVehicleById"
+import { Template } from "@/components/Template"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { AnimatePresence, motion } from "framer-motion"
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowLeft } from "lucide-react";
-import { usePostAnalysis } from "@/hooks/usePostAnalysis";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+} from "@/components/ui/carousel"
+import { Skeleton } from "@/components/ui/skeleton"
+import { ArrowLeft } from "lucide-react"
+import { usePostAnalysis } from "@/hooks/usePostAnalysis"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 
 export const Route = createFileRoute("/details/$vehicleId")({
-  component: VehicleDetails,
-});
+  component: VehicleDetailsPage,
+})
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
+}
 
 const staggerContainer = {
   visible: {
@@ -33,19 +33,19 @@ const staggerContainer = {
       staggerChildren: 0.1,
     },
   },
-};
+}
 
-function VehicleDetails() {
-  const { vehicleId } = Route.useParams();
+function VehicleDetailsPage() {
+  const { vehicleId } = Route.useParams()
   const {
     data: vehicle,
     isLoading,
     isError,
-  } = useGetVehicleById({ vehicleId: Number(vehicleId) });
-  const { mutateAsync: postAnalysis, data: analysis, isPending: analysisIsPending} = usePostAnalysis();
-  console.log(analysis);
+  } = useGetVehicleById({ vehicleId: Number(vehicleId) })
+  const { mutateAsync: postAnalysis, data: analysis, isPending: analysisIsPending } = usePostAnalysis()
+  console.log(analysis)
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <Template>
         <div className="container mx-auto p-4 space-y-6">
@@ -74,9 +74,10 @@ function VehicleDetails() {
           </div>
         </div>
       </Template>
-    );
+    )
+  }
 
-  if (isError)
+  if (isError) {
     return (
       <Template>
         <div className="container mx-auto p-4 text-center">
@@ -101,9 +102,10 @@ function VehicleDetails() {
           </motion.div>
         </div>
       </Template>
-    );
+    )
+  }
 
-  if (!vehicle)
+  if (!vehicle) {
     return (
       <Template>
         <div className="container mx-auto p-4 text-center">
@@ -119,7 +121,8 @@ function VehicleDetails() {
           </motion.div>
         </div>
       </Template>
-    );
+    )
+  }
 
   return (
     <Template>
@@ -308,21 +311,20 @@ function VehicleDetails() {
                         avaliacao: vehicle.avaliacao,
                         imagens: [vehicle.imagens[0]],
                         marca_modelo: vehicle.marca_modelo,
-                      })
-                    }
+                      })}
                   >
                     Analisar com IA
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[600px] bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl max-h-96 overflow-auto">
                   <AnimatePresence>
-                  <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            {analysisIsPending ?<span>Realizando analise...</span>: <span>{analysis}</span> }
-          </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {analysisIsPending ? <span>Realizando analise...</span> : <span>{analysis}</span>}
+                    </motion.div>
                   </AnimatePresence>
                 </DialogContent>
               </Dialog>
@@ -335,5 +337,5 @@ function VehicleDetails() {
         </div>
       </motion.div>
     </Template>
-  );
+  )
 }

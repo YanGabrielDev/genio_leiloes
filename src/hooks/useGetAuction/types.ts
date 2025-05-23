@@ -1,3 +1,3 @@
-export interface useListAuctionParams{
-    page: number
+export interface useListAuctionParams {
+  page: number
 }

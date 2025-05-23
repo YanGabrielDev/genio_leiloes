@@ -1,4 +1,4 @@
-import { Vehicles } from "./vehicle.interface";
+import { Vehicles } from "./vehicle.interface"
 
 export interface Auction {
   count: number;
