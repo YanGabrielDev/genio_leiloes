@@ -12,7 +12,7 @@ export const usePostLogin = () => {
     mutationFn: (data: LoginUser ) => userService.loginUser(data),
       onSuccess: async (data) => {
       Cookies.set("accessToken", data.data.jwt)
-      const user = await userService.profileUser()
+      // const user = await userService.profileUser()
       
       toast({
         title: "Login realizado com sucesso!",
