@@ -6,20 +6,17 @@ import { Vehicles } from "@/interfaces/vehicle.interface"
 export const apiUrl = import.meta.env.VITE_API_URL ?? ''
 
 const getAuction = async ({ page }: getAuctionParams): Promise<Auction> => {
-  const response = await api.get(apiUrl + "/leiloes/", { params: { page } })
-
+  const response = await api.get(`${apiUrl}/leiloes/`, { params: { page } })
   return response.data
 }
 
 const getVehicleById = async ({ veiculo_id }: GetVehicleById): Promise<Vehicles> => {
-  const response = await api.get(apiUrl + "/leiloes/", { params: { veiculo_id } })
-
+  const response = await api.get(`${apiUrl}/leiloes/`, { params: { veiculo_id } })
   return response?.data?.results[0]
 }
 
 const getAnalysis = async (data: PostAnalysis): Promise<any> => {
-  const response = await api.post(apiUrl + "/leiloes" + "/analisar-veiculo/", data)
-
+  const response = await api.post(`${apiUrl}/leiloes/analisar-veiculo/`, data)
   return response?.data?.avaliacao_visual
 }
 

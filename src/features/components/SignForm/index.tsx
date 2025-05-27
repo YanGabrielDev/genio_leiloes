@@ -10,14 +10,13 @@ interface SignFormProps {
 }
 export const SignForm = ({ openSignUpForm, isLoadingSubmit }: SignFormProps) => {
     const form = useFormContext()
-
     return (
         <div className="w-full flex gap-4 flex-col min-w-80">
             <h1 className="font-bold text-blue-600 text-5xl">Login</h1>
             <h2 className="text-blue-600 text-base opacity-70 font-medium">Acesse sua conta para ter mais funcionalidades.</h2>
             <FormField
                 control={form.control}
-                name="user_email"
+                name="email"
                 rules={{ required: "Campo obrigatório!" }}
                 render={({ field }) => (
                     <FormItem>
@@ -30,7 +29,7 @@ export const SignForm = ({ openSignUpForm, isLoadingSubmit }: SignFormProps) => 
             />
             <FormField
                 control={form.control}
-                name="user_password"
+                name="password"
                 rules={{ required: "Campo obrigatório!" }}
                 render={({ field }) => (
                     <FormItem>

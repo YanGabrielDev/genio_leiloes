@@ -1,6 +1,6 @@
 import { LoginForm } from '@/features/components/LoginForm'
 import { createFileRoute } from '@tanstack/react-router'
-
+import hero from '../assets/hero.jpeg'
 export const Route = createFileRoute('/login')({
   component: LoginPage,
 })
@@ -11,7 +11,7 @@ function LoginPage() {
     <div className="relative col-span-12 md:col-span-4 h-screen bg-blue-100 flex justify-center items-center p-8">
       <LoginForm />
     </div>
-    <div className="sm:hidden md:block col-span-8 h-screen bg-white p-8">
+    <div className="sm:hidden md:block col-span-8 h-screen bg-[#efece5] p-8">
       {/* <img
         src={loginText}
         className="w-full h-1/5"
@@ -20,6 +20,7 @@ function LoginPage() {
         src={walppaper}
         className="w-full h-4/5"
         alt='Garotos estudando em uma mesa' /> */}
+<img src={hero} alt='um matelo e um carro de leilao' style={{width: "100%", height: "100%", objectFit: "contain"}}/>
     </div>
   </main>
   )

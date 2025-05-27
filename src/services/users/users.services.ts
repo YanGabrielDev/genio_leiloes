@@ -1,16 +1,34 @@
 import { api } from "@/lib/api"
-import { CreateUser } from "./users.types"
+import { CreateUser, LoginUser } from "./users.types"
+import Cookies from 'js-cookie'
 
 export const apiUrl = import.meta.env.VITE_API_URL ?? ''
+const cookies = Cookies
 
 const createUser = async (data: CreateUser) => {
-    const response = await api.post(apiUrl + "/users" + "/register/", data)
+    const response = await api.post(`${apiUrl}/users/register/`, data)
     return response
 }
 
 const verifyEmailUser = async (verifyCode: number) => {
-    const response = await api.post(apiUrl + "/users" + "/verify-email/" + verifyCode + "/")
+    const response = await api.post(`${apiUrl}/users/verify-email/${verifyCode}/`)
     return response
 }
 
-export default { createUser, verifyEmailUser }
+const loginUser = async (data: LoginUser) => {
+    const response = await api.post(`${apiUrl}/users/login/`, data)
+    return response
+}
+
+const profileUser = async () => {
+    const token = cookies.get("accessToken")
+    const response = await api.get(`${apiUrl}/users/profile/`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    })
+    return response
+}
+
+export default { createUser, verifyEmailUser, loginUser, profileUser }

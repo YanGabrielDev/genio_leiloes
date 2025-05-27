@@ -8,9 +8,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { registerFormSchema } from "@/schemas/register-form.schema"
 import { loginFormSchema } from "@/schemas/login-form.schema"
 import { CreateUser, LoginUser } from "@/services/users/users.types"
-import { usePostUser } from "@/hooks/usePostUser/usePostUser"
+import { usePostUser } from "@/hooks/usePostUser"
 import { useToast } from "@/hooks/use-toast"
 import { VerificationCodeForm } from "../VerificationCodeForm"
+import { usePostLogin } from "@/hooks/usePostLogin"
 
 interface LoginForm {
 }
@@ -22,6 +23,8 @@ export const LoginForm = ({ }: LoginForm) => {
     const [isLoadingSubmit, setIsLoadingSubmit] = useState(false)
 
     const { mutateAsync: createUser } = usePostUser()
+    const { mutateAsync: loginUser, isPending: loginUserIsPending } = usePostLogin()
+    
     const { toast } = useToast()
     
     const schema = showSignUpForm ? registerFormSchema : loginFormSchema
@@ -75,8 +78,10 @@ export const LoginForm = ({ }: LoginForm) => {
                     })
                 }
             } else {
+                console.log("opa")
                 const { email, password } = formData as LoginUser
-                alert(`${email}, ${password}`)
+                await loginUser({email, password})
+
             }
         } catch (error) {
             console.error(error)
@@ -113,7 +118,7 @@ export const LoginForm = ({ }: LoginForm) => {
                 ) : showSignUpForm ? (
                     <SignUpForm closeSignUpForm={closeSignUpForm} isLoadingSubmit={isLoadingSubmit} />
                 ) : (
-                    <SignForm openSignUpForm={openSignUpForm} isLoadingSubmit={isLoadingSubmit} />
+                    <SignForm openSignUpForm={openSignUpForm} isLoadingSubmit={loginUserIsPending} />
                 )}
             </form>
         </Form>
