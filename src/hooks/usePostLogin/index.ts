@@ -13,7 +13,6 @@ export const usePostLogin = () => {
       onSuccess: async (data) => {
       Cookies.set("accessToken", data.data.jwt)
       const user = await userService.profileUser()
-      console.log({user});
       
       toast({
         title: "Login realizado com sucesso!",
