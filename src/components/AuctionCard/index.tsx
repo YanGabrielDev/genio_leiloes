@@ -41,12 +41,12 @@ export const AuctionCard = ({ year, avaliacao, name, imagens, id }: AuctionCardP
               </CarouselItem>
             ))}
           </CarouselContent>
-          {imagens.length > 1 && (
+          {/* {imagens.length > 1 && (
             <>
               <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-sm" />
               <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-sm" />
             </>
-          )}
+          )} */}
         </Carousel>
 
         <div className="mt-4 space-y-3">

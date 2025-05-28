@@ -44,7 +44,7 @@ export const DropdownFilter = ({ emptyList, options, label = "Selecione uma opç
           {value
             ? options.find((option) => option.value === value)?.label
             : label}
-          <ChevronsUpDown className="opacity-50" />
+          <ChevronsUpDown className="opacity-70" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0 ">

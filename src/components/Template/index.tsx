@@ -26,7 +26,7 @@ export const Template = ({
   }
   
   return (
-    <main className="bg-blue-100 flex flex-col min-h-screen">
+    <main className="bg-gray-100 flex flex-col min-h-screen">
       <Header
         handleChangeSearch={handleChangeSearch}
         search={search}

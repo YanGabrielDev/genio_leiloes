@@ -36,9 +36,9 @@ export const Header = ({
   }, [cities]);
 
   return (
-    <header className="bg-white px-12 w-full flex flex-col gap-4 py-4">
+    <header className="bg-white px-12 w-full flex flex-col gap-4 py-4  border-b-primary border-b">
       <div className="flex justify-between items-center">
-        <span className="text-blue-600 font-semibold text-2xl flex items-center">
+        <span className="text-primary font-semibold text-2xl flex items-center">
           Busca leilões
         </span>
         

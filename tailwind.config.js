@@ -5,14 +5,29 @@ export default {
     './index.html',
     './src/**/*.{ts,tsx,js,jsx}', // Isso incluirá todos os arquivos em qualquer subpasta de src/
   ],
+
   theme: {
     extend: {
+      
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
       },
       colors: {
+    'chathams-blue': {
+    '50': '#eef9ff',
+    '100': '#dcf4ff',
+    '200': '#b2ebff',
+    '300': '#6ddcff',
+    '400': '#20cbff',
+    '500': '#00b4ff',
+    '600': '#0091df',
+    '700': '#0073b4',
+    '800': '#006194',
+    '900': '#00517c',
+    '950': '#003351',  
+     },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -24,17 +39,18 @@ export default {
           foreground: 'hsl(var(--popover-foreground))'
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))'
+          DEFAULT: '#00517c',
+          foreground: '#00517c'
         },
         success: {
-          DEFAULT: '#6EB700',
-          foreground: '#6EB700'
+          DEFAULT: '#eef9ff',
+          foreground: '#eef9ff'
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))'
         },
+        
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))'

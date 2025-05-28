@@ -135,9 +135,9 @@ function VehicleDetailsPage() {
         {/* Breadcrumb */}
         <Link
           to="/"
-          className="text-blue-500 underline flex items-center gap-1"
+          className="text-primary underline flex items-center gap-1"
         >
-          <ArrowLeft size={18} className="text-blue-500 text-sm" /> Voltar
+          <ArrowLeft size={18} className="text-primary text-sm" /> Voltar
         </Link>
 
         <motion.div
@@ -179,8 +179,8 @@ function VehicleDetailsPage() {
                 </CarouselContent>
                 {vehicle.imagens.length > 1 && (
                   <>
-                    <CarouselPrevious className="left-4" />
-                    <CarouselNext className="right-4" />
+                   <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-sm" />
+                   <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-sm" />
                   </>
                 )}
               </Carousel>
@@ -305,6 +305,7 @@ function VehicleDetailsPage() {
                   <Button
                     size="lg"
                     className="w-full sm:w-auto"
+                    variant="primary"
                     onClick={() =>
                       postAnalysis({
                         ano: String(vehicle.ano),

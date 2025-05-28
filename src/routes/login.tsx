@@ -1,6 +1,6 @@
 import { LoginForm } from '@/features/components/LoginForm'
 import { createFileRoute } from '@tanstack/react-router'
-import hero from '../assets/hero.jpeg'
+import hero from '../assets/hero.png'
 export const Route = createFileRoute('/login')({
   component: LoginPage,
 })
@@ -8,10 +8,10 @@ export const Route = createFileRoute('/login')({
 function LoginPage() {
   return (
     <main className="grid grid-cols-12 h-full w-full">
-    <div className="relative col-span-12 md:col-span-4 h-screen bg-blue-100 flex justify-center items-center p-8">
+    <div className="relative col-span-12 md:col-span-4 h-screen bg-white flex justify-center items-center p-8">
       <LoginForm />
     </div>
-    <div className="sm:hidden md:block col-span-8 h-screen bg-[#efece5] p-8">
+    <div className="sm:hidden md:block col-span-8 h-screen bg-primary p-8">
       {/* <img
         src={loginText}
         className="w-full h-1/5"
