@@ -2,8 +2,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
 } from "../ui/carousel"
 import { useNavigate } from "@tanstack/react-router"
 

@@ -1,21 +1,17 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "moduleResolution": "bundler",
-    "target": "ESNext",
+"compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false,
     "module": "ESNext",
-    "strict": true,
+    "target": "ESNext",
     "jsx": "react-jsx",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "declaration": true,
-    "declarationDir": "dist",
-    "emitDeclarationOnly": true
+    "strict": true
   },
   "include": [
     "src/**/*.ts",
