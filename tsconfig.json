@@ -4,17 +4,18 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "outDir": "dist",
-    "declaration": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": false,
-    "module": "ESNext",
+    "moduleResolution": "bundler",
     "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
     "jsx": "react-jsx",
-    "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "strict": true
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationDir": "dist",
+    "emitDeclarationOnly": true
   },
   "include": [
     "src/**/*.ts",
