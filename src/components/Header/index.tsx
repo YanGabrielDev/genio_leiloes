@@ -3,6 +3,8 @@ import { DropdownFilter } from "../DropdownFilter";
 import { Input } from "../ui/input";
 import { useMemo } from "react";
 import { AuthButton } from "./auth-button";
+import { useUserProfile } from "@/context/user-profile.context";
+import { VehicleFilters } from "../VehicleFilters";
 
 interface HeaderProps {
   search?: string;
@@ -11,11 +13,6 @@ interface HeaderProps {
     label: string;
   }[];
   handleChangeSearch?: (search: string) => void;
-  isAuthenticated?: boolean;
-  user?: {
-    name: string;
-    email: string;
-  };
   onLogin?: () => void;
   onLogout?: () => void;
 }
@@ -23,17 +20,20 @@ interface HeaderProps {
 export const Header = ({
   handleChangeSearch,
   search,
-  isAuthenticated,
-  user,
   onLogin,
   onLogout,
 }: HeaderProps) => {
-  const cityOptions = useMemo(() => {
-    return cities.map((city) => ({
-      label: city,
-      value: city,
-    }));
-  }, [cities]);
+  const { userProfile } = useUserProfile()
+  const user = userProfile
+    ? { name: userProfile.name, email: userProfile.email }
+    : null;  
+  //   const cityOptions = useMemo(() => {
+  //   return cities.map((city) => ({
+  //     label: city,
+  //     value: city,
+  //   }));
+  // }, [cities]);
+console.log({userProfile});
 
   return (
     <header className="bg-white px-12 w-full flex flex-col gap-4 py-4  border-b-primary border-b">
@@ -43,7 +43,6 @@ export const Header = ({
         </span>
         
         <AuthButton
-          isAuthenticated={isAuthenticated}
           user={user}
           onLogin={onLogin}
           onLogout={onLogout}
@@ -63,11 +62,13 @@ export const Header = ({
             />
           </div>
           <div className="relative">
-            <DropdownFilter
+            
+            {/* <DropdownFilter
               emptyList="Cidade não encontrada"
               label="Selecione um estado"
               options={cityOptions}
-            />
+            /> */}
+            <VehicleFilters/>
           </div>
         </div>
       )}

@@ -9,17 +9,15 @@ import {
 } from "../ui/dropdown-menu";
 
 interface AuthButtonProps {
-  isAuthenticated?: boolean;
   user?: {
     name: string;
     email: string;
-  };
+  } | null;
   onLogin?: () => void;
   onLogout?: () => void;
 }
 
 export const AuthButton = ({
-  isAuthenticated = false,
   user,
   onLogin,
   onLogout,
@@ -37,7 +35,7 @@ export const AuthButton = ({
       transition={{ duration: 0.5 }}
       className="flex items-center gap-2"
     >
-      {isAuthenticated ? (
+      {user ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
