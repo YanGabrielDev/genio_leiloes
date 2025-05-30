@@ -12,15 +12,7 @@ function LoginPage() {
       <LoginForm />
     </div>
     <div className="hidden md:block col-span-8 h-screen bg-primary p-8">
-      {/* <img
-        src={loginText}
-        className="w-full h-1/5"
-        alt='Logo escrito venha estudar' />
-      <img
-        src={walppaper}
-        className="w-full h-4/5"
-        alt='Garotos estudando em uma mesa' /> */}
-<img src={hero} alt='um matelo e um carro de leilao' style={{width: "100%", height: "100%", objectFit: "contain"}}/>
+    <img src={hero} alt='um matelo e um carro de leilao' style={{width: "100%", height: "100%", objectFit: "contain"}}/>
     </div>
   </main>
   )
