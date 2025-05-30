@@ -9,3 +9,19 @@ export interface LoginUser {
   email: string, 
   password: string,
 }
+
+export interface ProfileData {
+    "id": number,
+    "name": string,
+    "email": string,
+    "email_verified": boolean,
+    "created_at": string,
+    "current_plan": {
+      "id": number,
+      "plan_name": string,
+      "start_date": string,
+      "end_date": string | null,
+      "is_active": boolean
+    }
+  
+}

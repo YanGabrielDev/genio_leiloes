@@ -1,5 +1,5 @@
 import { api } from "@/lib/api"
-import { CreateUser, LoginUser } from "./users.types"
+import { CreateUser, LoginUser, ProfileData } from "./users.types"
 import Cookies from 'js-cookie'
 
 export const apiUrl = import.meta.env.VITE_API_URL ?? ''
@@ -20,7 +20,7 @@ const loginUser = async (data: LoginUser) => {
     return response
 }
 
-const profileUser = async () => {
+const profileUser = async (): Promise<ProfileData> => {
     const token = cookies.get("accessToken")
     const response = await api.get(`${apiUrl}/users/profile/`, {
         headers: {
@@ -28,7 +28,7 @@ const profileUser = async () => {
             'Content-Type': 'application/json',
         },
     })
-    return response
+    return response.data
 }
 
 export default { createUser, verifyEmailUser, loginUser, profileUser }
