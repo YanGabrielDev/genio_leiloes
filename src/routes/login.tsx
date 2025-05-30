@@ -11,7 +11,7 @@ function LoginPage() {
     <div className="relative col-span-12 md:col-span-4 h-screen bg-white flex justify-center items-center p-8">
       <LoginForm />
     </div>
-    <div className="sm:hidden md:block col-span-8 h-screen bg-primary p-8">
+    <div className="hidden md:block col-span-8 h-screen bg-primary p-8">
       {/* <img
         src={loginText}
         className="w-full h-1/5"
