@@ -35,13 +35,13 @@ export function VehicleFilters() {
 
   const handleMinPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
-    const newMin = isNaN(value) ? 0 : Math.max(0, Math.min(value, localMaxPrice));
+    const newMin = isNaN(value) ? 0 : value;
     setLocalMinPrice(newMin);
   };
 
   const handleMaxPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
-    const newMax = isNaN(value) ? 100000 : Math.min(100000, Math.max(value, localMinPrice));
+    const newMax = isNaN(value) ? 100000 : value;
     setLocalMaxPrice(newMax);
   };
 
@@ -103,7 +103,7 @@ export function VehicleFilters() {
                   id="min-price"
                   type="number"
                   placeholder="R$ Mín."
-                  value={localMinPrice === 0 ? '' : localMinPrice}
+                  value={localMinPrice }
                   onChange={handleMinPriceChange}
                   className="w-full"
                 />
@@ -114,7 +114,7 @@ export function VehicleFilters() {
                   id="max-price"
                   type="number"
                   placeholder="R$ Máx."
-                  value={localMaxPrice === 0 ? '' : localMaxPrice}
+                  value={localMaxPrice}
                   onChange={handleMaxPriceChange}
                   className="w-full"
                 />
