@@ -2,6 +2,7 @@ import { AuctionCard } from "@/components/AuctionCard"
 import { PaginationSection } from "@/components/PaginationSection"
 import { SkeletonLoaderGrid } from "@/components/SkeletonLoaderGrid"
 import { Template } from "@/components/Template"
+import { useVehicleFilters } from "@/context/vehicle-filter.context"
 import { useFilteredVehicles } from "@/hooks/useFilteredVehicles"
 import { useListAuction } from "@/hooks/useGetAuction"
 import { auctionMock } from "@/mock/auction.mock"
@@ -15,11 +16,12 @@ export const Route = createFileRoute("/")({
 function AppPage() {
   const [searchVehicle, setSearchVehicle] = useState("")
   const [page, setPage] = useState<number>(1)
-
-  const listAuction = useListAuction({ page })
+  const { vehicleFiltersState} = useVehicleFilters()
+  const listAuction = useListAuction({ page, priceMax: vehicleFiltersState.priceRange[1], priceMin: vehicleFiltersState.priceRange[0], })
   const { filteredVehicles, filterBySearch } = useFilteredVehicles(
     listAuction.data?.results || []
   )
+console.log(vehicleFiltersState.priceRange);
 
   const cityFilterOptions = useMemo(
     () =>

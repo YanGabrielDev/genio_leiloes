@@ -1,5 +1,7 @@
 export interface getAuctionParams {
   page?: number;
+  priceMax: number;
+  priceMin: number
 }
 
 export interface GetVehicleById {
