@@ -103,7 +103,7 @@ export function VehicleFilters() {
                   id="min-price"
                   type="number"
                   placeholder="R$ Mín."
-                  value={localMinPrice }
+                  value={localMinPrice === 0  ? '' : localMinPrice}
                   onChange={handleMinPriceChange}
                   className="w-full"
                 />
