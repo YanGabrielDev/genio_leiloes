@@ -11,6 +11,11 @@ import { Loader2 } from 'lucide-react'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Cookies from 'js-cookie'
+import usersServices from '@/services/users/users.services'
+import { useUserProfile } from '@/context/user-profile.context'
+import { useToast } from '@/hooks/use-toast'
+import { useNavigate } from '@tanstack/react-router'
 
 interface SignFormProps {
   openSignUpForm: () => void
@@ -26,11 +31,15 @@ export const SignForm = ({
     picture: string
     name: string
   } | null>(null)
+  const { setUserProfile } = useUserProfile()
+  const { toast } = useToast()
+  const navigate = useNavigate()
 
   // Hook para login do Google
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       console.log('Google Login Success:', tokenResponse)
+      Cookies.set('accessToken', tokenResponse.access_token)
 
       try {
         // Requisição à API userinfo do Google
@@ -44,8 +53,13 @@ export const SignForm = ({
         )
         console.log('Google User Info:', userInfoResponse.data)
         setGoogleProfile(userInfoResponse.data)
-        // Aqui você pode enviar userInfoResponse.data ou tokenResponse.id_token para o seu backend
-        // para criar/autenticar o usuário no seu sistema.
+        const user = await usersServices.profileUser()
+        setUserProfile(user)
+        toast({
+          title: 'Login realizado com sucesso!',
+          variant: 'success',
+        })
+        navigate({ to: '/' })
       } catch (error) {
         console.error('Error fetching Google user info:', error)
       }
@@ -105,34 +119,20 @@ export const SignForm = ({
         {isLoadingSubmit && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         <span className="font-normal ">Acessar Conta</span>
       </Button>
-      {googleProfile ? (
-        <div className="flex items-center gap-2 mt-4">
-          <img
-            src={googleProfile.picture}
-            alt="Profile"
-            className="w-8 h-8 rounded-full"
-          />
-          <span className="text-sm">
-            Olá, {googleProfile.name.split(' ')[0]}!
-          </span>
-          <Button variant="outline" onClick={googleLogout} className="ml-auto">
-            Sair Google
-          </Button>
-        </div>
-      ) : (
-        <Button
-          variant="outline"
-          onClick={() => googleLogin()}
-          className="mt-4 flex items-center justify-center gap-2"
-        >
-          <img
-            src="https://www.google.com/favicon.ico"
-            alt="Google icon"
-            className="w-5 h-5"
-          />
-          <span className="font-normal">Entrar com Google</span>
-        </Button>
-      )}
+
+      <Button
+        variant="outline"
+        onClick={() => googleLogin()}
+        className="mt-4 flex items-center justify-center gap-2"
+        type="button"
+      >
+        <img
+          src="https://www.google.com/favicon.ico"
+          alt="Google icon"
+          className="w-5 h-5"
+        />
+        <span className="font-normal">Entrar com Google</span>
+      </Button>
       <div className="flex w-full justify-between items-center absolute bottom-10 max-w-80">
         <span className="text-primary text-base opacity-70 font-normal">
           Não possui conta?
