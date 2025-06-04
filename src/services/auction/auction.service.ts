@@ -1,15 +1,16 @@
 import { Auction } from "@/interfaces/auction.interface"
 import { api } from "@/lib/api"
-import { PostAnalysis, getAuctionParams, GetVehicleById } from "./action.types"
+import { PostAnalysis, GetVehicleById, GetAuctionParams } from "./action.types"
 import { Vehicles } from "@/interfaces/vehicle.interface"
 
 export const apiUrl = import.meta.env.VITE_API_URL ?? ''
 
-const getAuction = async ({ page, priceMax, priceMin }: getAuctionParams): Promise<Auction> => {
+const getAuction = async ({ page, priceMax, priceMin, modelBrand }: GetAuctionParams): Promise<Auction> => {
   const response = await api.get(`${apiUrl}/leiloes/`, { params: { 
     page, 
     gasto_minino: priceMin, 
-    gasto_maximo: priceMax 
+    gasto_maximo: priceMax,
+    marca_modelo: modelBrand
   } })
   return response.data
 }

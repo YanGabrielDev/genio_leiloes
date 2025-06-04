@@ -1,5 +1,6 @@
-export interface useListAuctionParams {
+export interface UseListAuctionParams {
   page: number;
   priceMax: number;
-  priceMin: number
+  priceMin: number;
+  modelBrand: string
 }

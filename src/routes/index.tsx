@@ -1,27 +1,31 @@
-import { AuctionCard } from "@/components/AuctionCard"
-import { PaginationSection } from "@/components/PaginationSection"
-import { SkeletonLoaderGrid } from "@/components/SkeletonLoaderGrid"
-import { Template } from "@/components/Template"
-import { useVehicleFilters } from "@/context/vehicle-filter.context"
-import { useFilteredVehicles } from "@/hooks/useFilteredVehicles"
-import { useListAuction } from "@/hooks/useGetAuction"
-import { auctionMock } from "@/mock/auction.mock"
-import { createFileRoute } from "@tanstack/react-router"
-import { useMemo, useState } from "react"
+import { AuctionCard } from '@/components/AuctionCard'
+import { PaginationSection } from '@/components/PaginationSection'
+import { SkeletonLoaderGrid } from '@/components/SkeletonLoaderGrid'
+import { Template } from '@/components/Template'
+import { useVehicleFilters } from '@/context/vehicle-filter.context'
+import { useFilteredVehicles } from '@/hooks/useFilteredVehicles'
+import { useListAuction } from '@/hooks/useGetAuction'
+import { auctionMock } from '@/mock/auction.mock'
+import { createFileRoute } from '@tanstack/react-router'
+import { useMemo, useState } from 'react'
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute('/')({
   component: AppPage,
 })
 
 function AppPage() {
-  const [searchVehicle, setSearchVehicle] = useState("")
+  const [searchVehicle, setSearchVehicle] = useState('')
   const [page, setPage] = useState<number>(1)
-  const { vehicleFiltersState} = useVehicleFilters()
-  const listAuction = useListAuction({ page, priceMax: vehicleFiltersState.priceRange[1], priceMin: vehicleFiltersState.priceRange[0], })
+  const { vehicleFiltersState } = useVehicleFilters()
+  const listAuction = useListAuction({
+    page,
+    priceMax: vehicleFiltersState.priceRange[1],
+    priceMin: vehicleFiltersState.priceRange[0],
+    modelBrand: vehicleFiltersState.brandModelSearch,
+  })
   const { filteredVehicles, filterBySearch } = useFilteredVehicles(
     listAuction.data?.results || []
   )
-console.log(vehicleFiltersState.priceRange);
 
   const cityFilterOptions = useMemo(
     () =>
@@ -46,22 +50,20 @@ console.log(vehicleFiltersState.priceRange);
       search={searchVehicle}
     >
       <div className="px-12 py-8 grid grid-cols-12 gap-4">
-        {listAuction.isLoading
-          ? (
-            <SkeletonLoaderGrid count={24} />
-            )
-          : (
-              filteredVehicles.map((item) => (
-                <AuctionCard
-                  year={item.ano}
-                  avaliacao={item.avaliacao}
-                  name={item.marca_modelo}
-                  type={item.tipo}
-                  imagens={item.imagens}
-                  id={item.id}
-                />
-              ))
-            )}
+        {listAuction.isLoading ? (
+          <SkeletonLoaderGrid count={24} />
+        ) : (
+          filteredVehicles.map((item) => (
+            <AuctionCard
+              year={item.ano}
+              avaliacao={item.avaliacao}
+              name={item.marca_modelo}
+              type={item.tipo}
+              imagens={item.imagens}
+              id={item.id}
+            />
+          ))
+        )}
       </div>
       <div className="w-full flex items-center justify-center mb-8">
         <PaginationSection
