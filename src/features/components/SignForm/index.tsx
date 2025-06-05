@@ -27,7 +27,7 @@ export const SignForm = ({
   isLoadingSubmit,
 }: SignFormProps) => {
   const form = useFormContext()
-  const { mutate: validateToken } = usePostValidateToken()
+  const { mutateAsync: validateToken } = usePostValidateToken()
   // Estados para o perfil do usuário Google
   const [googleProfile, setGoogleProfile] = useState<{
     picture: string
@@ -41,7 +41,6 @@ export const SignForm = ({
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       console.log('Google Login Success:', tokenResponse)
-      Cookies.set('accessToken', tokenResponse.access_token)
 
       try {
         // Requisição à API userinfo do Google
@@ -53,7 +52,15 @@ export const SignForm = ({
             },
           }
         )
-        console.log('Google User Info:', userInfoResponse.data)
+
+        const data = await validateToken({
+          accessToken: tokenResponse.access_token,
+          email: userInfoResponse?.data?.email,
+          name: userInfoResponse?.data?.name,
+          picture: userInfoResponse?.data?.picture,
+          sub: userInfoResponse?.data?.sub,
+        })
+        console.log('Google User Info:', userInfoResponse.data, data)
         setGoogleProfile(userInfoResponse.data)
         const user = await usersServices.profileUser()
         setUserProfile(user)
