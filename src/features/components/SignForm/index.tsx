@@ -66,6 +66,8 @@ export const SignForm = ({
 
         const user = await usersServices.profileUser()
         setUserProfile(user)
+        const usersJson = JSON.stringify(user)
+        localStorage.setItem('user', usersJson)
         toast({
           title: 'Login realizado com sucesso!',
           variant: 'success',
