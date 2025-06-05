@@ -30,7 +30,7 @@ const validateToken = async (data: ValidateUsers) => {
     token: data,
   })
 
-  return response
+  return response.data
 }
 
 const profileUser = async (): Promise<ProfileData> => {

@@ -53,15 +53,17 @@ export const SignForm = ({
           }
         )
 
-        const data = await validateToken({
+        const validateData = await validateToken({
           accessToken: tokenResponse.access_token,
           email: userInfoResponse?.data?.email,
           name: userInfoResponse?.data?.name,
           picture: userInfoResponse?.data?.picture,
           sub: userInfoResponse?.data?.sub,
         })
-        console.log('Google User Info:', userInfoResponse.data, data)
+        console.log('Google User Info:', userInfoResponse.data, validateData)
         setGoogleProfile(userInfoResponse.data)
+        Cookies.set('accessToken', validateData.access_token)
+
         const user = await usersServices.profileUser()
         setUserProfile(user)
         toast({
