@@ -16,6 +16,7 @@ import usersServices from '@/services/users/users.services'
 import { useUserProfile } from '@/context/user-profile.context'
 import { useToast } from '@/hooks/use-toast'
 import { useNavigate } from '@tanstack/react-router'
+import { usePostValidateToken } from '@/hooks/usePostValidateToken'
 
 interface SignFormProps {
   openSignUpForm: () => void
@@ -26,6 +27,7 @@ export const SignForm = ({
   isLoadingSubmit,
 }: SignFormProps) => {
   const form = useFormContext()
+  const { mutate: validateToken } = usePostValidateToken()
   // Estados para o perfil do usuário Google
   const [googleProfile, setGoogleProfile] = useState<{
     picture: string
