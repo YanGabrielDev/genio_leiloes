@@ -1,32 +1,33 @@
-import { motion } from "framer-motion";
-import { User } from "lucide-react";
-import { Button } from "../ui/button";
+import { motion } from 'framer-motion'
+import { User } from 'lucide-react'
+import { Button } from '../ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from '../ui/dropdown-menu'
+import { useNavigate } from '@tanstack/react-router'
 
 interface AuthButtonProps {
   user?: {
-    name: string;
-    email: string;
-  } | null;
-  onLogin?: () => void;
-  onLogout?: () => void;
+    name: string
+    email: string
+  } | null
+  onLogin?: () => void
+  onLogout?: () => void
 }
 
-export const AuthButton = ({
-  user,
-  onLogin,
-  onLogout,
-}: AuthButtonProps) => {
+export const AuthButton = ({ user, onLogin, onLogout }: AuthButtonProps) => {
+  const navigate = useNavigate()
   const variants = {
     hidden: { opacity: 0, x: 20 },
     visible: { opacity: 1, x: 0 },
-  };
+  }
 
+  const goToMyAccount = () => {
+    navigate({ to: '/my-account' })
+  }
   return (
     <motion.div
       initial="hidden"
@@ -49,21 +50,23 @@ export const AuthButton = ({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end">
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={goToMyAccount}
+            >
+              Minha conta
+            </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer" onClick={onLogout}>
               Sair
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Button
-          onClick={onLogin}
-          variant="primary"
-          className="rounded-xl"
-        >
+        <Button onClick={onLogin} variant="primary" className="rounded-xl">
           <User className="w-4 h-4" />
           <span>Entrar</span>
         </Button>
       )}
     </motion.div>
-  );
-};
+  )
+}

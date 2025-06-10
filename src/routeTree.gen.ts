@@ -11,11 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as MyAccountImport } from './routes/my-account'
 import { Route as LoginImport } from './routes/login'
 import { Route as IndexImport } from './routes/index'
 import { Route as DetailsVehicleIdImport } from './routes/details.$vehicleId'
 
 // Create/Update Routes
+
+const MyAccountRoute = MyAccountImport.update({
+  id: '/my-account',
+  path: '/my-account',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const LoginRoute = LoginImport.update({
   id: '/login',
@@ -53,6 +60,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
+    '/my-account': {
+      id: '/my-account'
+      path: '/my-account'
+      fullPath: '/my-account'
+      preLoaderRoute: typeof MyAccountImport
+      parentRoute: typeof rootRoute
+    }
     '/details/$vehicleId': {
       id: '/details/$vehicleId'
       path: '/details/$vehicleId'
@@ -68,12 +82,14 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/my-account': typeof MyAccountRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/my-account': typeof MyAccountRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
 
@@ -81,27 +97,30 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/my-account': typeof MyAccountRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/details/$vehicleId'
+  fullPaths: '/' | '/login' | '/my-account' | '/details/$vehicleId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/details/$vehicleId'
-  id: '__root__' | '/' | '/login' | '/details/$vehicleId'
+  to: '/' | '/login' | '/my-account' | '/details/$vehicleId'
+  id: '__root__' | '/' | '/login' | '/my-account' | '/details/$vehicleId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
+  MyAccountRoute: typeof MyAccountRoute
   DetailsVehicleIdRoute: typeof DetailsVehicleIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
+  MyAccountRoute: MyAccountRoute,
   DetailsVehicleIdRoute: DetailsVehicleIdRoute,
 }
 
@@ -117,6 +136,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/login",
+        "/my-account",
         "/details/$vehicleId"
       ]
     },
@@ -125,6 +145,9 @@ export const routeTree = rootRoute
     },
     "/login": {
       "filePath": "login.tsx"
+    },
+    "/my-account": {
+      "filePath": "my-account.tsx"
     },
     "/details/$vehicleId": {
       "filePath": "details.$vehicleId.tsx"

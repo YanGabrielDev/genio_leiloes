@@ -1,20 +1,20 @@
-import { cities } from "@/mock/cities.mock";
-import { DropdownFilter } from "../DropdownFilter";
-import { Input } from "../ui/input";
-import { useMemo } from "react";
-import { AuthButton } from "./auth-button";
-import { useUserProfile } from "@/context/user-profile.context";
-import { VehicleFilters } from "../VehicleFilters";
+import { cities } from '@/mock/cities.mock'
+import { DropdownFilter } from '../DropdownFilter'
+import { Input } from '../ui/input'
+import { useMemo } from 'react'
+import { AuthButton } from './auth-button'
+import { useUserProfile } from '@/context/user-profile.context'
+import { VehicleFilters } from '../VehicleFilters'
 
 interface HeaderProps {
-  search?: string;
+  search?: string
   cityFilterOptions?: {
-    value: string;
-    label: string;
-  }[];
-  handleChangeSearch?: (search: string) => void;
-  onLogin?: () => void;
-  onLogout?: () => void;
+    value: string
+    label: string
+  }[]
+  handleChangeSearch?: (search: string) => void
+  onLogin?: () => void
+  onLogout?: () => void
 }
 
 export const Header = ({
@@ -26,14 +26,7 @@ export const Header = ({
   const { userProfile } = useUserProfile()
   const user = userProfile
     ? { name: userProfile.name, email: userProfile.email }
-    : null;  
-  //   const cityOptions = useMemo(() => {
-  //   return cities.map((city) => ({
-  //     label: city,
-  //     value: city,
-  //   }));
-  // }, [cities]);
-console.log({userProfile});
+    : null
 
   return (
     <header className="bg-white px-12 w-full flex flex-col gap-4 py-4  border-b-primary border-b">
@@ -41,12 +34,8 @@ console.log({userProfile});
         <span className="text-primary font-semibold text-2xl flex items-center">
           Busca leilões
         </span>
-        
-        <AuthButton
-          user={user}
-          onLogin={onLogin}
-          onLogout={onLogout}
-        />
+
+        <AuthButton user={user} onLogin={onLogin} onLogout={onLogout} />
       </div>
 
       {handleChangeSearch && (
@@ -56,22 +45,16 @@ console.log({userProfile});
               placeholder="Buscar veiculo"
               value={search}
               onChange={(event) => {
-                const value = event.target.value;
-                handleChangeSearch(value);
+                const value = event.target.value
+                handleChangeSearch(value)
               }}
             />
           </div>
           <div className="relative">
-            
-            {/* <DropdownFilter
-              emptyList="Cidade não encontrada"
-              label="Selecione um estado"
-              options={cityOptions}
-            /> */}
-            <VehicleFilters/>
+            <VehicleFilters />
           </div>
         </div>
       )}
     </header>
-  );
-};
+  )
+}
