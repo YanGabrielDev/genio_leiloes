@@ -15,7 +15,10 @@ export const AccountCard = ({ title, value, icon }: AccountCardProps) => {
     <motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
       <Card className="h-full">
         <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-sm font-medium text-gray-500">
+          <CardTitle
+            className="text-sm font-medium text-gray-500 truncate"
+            title={title}
+          >
             {title}
           </CardTitle>
           {icon}
