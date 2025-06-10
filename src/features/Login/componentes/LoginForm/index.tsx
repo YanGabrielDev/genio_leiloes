@@ -1,17 +1,17 @@
 'use client'
 import { useState } from 'react'
-import { SignForm } from '../../SignForm'
-import { SignUpForm } from '../../SignUpForm'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Form } from '@/components/ui/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CreateUser, LoginUser } from '@/services/users/users.types'
 import { usePostUser } from '@/hooks/usePostUser'
 import { useToast } from '@/hooks/use-toast'
-import { VerificationCodeForm } from '../../VerificationCodeForm'
 import { usePostLogin } from '@/hooks/usePostLogin'
 import { registerFormSchema } from '@/schemas/register-form.schema'
 import { loginFormSchema } from '@/schemas/login-form.schema'
+import { VerificationCodeForm } from '../VerificationCodeForm'
+import { SignUpForm } from '../SignUpForm'
+import { SignForm } from '../SignForm'
 
 interface LoginForm {}
 
