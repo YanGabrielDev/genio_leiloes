@@ -42,11 +42,6 @@ export const Template = ({
         cityFilterOptions={cityFilterOptions}
         onLogin={onLogin}
       />
-      {!!toGo && (
-        <Link to="/" className="text-primary underline flex items-center gap-1">
-          <ArrowLeft size={18} className="text-primary text-sm" /> Voltar
-        </Link>
-      )}
 
       <motion.div
         initial="hidden"
@@ -54,6 +49,14 @@ export const Template = ({
         variants={staggerContainer}
         className="container mx-auto p-4 space-y-6"
       >
+        {!!toGo && (
+          <Link
+            to="/"
+            className="text-primary underline flex items-center gap-1"
+          >
+            <ArrowLeft size={18} className="text-primary text-sm" /> Voltar
+          </Link>
+        )}
         {children}
       </motion.div>
     </main>
