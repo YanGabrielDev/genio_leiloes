@@ -1,12 +1,12 @@
-import userService from '@/services/users/users.services'
+import userService from '@/features/auth/services/auth/auth.services'
 import { useMutation } from '@tanstack/react-query'
-import { LoginUser } from '@/services/users/users.types'
-import { useToast } from '../use-toast'
+import { LoginUser } from '@/features/auth/services/auth/auth.types'
+import { useToast } from '../../../hooks/use-toast'
 import { useNavigate } from '@tanstack/react-router'
 import Cookies from 'js-cookie'
 import { useUserProfile } from '@/context/user-profile.context'
 
-export const usePostLogin = () => {
+export const useLoginUser = () => {
   const { setUserProfile } = useUserProfile()
   const { toast } = useToast()
   const navigate = useNavigate()

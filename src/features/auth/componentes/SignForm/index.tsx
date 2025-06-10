@@ -12,11 +12,11 @@ import { useGoogleLogin } from '@react-oauth/google'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import usersServices from '@/services/users/users.services'
+import usersServices from '@/features/auth/services/auth/auth.services'
 import { useUserProfile } from '@/context/user-profile.context'
 import { useToast } from '@/hooks/use-toast'
 import { useNavigate } from '@tanstack/react-router'
-import { usePostValidateToken } from '@/hooks/usePostValidateToken'
+import { useValidateToken } from '@/features/auth/hooks/use-validate-token'
 
 interface SignFormProps {
   openSignUpForm: () => void
@@ -27,7 +27,7 @@ export const SignForm = ({
   isLoadingSubmit,
 }: SignFormProps) => {
   const form = useFormContext()
-  const { mutateAsync: validateToken } = usePostValidateToken()
+  const { mutateAsync: validateToken } = useValidateToken()
   // Estados para o perfil do usuário Google
   const [googleProfile, setGoogleProfile] = useState<{
     picture: string

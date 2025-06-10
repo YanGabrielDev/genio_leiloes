@@ -1,12 +1,13 @@
 // src/components/Template.tsx
 
-import { useNavigate } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { Header } from '../Header'
 import Cookies from 'js-cookie'
-import {
-  UserProfileContext,
-  useUserProfile,
-} from '@/context/user-profile.context'
+import { useUserProfile } from '@/context/user-profile.context'
+import { motion } from 'framer-motion'
+import { staggerContainer } from '@/styles/animations'
+import { ArrowLeft } from 'lucide-react'
+
 interface TemplateProps {
   children: React.ReactNode
   handleChangeSearch?: (search: string) => void
@@ -15,6 +16,7 @@ interface TemplateProps {
     value: string
     label: string
   }[]
+  toGo?: string
 }
 
 export const Template = ({
@@ -22,6 +24,7 @@ export const Template = ({
   handleChangeSearch,
   search,
   cityFilterOptions,
+  toGo,
 }: TemplateProps) => {
   const navigate = useNavigate()
   const { setUserProfile } = useUserProfile()
@@ -39,7 +42,20 @@ export const Template = ({
         cityFilterOptions={cityFilterOptions}
         onLogin={onLogin}
       />
-      {children}
+      {!!toGo && (
+        <Link to="/" className="text-primary underline flex items-center gap-1">
+          <ArrowLeft size={18} className="text-primary text-sm" /> Voltar
+        </Link>
+      )}
+
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={staggerContainer}
+        className="container mx-auto p-4 space-y-6"
+      >
+        {children}
+      </motion.div>
     </main>
   )
 }

@@ -1,4 +1,4 @@
-import { ProfileData } from '@/services/users/users.types'
+import { ProfileData } from '@/features/auth/services/auth/auth.types'
 import {
   createContext,
   useContext,

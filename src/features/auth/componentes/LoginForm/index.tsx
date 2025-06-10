@@ -3,12 +3,12 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Form } from '@/components/ui/form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CreateUser, LoginUser } from '@/services/users/users.types'
-import { usePostUser } from '@/hooks/usePostUser'
+import { CreateUser, LoginUser } from '@/features/auth/services/auth/auth.types'
+import { useCreateUser } from '@/features/auth/hooks/use-create-user'
 import { useToast } from '@/hooks/use-toast'
-import { usePostLogin } from '@/hooks/usePostLogin'
-import { registerFormSchema } from '@/features/Login/schemas/register-form.schema'
-import { loginFormSchema } from '@/features/Login/schemas/login-form.schema'
+import { useLoginUser } from '@/features/auth/hooks/use-login-user'
+import { registerFormSchema } from '@/features/auth/schemas/register-form.schema'
+import { loginFormSchema } from '@/features/auth/schemas/login-form.schema'
 import { VerificationCodeForm } from '../VerificationCodeForm'
 import { SignUpForm } from '../SignUpForm'
 import { SignForm } from '../SignForm'
@@ -21,9 +21,9 @@ export const LoginForm = ({}: LoginForm) => {
   const [registeredEmail, setRegisteredEmail] = useState('')
   const [isLoadingSubmit, setIsLoadingSubmit] = useState(false)
 
-  const { mutateAsync: createUser } = usePostUser()
+  const { mutateAsync: createUser } = useCreateUser()
   const { mutateAsync: loginUser, isPending: loginUserIsPending } =
-    usePostLogin()
+    useLoginUser()
 
   const { toast } = useToast()
 

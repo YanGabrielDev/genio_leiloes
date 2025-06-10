@@ -1,10 +1,5 @@
 import { api } from '@/lib/api'
-import {
-  CreateUser,
-  LoginUser,
-  ProfileData,
-  ValidateUsers,
-} from './users.types'
+import { CreateUser, LoginUser, ProfileData, ValidateUsers } from './auth.types'
 import Cookies from 'js-cookie'
 
 export const apiUrl = import.meta.env.VITE_API_URL ?? ''
