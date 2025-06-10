@@ -1,29 +1,37 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../ui/carousel"
-import { useNavigate } from "@tanstack/react-router"
+import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel'
+import { useNavigate } from '@tanstack/react-router'
 
 interface AuctionCardProps {
-  type: string;
-  name: string;
-  avaliacao: string;
-  imagens: string[];
-  year: number;
+  type: string
+  name: string
+  avaliacao: string
+  imagens: string[]
+  year: number
   id: number
 }
 
-export const AuctionCard = ({ year, avaliacao, name, imagens, id }: AuctionCardProps) => {
+export const AuctionCard = ({
+  year,
+  avaliacao,
+  name,
+  imagens,
+  id,
+}: AuctionCardProps) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    navigate({ to: '/details/$vehicleId', params: { vehicleId: id.toString() } })
+    navigate({
+      to: '/details/$vehicleId',
+      params: { vehicleId: id.toString() },
+    })
   }
   return (
     <>
       {/* <DialogTrigger asChild> */}
-      <div onClick={handleClick} className="group bg-white rounded-xl border border-gray-200 p-4 flex flex-col col-span-12 sm:col-span-6 lg:col-span-4 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+      <div
+        onClick={handleClick}
+        className="group bg-white rounded-xl border border-gray-200 p-4 flex flex-col col-span-12 sm:col-span-6 lg:col-span-4 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+      >
         <Carousel className="w-full relative overflow-hidden rounded-lg">
           <CarouselContent>
             {imagens?.map((img, index) => (
@@ -52,12 +60,21 @@ export const AuctionCard = ({ year, avaliacao, name, imagens, id }: AuctionCardP
 
           <div className="flex justify-between items-center">
             <div className="space-y-1">
-              <span className="text-xs font-medium text-gray-500 uppercase">Avaliação</span>
-              <p className="text-lg font-bold text-emerald-600">R$ {avaliacao}</p>
+              <span className="text-xs font-medium text-gray-500 uppercase">
+                Avaliação
+              </span>
+              <p className="text-lg font-bold text-emerald-600">
+                {' '}
+                {parseFloat(avaliacao).toLocaleString('pt-BR', {
+                  minimumFractionDigits: 2,
+                })}
+              </p>
             </div>
 
             <div className="space-y-1 text-right">
-              <span className="text-xs font-medium text-gray-500 uppercase">Ano</span>
+              <span className="text-xs font-medium text-gray-500 uppercase">
+                Ano
+              </span>
               <p className="text-lg font-semibold text-gray-900">{year}</p>
             </div>
           </div>
