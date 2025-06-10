@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 
 export interface AccountCardProps {
   title: string
-  value: string | number
+  value: string
   icon: ReactNode
   accentColor?: 'blue' | 'green' | 'red' | 'yellow' | 'purple' | 'gray'
   hoverAnimation?: boolean
@@ -16,7 +16,7 @@ export const AccountCard = ({ title, value, icon }: AccountCardProps) => {
       <Card className="h-full">
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle
-            className="text-sm font-medium text-gray-500 truncate"
+            className="text-sm font-medium text-gray-500"
             title={title}
           >
             {title}
@@ -24,7 +24,9 @@ export const AccountCard = ({ title, value, icon }: AccountCardProps) => {
           {icon}
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{value}</div>
+          <div className="text-2xl font-bold truncate" title={value}>
+            {value}
+          </div>
         </CardContent>
       </Card>
     </motion.div>
