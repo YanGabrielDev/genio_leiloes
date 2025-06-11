@@ -1,4 +1,8 @@
-import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '../../../../components/ui/carousel'
 import { useNavigate } from '@tanstack/react-router'
 
 interface AuctionCardProps {

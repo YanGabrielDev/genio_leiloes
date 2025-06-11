@@ -1,13 +1,13 @@
-import { AuctionCard } from '@/components/AuctionCard'
+import { AuctionCard } from '@/features/home/components/AuctionCard'
 import { PaginationSection } from '@/components/PaginationSection'
 import { SkeletonLoaderGrid } from '@/components/SkeletonLoaderGrid'
 import { Template } from '@/components/Template'
 import { useVehicleFilters } from '@/context/vehicle-filter.context'
-import { useFilteredVehicles } from '@/hooks/useFilteredVehicles'
-import { useListAuction } from '@/hooks/useGetAuction'
+import { useListAuction } from '@/features/home/hooks/useListAuction'
 import { auctionMock } from '@/mock/auction.mock'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
+import { useFilteredVehicles } from '@/features/home/hooks/useFilteredVehicles'
 
 export const Route = createFileRoute('/')({
   component: AppPage,

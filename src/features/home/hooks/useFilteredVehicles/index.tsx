@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react"
-import { Vehicles } from "../../interfaces/vehicle.interface"
+import { Vehicles } from '@/interfaces/vehicle.interface'
+import { useState, useEffect } from 'react'
 
 export const useFilteredVehicles = (initialData: Vehicles[]) => {
   const [filteredVehicles, setFilteredVehicles] = useState(initialData)
