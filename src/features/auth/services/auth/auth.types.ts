@@ -32,3 +32,10 @@ export interface ValidateUsers {
   picture: string
   sub: string
 }
+
+export interface GoogleProfile {
+  picture: string
+  name: string
+  email: string
+  sub: string
+}

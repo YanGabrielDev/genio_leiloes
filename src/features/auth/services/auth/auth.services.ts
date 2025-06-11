@@ -1,8 +1,16 @@
 import { api } from '@/lib/api'
-import { CreateUser, LoginUser, ProfileData, ValidateUsers } from './auth.types'
+import {
+  CreateUser,
+  GoogleProfile,
+  LoginUser,
+  ProfileData,
+  ValidateUsers,
+} from './auth.types'
 import Cookies from 'js-cookie'
 
 export const apiUrl = import.meta.env.VITE_API_URL ?? ''
+export const googleAuth = import.meta.env.VITE_GOOGLE_URL_API ?? ''
+
 const cookies = Cookies
 
 const createUser = async (data: CreateUser) => {
@@ -39,10 +47,21 @@ const profileUser = async (): Promise<ProfileData> => {
   return response.data
 }
 
+const googleLogin = async (): Promise<GoogleProfile> => {
+  const token = cookies.get('accessToken')
+  const response = await api.get(googleAuth, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return response.data
+}
+
 export default {
   createUser,
   verifyEmailUser,
   loginUser,
   profileUser,
   validateToken,
+  googleLogin,
 }

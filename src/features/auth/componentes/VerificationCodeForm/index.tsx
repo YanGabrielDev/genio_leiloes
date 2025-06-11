@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { FormField } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useFormContext } from 'react-hook-form'
 import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
@@ -18,19 +17,16 @@ export const VerificationCodeForm = ({
   onSuccess,
   onResendCode,
 }: VerificationCodeFormProps) => {
-  const form = useFormContext()
-  const [isLoading, setIsLoading] = useState(false)
   const [isResending, setIsResending] = useState(false)
   const [code, setCode] = useState<number>()
-  const { mutateAsync: verifyEmailUser } = useVerifyEmailUser()
+  const { mutateAsync: verifyEmailUser, isPending: verifyEmailUserIsPending } =
+    useVerifyEmailUser()
 
   const { toast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsLoading(true)
     try {
-      // Simulando verificação
       if (code) {
         await verifyEmailUser(code)
       } else {
@@ -48,8 +44,6 @@ export const VerificationCodeForm = ({
         description: 'Código inválido ou expirado.',
         variant: 'destructive',
       })
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -77,27 +71,22 @@ export const VerificationCodeForm = ({
         Enviamos um código para <span className="font-bold">{email}</span>
       </h2>
 
-      <FormField
-        control={form.control}
+      <Input
+        placeholder="Código de verificação"
+        type="number"
         name="verificationCode"
-        rules={{ required: 'Código obrigatório!' }}
-        render={({ field }) => (
-          <Input
-            placeholder="Código de verificação"
-            type="number"
-            {...field}
-            onChange={(e) => handleChangeCode(Number(e.target.value))}
-          />
-        )}
+        onChange={(e) => handleChangeCode(Number(e.target.value))}
       />
 
       <Button
-        disabled={isLoading}
+        disabled={verifyEmailUserIsPending}
         onClick={handleSubmit}
         variant="default"
         className="w-full"
       >
-        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        {verifyEmailUserIsPending && (
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+        )}
         <span className="font-normal">Verificar</span>
       </Button>
 

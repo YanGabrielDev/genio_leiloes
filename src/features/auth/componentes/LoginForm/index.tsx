@@ -19,25 +19,14 @@ export const LoginForm = ({}: LoginForm) => {
   const [showSignUpForm, setShowSignUpform] = useState(false)
   const [showVerificationForm, setShowVerificationForm] = useState(false)
   const [registeredEmail, setRegisteredEmail] = useState('')
-  const [isLoadingSubmit, setIsLoadingSubmit] = useState(false)
-
-  const { mutateAsync: createUser } = useCreateUser()
-  const { mutateAsync: loginUser, isPending: loginUserIsPending } =
-    useLoginUser()
 
   const { toast } = useToast()
 
-  const schema = showSignUpForm ? registerFormSchema : loginFormSchema
-
-  const form = useForm({
-    resolver: zodResolver(schema),
-  })
-
   const openSignUpForm = () => {
-    setShowSignUpform(true), form.reset()
+    setShowSignUpform(true)
   }
   const closeSignUpForm = () => {
-    setShowSignUpform(false), form.reset()
+    setShowSignUpform(false)
   }
 
   const handleVerificationSuccess = () => {
@@ -49,90 +38,26 @@ export const LoginForm = ({}: LoginForm) => {
     setShowVerificationForm(false)
     closeSignUpForm()
   }
+  const showVerification = () => setShowVerificationForm(true)
 
-  const onSubmit: SubmitHandler<CreateUser | LoginUser> = async (formData) => {
-    try {
-      setIsLoadingSubmit(true)
-
-      if (showSignUpForm) {
-        const { name, password, email, confirm_password } =
-          formData as CreateUser
-
-        if (password !== confirm_password) {
-          toast({
-            title: 'Erro de validação',
-            description: 'As senhas precisam ser iguais para continuar!',
-            variant: 'destructive',
-          })
-          return
-        }
-
-        const data = await createUser({
-          email,
-          name,
-          password,
-        })
-
-        if (data) {
-          setRegisteredEmail(email)
-          setShowVerificationForm(true)
-          toast({
-            title: 'Registro concluído!',
-            description: 'Verifique seu e-mail para o código de confirmação.',
-            variant: 'default',
-          })
-        }
-      } else {
-        console.log('opa')
-        const { email, password } = formData as LoginUser
-        await loginUser({ email, password })
-      }
-    } catch (error) {
-      console.error(error)
-      if (showSignUpForm) {
+  return showVerificationForm ? (
+    <VerificationCodeForm
+      email={registeredEmail}
+      onSuccess={handleVerificationSuccess}
+      onResendCode={() =>
         toast({
-          title: 'Erro no cadastro',
-          description: 'Ocorreu um erro ao cadastrar o usuário.',
-          variant: 'destructive',
-        })
-      } else {
-        toast({
-          title: 'Erro no login',
-          description: 'Ocorreu um erro ao tentar fazer login.',
-          variant: 'destructive',
+          title: 'Código reenviado',
+          description: 'Verifique seu e-mail novamente.',
+          variant: 'default',
         })
       }
-    } finally {
-      setIsLoadingSubmit(false)
-    }
-  }
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        {showVerificationForm ? (
-          <VerificationCodeForm
-            email={registeredEmail}
-            onSuccess={handleVerificationSuccess}
-            onResendCode={() =>
-              toast({
-                title: 'Código reenviado',
-                description: 'Verifique seu e-mail novamente.',
-                variant: 'default',
-              })
-            }
-          />
-        ) : showSignUpForm ? (
-          <SignUpForm
-            closeSignUpForm={closeSignUpForm}
-            isLoadingSubmit={isLoadingSubmit}
-          />
-        ) : (
-          <SignForm
-            openSignUpForm={openSignUpForm}
-            isLoadingSubmit={loginUserIsPending}
-          />
-        )}
-      </form>
-    </Form>
+    />
+  ) : showSignUpForm ? (
+    <SignUpForm
+      closeSignUpForm={closeSignUpForm}
+      showVerification={showVerification}
+    />
+  ) : (
+    <SignForm openSignUpForm={openSignUpForm} />
   )
 }
