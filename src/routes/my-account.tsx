@@ -6,6 +6,15 @@ import { AccountCard } from '@/features/my-account/components/AccountCard'
 import { PlanBadge } from '@/features/my-account/components/PlanBadge'
 import { useUserProfile } from '@/context/user-profile.context'
 import { Template } from '@/components/Template'
+import { useDeleteUser } from '@/features/auth/hooks/use-delete-user'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { useState } from 'react'
 
 export const Route = createFileRoute('/my-account')({
   component: MyAccount,
@@ -13,11 +22,21 @@ export const Route = createFileRoute('/my-account')({
 
 function MyAccount() {
   const { userProfile } = useUserProfile()
-
+  const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
+    useDeleteUser()
   if (!userProfile) {
     return <div>Erro ao carregar dados da conta</div>
   }
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
+  const removeUser = async () => {
+    try {
+      await deleteUser()
+      setIsDialogOpen(false)
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return (
     <Template toGo="/">
       <motion.div
@@ -120,21 +139,79 @@ function MyAccount() {
           </div>
 
           {/* Botões responsivos */}
-          <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-2 md:gap-4">
-            <Button variant="outline" size="sm" className="text-xs md:text-sm">
-              Alterar Plano
-            </Button>
-            <Button variant="outline" size="sm" className="text-xs md:text-sm">
-              Atualizar Dados
-            </Button>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="bg-white rounded-lg shadow-sm md:shadow p-4 md:p-6"
+          >
+            {/* ... seção de detalhes do plano */}
+            <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-2 md:gap-4">
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-xs md:text-sm"
+              >
+                Alterar Plano
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-xs md:text-sm"
+              >
+                Atualizar Dados
+              </Button>
+              <Button
+                variant="destructive"
+                size="sm"
+                className="text-xs md:text-sm"
+              >
+                Cancelar Assinatura
+              </Button>
+            </div>
+          </motion.div>
+
+          {/* Botão para apagar conta */}
+          <div className="mt-6">
             <Button
               variant="destructive"
               size="sm"
               className="text-xs md:text-sm"
+              onClick={() => setIsDialogOpen(true)}
             >
-              Cancelar Assinatura
+              Apagar Conta
             </Button>
           </div>
+
+          {/* Modal de confirmação */}
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>
+                  Tem certeza que deseja apagar sua conta?
+                </DialogTitle>
+              </DialogHeader>
+              <p className="text-sm text-gray-600">
+                Essa ação é <strong>irreversível</strong> e todos os seus dados
+                serão perdidos.
+              </p>
+              <DialogFooter className="mt-4">
+                <Button
+                  variant="outline"
+                  onClick={() => setIsDialogOpen(false)}
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  variant="destructive"
+                  onClick={removeUser}
+                  disabled={deleteUserIsPending}
+                >
+                  Confirmar Exclusão
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </motion.div>
       </motion.div>
     </Template>

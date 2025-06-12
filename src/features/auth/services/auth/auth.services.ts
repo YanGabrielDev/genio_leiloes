@@ -28,6 +28,17 @@ const loginUser = async (data: LoginUser) => {
   return response
 }
 
+const deleteUser = async () => {
+  const token = cookies.get('accessToken')
+  const response = await api.delete(`${apiUrl}/users/profile/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  })
+  return response
+}
+
 const validateToken = async (data: ValidateUsers) => {
   const response = await api.post(`${apiUrl}/users/validate-token/`, {
     token: data,
@@ -64,4 +75,5 @@ export default {
   profileUser,
   validateToken,
   googleLogin,
+  deleteUser,
 }
