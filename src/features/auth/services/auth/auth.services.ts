@@ -58,9 +58,12 @@ const profileUser = async (): Promise<ProfileData> => {
   return response.data
 }
 
-const googleLogin = async (): Promise<GoogleProfile> => {
-  const token = cookies.get('accessToken')
-  const response = await api.get(googleAuth)
+const googleLogin = async (token: string): Promise<GoogleProfile> => {
+  const response = await api.get(googleAuth, {
+    headers: {
+      Authorization: token,
+    },
+  })
   return response.data
 }
 

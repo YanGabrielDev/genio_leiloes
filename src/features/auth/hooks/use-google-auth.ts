@@ -27,7 +27,9 @@ export const useGoogleAuth = () => {
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        const userInfoResponse = await authServices.googleLogin()
+        const userInfoResponse = await authServices.googleLogin(
+          tokenResponse.access_token
+        )
 
         const validateData = await validateToken({
           accessToken: tokenResponse.access_token,
