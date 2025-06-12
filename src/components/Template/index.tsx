@@ -31,6 +31,7 @@ export const Template = ({
   const onLogin = () => {
     navigate({ to: '/login' })
     Cookies.remove('accessToken')
+    localStorage.clear()
     setUserProfile(null)
   }
 
