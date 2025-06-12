@@ -61,7 +61,7 @@ const profileUser = async (): Promise<ProfileData> => {
 const googleLogin = async (token: string): Promise<GoogleProfile> => {
   const response = await api.get(googleAuth, {
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
   })
   return response.data
