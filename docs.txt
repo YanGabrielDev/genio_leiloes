@@ -17,7 +17,7 @@
 ┃ ┣ 📂home          # Página inicial
 ┃ ┃ ┣ 📂components  # Cards de leilão
 ┃ ┃ ┗ 📂hooks       # Lógica específica
-┃ ┗ 📂my-account   # Área do usuário
+┃ ┗ 📂account   # Área do usuário
 ┣ 📂lib             # Utilitários e configurações
 ┣ 📂routes          # Configuração de rotas
 ┣ 📂styles          # Estilos globais

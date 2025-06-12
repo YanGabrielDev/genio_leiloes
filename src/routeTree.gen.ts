@@ -11,7 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as MyAccountImport } from './routes/my-account'
+import { Route as MyAccountImport } from './routes/account'
 import { Route as LoginImport } from './routes/login'
 import { Route as IndexImport } from './routes/index'
 import { Route as DetailsVehicleIdImport } from './routes/details.$vehicleId'
@@ -19,8 +19,8 @@ import { Route as DetailsVehicleIdImport } from './routes/details.$vehicleId'
 // Create/Update Routes
 
 const MyAccountRoute = MyAccountImport.update({
-  id: '/my-account',
-  path: '/my-account',
+  id: '/account',
+  path: '/account',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,10 +60,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
-    '/my-account': {
-      id: '/my-account'
-      path: '/my-account'
-      fullPath: '/my-account'
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
       preLoaderRoute: typeof MyAccountImport
       parentRoute: typeof rootRoute
     }
@@ -82,14 +82,14 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/my-account': typeof MyAccountRoute
+  '/account': typeof MyAccountRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/my-account': typeof MyAccountRoute
+  '/account': typeof MyAccountRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
 
@@ -97,16 +97,16 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/my-account': typeof MyAccountRoute
+  '/account': typeof MyAccountRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/my-account' | '/details/$vehicleId'
+  fullPaths: '/' | '/login' | '/account' | '/details/$vehicleId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/my-account' | '/details/$vehicleId'
-  id: '__root__' | '/' | '/login' | '/my-account' | '/details/$vehicleId'
+  to: '/' | '/login' | '/account' | '/details/$vehicleId'
+  id: '__root__' | '/' | '/login' | '/account' | '/details/$vehicleId'
   fileRoutesById: FileRoutesById
 }
 
@@ -136,7 +136,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/login",
-        "/my-account",
+        "/account",
         "/details/$vehicleId"
       ]
     },
@@ -146,8 +146,8 @@ export const routeTree = rootRoute
     "/login": {
       "filePath": "login.tsx"
     },
-    "/my-account": {
-      "filePath": "my-account.tsx"
+    "/account": {
+      "filePath": "account.tsx"
     },
     "/details/$vehicleId": {
       "filePath": "details.$vehicleId.tsx"

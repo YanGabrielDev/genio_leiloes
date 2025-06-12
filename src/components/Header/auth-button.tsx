@@ -26,7 +26,7 @@ export const AuthButton = ({ user, onLogin, onLogout }: AuthButtonProps) => {
   }
 
   const goToMyAccount = () => {
-    navigate({ to: '/my-account' })
+    navigate({ to: '/account' })
   }
   return (
     <motion.div

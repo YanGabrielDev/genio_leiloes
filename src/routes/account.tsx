@@ -2,8 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { Mail, User, Calendar, ShieldCheck } from 'lucide-react'
-import { AccountCard } from '@/features/my-account/components/AccountCard'
-import { PlanBadge } from '@/features/my-account/components/PlanBadge'
+import { AccountCard } from '@/features/account/components/AccountCard'
+import { PlanBadge } from '@/features/account/components/PlanBadge'
 import { useUserProfile } from '@/context/user-profile.context'
 import { Template } from '@/components/Template'
 import { useDeleteUser } from '@/features/auth/hooks/use-delete-user'
@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/dialog'
 import { useState } from 'react'
 
-export const Route = createFileRoute('/my-account')({
+export const Route = createFileRoute('/account')({
   component: MyAccount,
 })
 
