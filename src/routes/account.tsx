@@ -40,14 +40,13 @@ function MyAccount() {
   }
   // const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-  // const removeUser = async () => {
-  //   try {
-  //     await deleteUser()
-  //     setIsDialogOpen(false)
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
+  const removeUser = async () => {
+    try {
+      await deleteUser()
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <Template toGo="/">
@@ -292,7 +291,7 @@ function MyAccount() {
 
               <Button
                 variant="destructive"
-                // onClick={removeUser}
+                onClick={removeUser}
                 disabled={deleteUserIsPending}
               >
                 Confirmar Exclusão
