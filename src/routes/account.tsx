@@ -37,7 +37,7 @@ function MyAccount() {
   if (!userProfile) {
     return <div>Erro ao carregar dados da conta</div>
   }
-  // const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   // const removeUser = async () => {
   //   try {
@@ -271,7 +271,7 @@ function MyAccount() {
         </div> */}
 
         {/* Modal de confirmação */}
-        {/* <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>
@@ -288,14 +288,14 @@ function MyAccount() {
               </Button>
               <Button
                 variant="destructive"
-                onClick={removeUser}
+                // onClick={removeUser}
                 disabled={deleteUserIsPending}
               >
                 Confirmar Exclusão
               </Button>
             </DialogFooter>
           </DialogContent>
-        </Dialog> */}
+        </Dialog>
       </motion.div>
     </Template>
   )
