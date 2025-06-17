@@ -30,23 +30,23 @@ export const Route = createFileRoute('/account')({
 })
 
 function MyAccount() {
-  const { userProfile } = useUserProfile()
-  const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
-    useDeleteUser()
-  const { data: subscriptionPlans } = useListSubscriptionsPlans()
-  if (!userProfile) {
-    return <div>Erro ao carregar dados da conta</div>
-  }
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  // const { userProfile } = useUserProfile()
+  // const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
+  //   useDeleteUser()
+  // const { data: subscriptionPlans } = useListSubscriptionsPlans()
+  // if (!userProfile) {
+  //   return <div>Erro ao carregar dados da conta</div>
+  // }
+  // const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-  const removeUser = async () => {
-    try {
-      await deleteUser()
-      setIsDialogOpen(false)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  // const removeUser = async () => {
+  //   try {
+  //     await deleteUser()
+  //     setIsDialogOpen(false)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   return (
     <Template toGo="/">
