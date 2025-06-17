@@ -22,5 +22,13 @@ export const useLoginUser = () => {
       })
       navigate({ to: '/' })
     },
+    onError: (error) => {
+      toast({
+        title: 'Email ou senha incorretos!',
+
+        variant: 'destructive',
+      })
+      console.error(error)
+    },
   })
 }
