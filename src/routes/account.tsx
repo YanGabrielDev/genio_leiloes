@@ -37,16 +37,16 @@ function MyAccount() {
   if (!userProfile) {
     return <div>Erro ao carregar dados da conta</div>
   }
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  // const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-  const removeUser = async () => {
-    try {
-      await deleteUser()
-      setIsDialogOpen(false)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  // const removeUser = async () => {
+  //   try {
+  //     await deleteUser()
+  //     setIsDialogOpen(false)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   return (
     <Template toGo="/">
@@ -259,7 +259,7 @@ function MyAccount() {
         </motion.div>
 
         {/* Botão para apagar conta */}
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <Button
             variant="destructive"
             size="sm"
@@ -268,10 +268,10 @@ function MyAccount() {
           >
             Apagar Conta
           </Button>
-        </div>
+        </div> */}
 
         {/* Modal de confirmação */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        {/* <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>
@@ -295,7 +295,7 @@ function MyAccount() {
               </Button>
             </DialogFooter>
           </DialogContent>
-        </Dialog>
+        </Dialog> */}
       </motion.div>
     </Template>
   )
