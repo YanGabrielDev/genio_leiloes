@@ -15,6 +15,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useState } from 'react'
+import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
 
 export const Route = createFileRoute('/account')({
   component: MyAccount,
@@ -24,6 +25,8 @@ function MyAccount() {
   const { userProfile } = useUserProfile()
   const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
     useDeleteUser()
+  const { data: listSubscriptionsPlans } = useListSubscriptionsPlans()
+  console.log({ listSubscriptionsPlans })
   if (!userProfile) {
     return <div>Erro ao carregar dados da conta</div>
   }
