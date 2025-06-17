@@ -246,9 +246,6 @@ function MyAccount() {
           {/* Botões responsivos */}
           <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-2 md:gap-4">
             <Button variant="outline" size="sm" className="text-xs md:text-sm">
-              Alterar Plano
-            </Button>
-            <Button variant="outline" size="sm" className="text-xs md:text-sm">
               Atualizar Dados
             </Button>
             <Button
