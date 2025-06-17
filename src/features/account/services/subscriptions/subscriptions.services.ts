@@ -7,7 +7,14 @@ export const googleAuth = import.meta.env.VITE_GOOGLE_URL_API ?? ''
 const cookies = Cookies
 
 const listSubscriptionsPlans = async () => {
-  const response = await api.get(`${apiUrl}/subscriptions/plans/`)
+  const token = cookies.get('accessToken')
+
+  const response = await api.get(`${apiUrl}/subscriptions/plans/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  })
   return response.data
 }
 
