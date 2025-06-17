@@ -21,6 +21,7 @@ import {
   DialogHeader,
   DialogFooter,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog'
 import { useState } from 'react'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
@@ -37,7 +38,7 @@ function MyAccount() {
   if (!userProfile) {
     return <div>Erro ao carregar dados da conta</div>
   }
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  // const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   // const removeUser = async () => {
   //   try {
@@ -259,19 +260,21 @@ function MyAccount() {
         </motion.div>
 
         {/* Botão para apagar conta */}
-        {/* <div className="mt-6">
-          <Button
-            variant="destructive"
-            size="sm"
-            className="text-xs md:text-sm"
-            onClick={() => setIsDialogOpen(true)}
-          >
-            Apagar Conta
-          </Button>
-        </div> */}
+        <Dialog>
+          <div className="mt-6">
+            <DialogTrigger>
+              <Button
+                variant="destructive"
+                size="sm"
+                className="text-xs md:text-sm"
+                // onClick={() => setIsDialogOpen(true)}
+              >
+                Apagar Conta
+              </Button>
+            </DialogTrigger>
+          </div>
 
-        {/* Modal de confirmação */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          {/* Modal de confirmação */}
           <DialogContent>
             <DialogHeader>
               <DialogTitle>
@@ -283,9 +286,10 @@ function MyAccount() {
               serão perdidos.
             </p>
             <DialogFooter className="mt-4">
-              <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                Cancelar
-              </Button>
+              <DialogTrigger>
+                <Button variant="outline">Cancelar</Button>
+              </DialogTrigger>
+
               <Button
                 variant="destructive"
                 // onClick={removeUser}
