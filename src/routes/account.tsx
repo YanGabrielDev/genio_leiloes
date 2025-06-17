@@ -30,7 +30,7 @@ export const Route = createFileRoute('/account')({
 })
 
 function MyAccount() {
-  // const { userProfile } = useUserProfile()
+  const { userProfile } = useUserProfile()
   // const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
   //   useDeleteUser()
   // const { data: subscriptionPlans } = useListSubscriptionsPlans()
