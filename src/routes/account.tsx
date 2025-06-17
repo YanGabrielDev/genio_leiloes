@@ -34,9 +34,9 @@ function MyAccount() {
   const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
     useDeleteUser()
   const { data: subscriptionPlans } = useListSubscriptionsPlans()
-  // if (!userProfile) {
-  //   return <div>Erro ao carregar dados da conta</div>
-  // }
+  if (!userProfile) {
+    return <div>Erro ao carregar dados da conta</div>
+  }
   // const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   // const removeUser = async () => {
