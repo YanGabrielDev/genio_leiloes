@@ -3,6 +3,7 @@ export interface ListAuctionParams {
   priceMax: number
   priceMin: number
   modelBrand: string
+  year?: number
 }
 
 export interface FindVehicleById {

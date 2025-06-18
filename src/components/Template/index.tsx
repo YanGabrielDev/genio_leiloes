@@ -10,21 +10,19 @@ import { ArrowLeft } from 'lucide-react'
 
 interface TemplateProps {
   children: React.ReactNode
-  handleChangeSearch?: (search: string) => void
-  search?: string
   cityFilterOptions?: {
     value: string
     label: string
   }[]
   toGo?: string
+  showFilters?: boolean
 }
 
 export const Template = ({
   children,
-  handleChangeSearch,
-  search,
   cityFilterOptions,
   toGo,
+  showFilters,
 }: TemplateProps) => {
   const navigate = useNavigate()
   const { setUserProfile } = useUserProfile()
@@ -42,8 +40,7 @@ export const Template = ({
   return (
     <main className="bg-gray-100 flex flex-col min-h-screen">
       <Header
-        handleChangeSearch={handleChangeSearch}
-        search={search}
+        showFilters={showFilters}
         cityFilterOptions={cityFilterOptions}
         onLogin={onLogin}
         onLogout={onLogout}

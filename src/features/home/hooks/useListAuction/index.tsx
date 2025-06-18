@@ -7,10 +7,17 @@ export const useListAuction = ({
   priceMax,
   priceMin,
   modelBrand,
+  year,
 }: UseListAuctionParams) => {
   return useQuery({
-    queryKey: ['auctionList', page, priceMax, priceMin, modelBrand],
+    queryKey: ['auctionList', page, priceMax, priceMin, modelBrand, year],
     queryFn: () =>
-      auctionService.listAuction({ page, priceMax, priceMin, modelBrand }),
+      auctionService.listAuction({
+        page,
+        priceMax,
+        priceMin,
+        modelBrand,
+        year,
+      }),
   })
 }

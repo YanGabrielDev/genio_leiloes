@@ -14,7 +14,7 @@ export const Route = createFileRoute('/')({
 })
 
 function AppPage() {
-  const [searchVehicle, setSearchVehicle] = useState('')
+  // const [searchVehicle, setSearchVehicle] = useState('')
   const [page, setPage] = useState<number>(1)
   const { vehicleFiltersState } = useVehicleFilters()
   const listAuction = useListAuction({
@@ -22,11 +22,10 @@ function AppPage() {
     priceMax: vehicleFiltersState.priceRange[1],
     priceMin: vehicleFiltersState.priceRange[0],
     modelBrand: vehicleFiltersState.brandModelSearch,
+    year: vehicleFiltersState.year,
   })
-  const { filteredVehicles, filterBySearch } = useFilteredVehicles(
-    listAuction.data?.results || []
-  )
 
+  const vehicles = listAuction.data?.results
   const cityFilterOptions = useMemo(
     () =>
       auctionMock.map((auction) => ({
@@ -36,24 +35,20 @@ function AppPage() {
     []
   )
 
-  const handleSearchChange = (newSearchValue: string) => {
-    setSearchVehicle(newSearchValue)
-    filterBySearch(newSearchValue)
-  }
+  // const handleSearchChange = (newSearchValue: string) => {
+  //   setSearchVehicle(newSearchValue)
+  //   filterBySearch(newSearchValue)
+  // }
 
   const handlePageChange = (newPage: number) => setPage(newPage)
 
   return (
-    <Template
-      cityFilterOptions={cityFilterOptions}
-      handleChangeSearch={handleSearchChange}
-      search={searchVehicle}
-    >
+    <Template showFilters cityFilterOptions={cityFilterOptions}>
       <div className="px-12 py-8 grid grid-cols-12 gap-4">
         {listAuction.isLoading ? (
           <SkeletonLoaderGrid count={24} />
         ) : (
-          filteredVehicles.map((item) => (
+          vehicles?.map((item) => (
             <AuctionCard
               year={item.ano}
               avaliacao={item.avaliacao}
