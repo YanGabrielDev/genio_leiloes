@@ -13,15 +13,19 @@ import { Button } from '@/components/ui/button'
 import { Loader2, CheckCircle2 } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useCreateCheckoutSession } from '@/features/account/hooks/use-create-checkout-session'
 
-export function PaymentForm() {
+interface PaymentForm {
+  stripePriceId: string
+}
+export const PaymentForm = ({ stripePriceId }: PaymentForm) => {
   const stripe = useStripe()
   const elements = useElements()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [email, setEmail] = useState('')
-
+  const { mutateAsync: createCheckoutSession } = useCreateCheckoutSession()
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setLoading(true)
@@ -34,29 +38,30 @@ export function PaymentForm() {
     }
 
     try {
-      const res = await fetch('http://localhost:3001/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 1000 }), // Example: $10.00
-      })
+      //   const res = await fetch('http://localhost:3001/create-payment-intent', {
+      //     method: 'POST',
+      //     headers: { 'Content-Type': 'application/json' },
+      //     body: JSON.stringify({ amount: 1000 }), // Example: $10.00
+      //   })
+      createCheckoutSession({ price_id: stripePriceId })
 
-      const { clientSecret } = await res.json()
+      //   const { clientSecret } = await res.json()
 
-      const result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement)!,
-          billing_details: {
-            email: email,
-          },
-        },
-        receipt_email: email,
-      })
+      //   const result = await stripe.confirmCardPayment(clientSecret, {
+      //     payment_method: {
+      //       card: elements.getElement(CardElement)!,
+      //       billing_details: {
+      //         email: email,
+      //       },
+      //     },
+      //     receipt_email: email,
+      //   })
 
-      if (result.error) {
-        setError(result.error.message || 'Payment processing failed.')
-      } else if (result.paymentIntent?.status === 'succeeded') {
-        setSuccess(true)
-      }
+      //   if (result.error) {
+      //     setError(result.error.message || 'Payment processing failed.')
+      //   } else if (result.paymentIntent?.status === 'succeeded') {
+      //     setSuccess(true)
+      //   }
     } catch (err) {
       setError('An unexpected error occurred.')
     } finally {

@@ -231,7 +231,7 @@ function MyAccount() {
                       disabled={
                         userProfile.current_plan.plan_name === plan.title
                       }
-                      onClick={() => navigate({ to: '/payment' })}
+                      onClick={() => navigate({ to: '/account/payment' })}
                     >
                       {userProfile.current_plan.plan_name === plan.title
                         ? 'Plano Atual'

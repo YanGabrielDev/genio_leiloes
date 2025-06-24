@@ -11,7 +11,6 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as PaymentImport } from './routes/payment'
 import { Route as LoginImport } from './routes/login'
 import { Route as AccountRouteImport } from './routes/account/route'
 import { Route as IndexImport } from './routes/index'
@@ -19,12 +18,6 @@ import { Route as DetailsVehicleIdImport } from './routes/details.$vehicleId'
 import { Route as AccountPaymentRouteImport } from './routes/account/payment/route'
 
 // Create/Update Routes
-
-const PaymentRoute = PaymentImport.update({
-  id: '/payment',
-  path: '/payment',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const LoginRoute = LoginImport.update({
   id: '/login',
@@ -81,13 +74,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
-    '/payment': {
-      id: '/payment'
-      path: '/payment'
-      fullPath: '/payment'
-      preLoaderRoute: typeof PaymentImport
-      parentRoute: typeof rootRoute
-    }
     '/account/payment': {
       id: '/account/payment'
       path: '/payment'
@@ -123,7 +109,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/account': typeof AccountRouteRouteWithChildren
   '/login': typeof LoginRoute
-  '/payment': typeof PaymentRoute
   '/account/payment': typeof AccountPaymentRouteRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
@@ -132,7 +117,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/account': typeof AccountRouteRouteWithChildren
   '/login': typeof LoginRoute
-  '/payment': typeof PaymentRoute
   '/account/payment': typeof AccountPaymentRouteRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
@@ -142,7 +126,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/account': typeof AccountRouteRouteWithChildren
   '/login': typeof LoginRoute
-  '/payment': typeof PaymentRoute
   '/account/payment': typeof AccountPaymentRouteRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
@@ -153,23 +136,15 @@ export interface FileRouteTypes {
     | '/'
     | '/account'
     | '/login'
-    | '/payment'
     | '/account/payment'
     | '/details/$vehicleId'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/account'
-    | '/login'
-    | '/payment'
-    | '/account/payment'
-    | '/details/$vehicleId'
+  to: '/' | '/account' | '/login' | '/account/payment' | '/details/$vehicleId'
   id:
     | '__root__'
     | '/'
     | '/account'
     | '/login'
-    | '/payment'
     | '/account/payment'
     | '/details/$vehicleId'
   fileRoutesById: FileRoutesById
@@ -179,7 +154,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccountRouteRoute: typeof AccountRouteRouteWithChildren
   LoginRoute: typeof LoginRoute
-  PaymentRoute: typeof PaymentRoute
   DetailsVehicleIdRoute: typeof DetailsVehicleIdRoute
 }
 
@@ -187,7 +161,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountRouteRoute: AccountRouteRouteWithChildren,
   LoginRoute: LoginRoute,
-  PaymentRoute: PaymentRoute,
   DetailsVehicleIdRoute: DetailsVehicleIdRoute,
 }
 
@@ -204,7 +177,6 @@ export const routeTree = rootRoute
         "/",
         "/account",
         "/login",
-        "/payment",
         "/details/$vehicleId"
       ]
     },
@@ -219,9 +191,6 @@ export const routeTree = rootRoute
     },
     "/login": {
       "filePath": "login.tsx"
-    },
-    "/payment": {
-      "filePath": "payment.tsx"
     },
     "/account/payment": {
       "filePath": "account/payment/route.tsx",

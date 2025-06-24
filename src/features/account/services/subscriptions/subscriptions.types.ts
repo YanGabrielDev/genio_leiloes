@@ -22,3 +22,7 @@ export interface ListSubscriptionsPlans {
   user_plan: UserPlan
   available_plans: Plan[]
 }
+
+export interface CreateCheckoutSession {
+  price_id: string
+}
