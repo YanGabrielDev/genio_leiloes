@@ -3,7 +3,7 @@ import { PaymentForm } from '@/features/payment/components/PaymentForm'
 import { createFileRoute } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
 
-export const Route = createFileRoute('/account/payment')({
+export const Route = createFileRoute('/payment')({
   component: RouteComponent,
 })
 

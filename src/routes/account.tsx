@@ -233,7 +233,7 @@ function MyAccount() {
                       }
                       onClick={() =>
                         navigate({
-                          to: '/account/payment',
+                          to: '/payment',
                           search: {
                             stripe_monthly_price_id:
                               plan.stripe_monthly_price_id,
