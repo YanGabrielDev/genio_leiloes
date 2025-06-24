@@ -231,7 +231,15 @@ function MyAccount() {
                       disabled={
                         userProfile.current_plan.plan_name === plan.title
                       }
-                      onClick={() => navigate({ to: '/account/payment' })}
+                      onClick={() =>
+                        navigate({
+                          to: '/account/payment',
+                          search: {
+                            stripe_monthly_price_id:
+                              plan.stripe_monthly_price_id,
+                          },
+                        })
+                      }
                     >
                       {userProfile.current_plan.plan_name === plan.title
                         ? 'Plano Atual'
