@@ -8,8 +8,7 @@ export const Route = createFileRoute('/account/payment')({
 })
 
 function RouteComponent() {
-  const { stripe_monthly_price_id }: { stripe_monthly_price_id: any } =
-    Route.useSearch()
+  const { stripe_monthly_price_id } = Route.useSearch<any>()
 
   return (
     <Template toGo="/account">
