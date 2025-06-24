@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import {
@@ -23,7 +23,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { useState } from 'react'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
 
 export const Route = createFileRoute('/account')({
@@ -39,7 +38,7 @@ function MyAccount() {
     return <div>Erro ao carregar dados da conta</div>
   }
   // const [isDialogOpen, setIsDialogOpen] = useState(false)
-
+  const navigate = useNavigate()
   const removeUser = async () => {
     try {
       await deleteUser()
@@ -232,6 +231,7 @@ function MyAccount() {
                       disabled={
                         userProfile.current_plan.plan_name === plan.title
                       }
+                      onClick={() => navigate({ to: '/payment' })}
                     >
                       {userProfile.current_plan.plan_name === plan.title
                         ? 'Plano Atual'
