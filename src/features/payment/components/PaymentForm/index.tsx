@@ -105,7 +105,7 @@ export function PaymentForm() {
             Informações do pagamento
           </CardTitle>
           <CardDescription className="text-gray-500">
-            Veja os detalhes do seu pagamento
+            Adicione os detalhes do seu pagamento.
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
@@ -115,7 +115,7 @@ export function PaymentForm() {
               <Input
                 id="email"
                 type="email"
-                placeholder="your@email.com"
+                placeholder="seu@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
