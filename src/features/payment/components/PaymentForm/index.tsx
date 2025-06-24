@@ -1,7 +1,5 @@
-'use client'
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { FormEvent, useState } from 'react'
-import { Button } from '@/components/ui/button' // Exemplo usando Shadcn UI (se tiver)
+import { useState, FormEvent } from 'react'
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 
 export function PaymentForm() {
   const stripe = useStripe()
@@ -16,16 +14,16 @@ export function PaymentForm() {
     setError(null)
 
     if (!stripe || !elements) {
+      setError('Stripe ainda não carregou.')
       setLoading(false)
       return
     }
 
     try {
-      // Exemplo de chamada para o backend criar um PaymentIntent
-      const res = await fetch('/create-payment-intent', {
+      const res = await fetch('http://localhost:3001/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 1000 }), // Exemplo: R$ 10,00
+        body: JSON.stringify({ amount: 1000 }), // Exemplo: R$10,00
       })
 
       const { clientSecret } = await res.json()
@@ -48,15 +46,18 @@ export function PaymentForm() {
     }
   }
 
-  if (success) return <p>✅ Pagamento realizado com sucesso!</p>
+  if (success) return <p>✅ Pagamento aprovado!</p>
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+    >
       <CardElement options={{ hidePostalCode: true }} />
-      {error && <p className="text-red-500">{error}</p>}
-      <Button type="submit" disabled={!stripe || loading}>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button type="submit" disabled={!stripe || loading}>
         {loading ? 'Processando...' : 'Pagar'}
-      </Button>
+      </button>
     </form>
   )
 }
