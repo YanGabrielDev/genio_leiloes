@@ -1,8 +1,12 @@
 import { useState, FormEvent } from 'react'
-// import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
+import {
+  useStripe,
+  // useElements,
+  //  CardElement
+} from '@stripe/react-stripe-js'
 
 export function PaymentForm() {
-  //   const stripe = useStripe()
+  const stripe = useStripe()
   //   const elements = useElements()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
