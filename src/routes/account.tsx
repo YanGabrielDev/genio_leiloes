@@ -38,9 +38,9 @@ function MyAccount() {
   if (isLoading) {
     return <div>Carregando...</div> // Tela de loading enquanto os dados são carregados
   }
-  // if (!userProfile) {
-  //   return <div>Erro ao carregar dados da conta</div>
-  // }
+  if (!userProfile || !userProfile.current_plan) {
+    return <div>Erro ao carregar dados da conta</div>
+  }
   // const [isDialogOpen, setIsDialogOpen] = useState(false)
   const navigate = useNavigate()
   const removeUser = async () => {
@@ -121,7 +121,7 @@ function MyAccount() {
                 Plano Atual
               </span>
               <span className="text-sm md:text-base font-medium">
-                {userProfile?.current_plan.plan_name}
+                {userProfile?.current_plan?.plan_name ?? 'Nenhum plano'}{' '}
               </span>
             </div>
             <div className="flex justify-between items-center border-b pb-2">
@@ -146,9 +146,11 @@ function MyAccount() {
                   Data de Término
                 </span>
                 <span className="text-sm md:text-base font-medium">
-                  {new Date(
-                    userProfile.current_plan.end_date
-                  ).toLocaleDateString('pt-BR')}
+                  {userProfile?.current_plan?.end_date
+                    ? new Date(
+                        userProfile.current_plan.end_date
+                      ).toLocaleDateString('pt-BR')
+                    : 'Sem data'}
                 </span>
               </div>
             )}
