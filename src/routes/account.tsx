@@ -41,12 +41,12 @@ function MyAccount() {
 
   useEffect(() => {
     const userJson = localStorage.getItem('user')
-    setIsLoading(false) // Marca o carregamento como completo
 
     if (userJson) {
       try {
         const user = JSON.parse(userJson)
         setUserProfile(user)
+        setIsLoading(false) // Marca o carregamento como completo
       } catch (error) {
         console.error('Erro ao analisar dados do usuário:', error)
       }
