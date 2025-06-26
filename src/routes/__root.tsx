@@ -9,19 +9,27 @@ import { Elements } from '@stripe/react-stripe-js'
 import { stripePromise } from '@/stripe'
 
 export const Route = createRootRoute({
-  component: () => (
-    <>
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-        <Elements stripe={stripePromise}>
-          <UserProfileProvider>
+  component: () => {
+    const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+
+    if (!googleClientId) {
+      console.error('Google Client ID não configurado')
+    }
+
+    return (
+      <UserProfileProvider>
+        <GoogleOAuthProvider clientId={googleClientId}>
+          <Elements stripe={stripePromise}>
             <VehicleFilterProvider>
               <Toaster />
               <Outlet />
-              <TanStackRouterDevtools />
+              {import.meta.env.DEV && (
+                <TanStackRouterDevtools position="bottom-right" />
+              )}
             </VehicleFilterProvider>
-          </UserProfileProvider>
-        </Elements>
-      </GoogleOAuthProvider>
-    </>
-  ),
+          </Elements>
+        </GoogleOAuthProvider>
+      </UserProfileProvider>
+    )
+  },
 })
