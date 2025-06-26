@@ -31,11 +31,13 @@ export const Route = createFileRoute('/account')({
 })
 
 function MyAccount() {
-  // const { userProfile } = useUserProfile()
-  const userProfile = {}
+  const { userProfile, isLoading } = useUserProfile()
   const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
     useDeleteUser()
   const { data: subscriptionPlans } = useListSubscriptionsPlans()
+  if (isLoading) {
+    return <div>Carregando...</div> // Tela de loading enquanto os dados são carregados
+  }
   if (!userProfile) {
     return <div>Erro ao carregar dados da conta</div>
   }
@@ -66,12 +68,12 @@ function MyAccount() {
               Gerencie suas informações e plano de assinatura
             </p>
           </div>
-          {/* <PlanBadge plan={userProfile.current_plan} /> */}
+          <PlanBadge plan={userProfile.current_plan} />
         </div>
 
         {/* Grid de cards otimizado para mobile */}
         <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-4">
-          {/* <AccountCard
+          <AccountCard
             title="Nome"
             value={userProfile.name}
             icon={<User className="h-4 w-4 md:h-5 md:w-5 text-blue-500" />}
@@ -98,7 +100,7 @@ function MyAccount() {
                 }`}
               />
             }
-          /> */}
+          />
         </div>
 
         {/* Seção de detalhes do plano atual */}
@@ -116,27 +118,27 @@ function MyAccount() {
               <span className="text-sm md:text-base text-gray-600">
                 Plano Atual
               </span>
-              {/* <span className="text-sm md:text-base font-medium">
+              <span className="text-sm md:text-base font-medium">
                 {userProfile.current_plan.plan_name}
-              </span> */}
+              </span>
             </div>
             <div className="flex justify-between items-center border-b pb-2">
               <span className="text-sm md:text-base text-gray-600">Status</span>
-              {/* <span className="text-sm md:text-base font-medium">
+              <span className="text-sm md:text-base font-medium">
                 {userProfile.current_plan.is_active ? 'Ativo' : 'Inativo'}
-              </span> */}
+              </span>
             </div>
             <div className="flex justify-between items-center border-b pb-2">
               <span className="text-sm md:text-base text-gray-600">
                 Data de Início
               </span>
-              {/* <span className="text-sm md:text-base font-medium">
+              <span className="text-sm md:text-base font-medium">
                 {new Date(
                   userProfile.current_plan.start_date
                 ).toLocaleDateString('pt-BR')}
-              </span> */}
+              </span>
             </div>
-            {/* {userProfile.current_plan.end_date && (
+            {userProfile.current_plan.end_date && (
               <div className="flex justify-between items-center border-b pb-2">
                 <span className="text-sm md:text-base text-gray-600">
                   Data de Término
@@ -147,16 +149,16 @@ function MyAccount() {
                   ).toLocaleDateString('pt-BR')}
                 </span>
               </div>
-            )} */}
+            )}
           </div>
 
           {/* Seção de planos disponíveis */}
-          {/* {subscriptionPlans?.available_plans && (
+          {subscriptionPlans?.available_plans && (
             <PlansSection
               plans={subscriptionPlans}
               currentPlanName={userProfile.current_plan.plan_name}
             />
-          )} */}
+          )}
 
           {/* Botões responsivos */}
           <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-2 md:gap-4">
