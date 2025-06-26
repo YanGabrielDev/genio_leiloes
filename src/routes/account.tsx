@@ -25,16 +25,33 @@ import {
 } from '@/components/ui/dialog'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
 import { PlansSection } from '@/features/account/components/PlansSection'
+import { useEffect, useState } from 'react'
 
 export const Route = createFileRoute('/account')({
   component: MyAccount,
 })
 
 function MyAccount() {
-  const { userProfile, isLoading } = useUserProfile()
+  // const { userProfile, isLoading } = useUserProfile()
   const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
     useDeleteUser()
   const { data: subscriptionPlans } = useListSubscriptionsPlans()
+  const [userProfile, setUserProfile] = useState<any | null>(null)
+  const [isLoading, setIsLoading] = useState(true) // Adicione um estado de loading
+
+  useEffect(() => {
+    const userJson = localStorage.getItem('user')
+    setIsLoading(false) // Marca o carregamento como completo
+
+    if (userJson) {
+      try {
+        const user = JSON.parse(userJson)
+        setUserProfile(user)
+      } catch (error) {
+        console.error('Erro ao analisar dados do usuário:', error)
+      }
+    }
+  }, [])
   if (isLoading) {
     return <div>Carregando...</div> // Tela de loading enquanto os dados são carregados
   }
