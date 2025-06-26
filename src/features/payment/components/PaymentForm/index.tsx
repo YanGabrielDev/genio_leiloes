@@ -18,6 +18,7 @@ import { useCreateCheckoutSession } from '@/features/account/hooks/use-create-ch
 interface PaymentForm {
   stripePriceId: string
 }
+
 export const PaymentForm = ({ stripePriceId }: PaymentForm) => {
   const stripe = useStripe()
   const elements = useElements()
@@ -26,6 +27,7 @@ export const PaymentForm = ({ stripePriceId }: PaymentForm) => {
   const [success, setSuccess] = useState(false)
   const [email, setEmail] = useState('')
   const { mutateAsync: createCheckoutSession } = useCreateCheckoutSession()
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setLoading(true)
@@ -38,32 +40,17 @@ export const PaymentForm = ({ stripePriceId }: PaymentForm) => {
     }
 
     try {
-      //   const res = await fetch('http://localhost:3001/create-payment-intent', {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify({ amount: 1000 }), // Example: $10.00
-      //   })
-      createCheckoutSession({ price_id: stripePriceId })
+      const { url } = await createCheckoutSession({ price_id: stripePriceId })
 
-      //   const { clientSecret } = await res.json()
-
-      //   const result = await stripe.confirmCardPayment(clientSecret, {
-      //     payment_method: {
-      //       card: elements.getElement(CardElement)!,
-      //       billing_details: {
-      //         email: email,
-      //       },
-      //     },
-      //     receipt_email: email,
-      //   })
-
-      //   if (result.error) {
-      //     setError(result.error.message || 'Payment processing failed.')
-      //   } else if (result.paymentIntent?.status === 'succeeded') {
-      //     setSuccess(true)
-      //   }
+      // Redireciona para a URL de checkout do Stripe
+      if (url) {
+        window.location.href = url
+      } else {
+        setError('No checkout URL received from the server.')
+      }
     } catch (err) {
       setError('An unexpected error occurred.')
+      console.error(err)
     } finally {
       setLoading(false)
     }

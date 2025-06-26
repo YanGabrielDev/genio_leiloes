@@ -15,7 +15,7 @@ import { Route as PaymentImport } from './routes/payment'
 import { Route as LoginImport } from './routes/login'
 import { Route as AccountImport } from './routes/account'
 import { Route as IndexImport } from './routes/index'
-import { Route as DetailsVehicleIdImport } from './routes/paymentcleId'
+import { Route as DetailsVehicleIdImport } from './routes/details.$vehicleId'
 
 // Create/Update Routes
 
