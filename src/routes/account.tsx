@@ -24,6 +24,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
+import { PlansSection } from '@/features/account/components/PlansSection'
 
 export const Route = createFileRoute('/account')({
   component: MyAccount,
@@ -100,172 +101,12 @@ function MyAccount() {
         </div>
 
         {/* Seção de detalhes do plano atual */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="bg-white rounded-lg shadow-sm md:shadow p-4 md:p-6"
-        >
-          <h2 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">
-            Detalhes do Plano Atual
-          </h2>
-          <div className="space-y-3 md:space-y-4">
-            <div className="flex justify-between items-center border-b pb-2">
-              <span className="text-sm md:text-base text-gray-600">
-                Plano Atual
-              </span>
-              <span className="text-sm md:text-base font-medium">
-                {userProfile.current_plan.plan_name}
-              </span>
-            </div>
-            <div className="flex justify-between items-center border-b pb-2">
-              <span className="text-sm md:text-base text-gray-600">Status</span>
-              <span className="text-sm md:text-base font-medium">
-                {userProfile.current_plan.is_active ? 'Ativo' : 'Inativo'}
-              </span>
-            </div>
-            <div className="flex justify-between items-center border-b pb-2">
-              <span className="text-sm md:text-base text-gray-600">
-                Data de Início
-              </span>
-              <span className="text-sm md:text-base font-medium">
-                {new Date(
-                  userProfile.current_plan.start_date
-                ).toLocaleDateString('pt-BR')}
-              </span>
-            </div>
-            {userProfile.current_plan.end_date && (
-              <div className="flex justify-between items-center border-b pb-2">
-                <span className="text-sm md:text-base text-gray-600">
-                  Data de Término
-                </span>
-                <span className="text-sm md:text-base font-medium">
-                  {new Date(
-                    userProfile.current_plan.end_date
-                  ).toLocaleDateString('pt-BR')}
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Seção de planos disponíveis */}
-          {subscriptionPlans?.available_plans && (
-            <div className="mt-8">
-              <h2 className="text-lg md:text-xl font-semibold mb-4">
-                Planos Disponíveis
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {subscriptionPlans?.available_plans.map((plan) => (
-                  <motion.div
-                    key={plan.id}
-                    whileHover={{ y: -5 }}
-                    className={`border rounded-lg p-4 relative ${
-                      plan.recommended
-                        ? 'border-2 border-yellow-400'
-                        : 'border-gray-200'
-                    } ${
-                      userProfile.current_plan.plan_name === plan.title
-                        ? 'bg-gray-50'
-                        : 'bg-white'
-                    }`}
-                  >
-                    {plan.recommended && (
-                      <div className="absolute -top-2 -right-2 bg-yellow-400 text-xs font-bold px-2 py-1 rounded-full flex items-center">
-                        <Star className="h-3 w-3 mr-1" />
-                        Recomendado
-                      </div>
-                    )}
-                    {userProfile.current_plan.plan_name === plan.title && (
-                      <div className="absolute -top-2 -left-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                        Seu Plano
-                      </div>
-                    )}
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-lg font-bold">{plan.title}</h3>
-                      {plan.title.includes('Profissional') && (
-                        <Crown className="h-5 w-5 text-yellow-500" />
-                      )}
-                    </div>
-                    <p className="text-sm text-gray-600 mb-3">
-                      {plan.description}
-                    </p>
-
-                    <div className="mb-4">
-                      <div className="flex items-end">
-                        <span className="text-2xl font-bold">
-                          R$ {plan.monthly_price}
-                        </span>
-                        <span className="text-sm text-gray-500 ml-1">/mês</span>
-                      </div>
-                      {plan.annual_price !== '0.00' && (
-                        <div className="text-sm text-gray-500">
-                          ou R$ {plan.annual_price} anual
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold mb-2">
-                        {plan.features_description}
-                      </h4>
-                      <ul className="space-y-2">
-                        {plan.features.map((feature, index) => (
-                          <li key={index} className="flex items-start">
-                            <Check className="h-4 w-4 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                            <span className="text-sm">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <Button
-                      variant={
-                        userProfile.current_plan.plan_name === plan.title
-                          ? 'outline'
-                          : plan.recommended
-                            ? 'default'
-                            : 'secondary'
-                      }
-                      size="sm"
-                      className="w-full"
-                      disabled={
-                        userProfile.current_plan.plan_name === plan.title
-                      }
-                      onClick={() =>
-                        navigate({
-                          to: '/payment',
-                          search: {
-                            stripe_monthly_price_id:
-                              plan.stripe_monthly_price_id,
-                          },
-                        })
-                      }
-                    >
-                      {userProfile.current_plan.plan_name === plan.title
-                        ? 'Plano Atual'
-                        : 'Assinar'}
-                    </Button>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Botões responsivos */}
-          <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-2 md:gap-4">
-            <Button variant="outline" size="sm" className="text-xs md:text-sm">
-              Atualizar Dados
-            </Button>
-            <Button
-              variant="destructive"
-              size="sm"
-              className="text-xs md:text-sm"
-            >
-              Cancelar Assinatura
-            </Button>
-          </div>
-        </motion.div>
-
+        {subscriptionPlans?.available_plans && (
+          <PlansSection
+            plans={subscriptionPlans}
+            currentPlanName={userProfile.current_plan.plan_name}
+          />
+        )}
         {/* Botão para apagar conta */}
         <Dialog>
           <div className="mt-6">
