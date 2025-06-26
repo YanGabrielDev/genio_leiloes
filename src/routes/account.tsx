@@ -101,12 +101,77 @@ function MyAccount() {
         </div>
 
         {/* Seção de detalhes do plano atual */}
-        {subscriptionPlans?.available_plans && (
-          <PlansSection
-            plans={subscriptionPlans}
-            currentPlanName={userProfile.current_plan.plan_name}
-          />
-        )}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="bg-white rounded-lg shadow-sm md:shadow p-4 md:p-6"
+        >
+          <h2 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">
+            Detalhes do Plano Atual
+          </h2>
+          <div className="space-y-3 md:space-y-4">
+            <div className="flex justify-between items-center border-b pb-2">
+              <span className="text-sm md:text-base text-gray-600">
+                Plano Atual
+              </span>
+              <span className="text-sm md:text-base font-medium">
+                {userProfile.current_plan.plan_name}
+              </span>
+            </div>
+            <div className="flex justify-between items-center border-b pb-2">
+              <span className="text-sm md:text-base text-gray-600">Status</span>
+              <span className="text-sm md:text-base font-medium">
+                {userProfile.current_plan.is_active ? 'Ativo' : 'Inativo'}
+              </span>
+            </div>
+            <div className="flex justify-between items-center border-b pb-2">
+              <span className="text-sm md:text-base text-gray-600">
+                Data de Início
+              </span>
+              <span className="text-sm md:text-base font-medium">
+                {new Date(
+                  userProfile.current_plan.start_date
+                ).toLocaleDateString('pt-BR')}
+              </span>
+            </div>
+            {userProfile.current_plan.end_date && (
+              <div className="flex justify-between items-center border-b pb-2">
+                <span className="text-sm md:text-base text-gray-600">
+                  Data de Término
+                </span>
+                <span className="text-sm md:text-base font-medium">
+                  {new Date(
+                    userProfile.current_plan.end_date
+                  ).toLocaleDateString('pt-BR')}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Seção de planos disponíveis */}
+          {/* {subscriptionPlans?.available_plans && (
+            <PlansSection
+              plans={subscriptionPlans}
+              currentPlanName={userProfile.current_plan.plan_name}
+            />
+          )} */}
+
+          {/* Botões responsivos */}
+          <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-2 md:gap-4">
+            <Button variant="outline" size="sm" className="text-xs md:text-sm">
+              Atualizar Dados
+            </Button>
+            <Button
+              variant="destructive"
+              size="sm"
+              className="text-xs md:text-sm"
+            >
+              Cancelar Assinatura
+            </Button>
+          </div>
+        </motion.div>
+
         {/* Botão para apagar conta */}
         <Dialog>
           <div className="mt-6">
