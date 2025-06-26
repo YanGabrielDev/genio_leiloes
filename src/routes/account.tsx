@@ -69,7 +69,7 @@ function MyAccount() {
         </div>
 
         {/* Grid de cards otimizado para mobile */}
-        <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-4">
+        {/* <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-4">
           <AccountCard
             title="Nome"
             value={userProfile.name}
@@ -98,7 +98,7 @@ function MyAccount() {
               />
             }
           />
-        </div>
+        </div> */}
 
         {/* Seção de detalhes do plano atual */}
         <motion.div
