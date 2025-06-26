@@ -1,52 +1,52 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { Button } from '@/components/ui/button'
-import { motion } from 'framer-motion'
-import {
-  Mail,
-  User,
-  Calendar,
-  ShieldCheck,
-  Check,
-  Crown,
-  Star,
-} from 'lucide-react'
-import { AccountCard } from '@/features/account/components/AccountCard'
-import { PlanBadge } from '@/features/account/components/PlanBadge'
-import { useUserProfile } from '@/context/user-profile.context'
-import { Template } from '@/components/Template'
-import { useDeleteUser } from '@/features/auth/hooks/use-delete-user'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
-import { PlansSection } from '@/features/account/components/PlansSection'
+// import { Button } from '@/components/ui/button'
+// import { motion } from 'framer-motion'
+// import {
+//   Mail,
+//   User,
+//   Calendar,
+//   ShieldCheck,
+//   Check,
+//   Crown,
+//   Star,
+// } from 'lucide-react'
+// import { AccountCard } from '@/features/account/components/AccountCard'
+// import { PlanBadge } from '@/features/account/components/PlanBadge'
+// import { useUserProfile } from '@/context/user-profile.context'
+// import { Template } from '@/components/Template'
+// import { useDeleteUser } from '@/features/auth/hooks/use-delete-user'
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogHeader,
+//   DialogFooter,
+//   DialogTitle,
+//   DialogTrigger,
+// } from '@/components/ui/dialog'
+// import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
+// import { PlansSection } from '@/features/account/components/PlansSection'
 
 export const Route = createFileRoute('/account')({
   component: MyAccount,
 })
 
 function MyAccount() {
-  const { userProfile } = useUserProfile()
-  const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
-    useDeleteUser()
-  const { data: subscriptionPlans } = useListSubscriptionsPlans()
-  if (!userProfile) {
-    return <div>Erro ao carregar dados da conta</div>
-  }
-  // const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const navigate = useNavigate()
-  const removeUser = async () => {
-    try {
-      await deleteUser()
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  // const { userProfile } = useUserProfile()
+  // const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
+  //   useDeleteUser()
+  // const { data: subscriptionPlans } = useListSubscriptionsPlans()
+  // if (!userProfile) {
+  //   return <div>Erro ao carregar dados da conta</div>
+  // }
+  // // const [isDialogOpen, setIsDialogOpen] = useState(false)
+  // const navigate = useNavigate()
+  // const removeUser = async () => {
+  //   try {
+  //     await deleteUser()
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   return (
     <span>asfas</span>
