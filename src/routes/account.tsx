@@ -25,37 +25,20 @@ import {
 } from '@/components/ui/dialog'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
 import { PlansSection } from '@/features/account/components/PlansSection'
-import { useEffect, useState } from 'react'
 
 export const Route = createFileRoute('/account')({
   component: MyAccount,
 })
 
 function MyAccount() {
-  // const { userProfile, isLoading } = useUserProfile()
+  const { userProfile, isLoading } = useUserProfile()
   const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
     useDeleteUser()
   const { data: subscriptionPlans } = useListSubscriptionsPlans()
-  const [userProfile, setUserProfile] = useState<any | null>(null)
-  const [isLoading, setIsLoading] = useState(true) // Adicione um estado de loading
-
-  useEffect(() => {
-    const userJson = localStorage.getItem('user')
-
-    if (userJson) {
-      try {
-        const user = JSON.parse(userJson)
-        setUserProfile(user)
-        setIsLoading(false) // Marca o carregamento como completo
-      } catch (error) {
-        console.error('Erro ao analisar dados do usuário:', error)
-      }
-    }
-  }, [])
   if (isLoading) {
     return <div>Carregando...</div> // Tela de loading enquanto os dados são carregados
   }
-  if (!userProfile || !userProfile.current_plan) {
+  if (!userProfile) {
     return <div>Erro ao carregar dados da conta</div>
   }
   // const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -85,35 +68,33 @@ function MyAccount() {
               Gerencie suas informações e plano de assinatura
             </p>
           </div>
-          {/* <PlanBadge plan={userProfile.current_plan} /> */}
+          <PlanBadge plan={userProfile.current_plan} />
         </div>
 
         {/* Grid de cards otimizado para mobile */}
         <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-4">
           <AccountCard
             title="Nome"
-            value={userProfile?.name ?? ''}
+            value={userProfile.name}
             icon={<User className="h-4 w-4 md:h-5 md:w-5 text-blue-500" />}
           />
           <AccountCard
             title="Email"
-            value={userProfile?.email ?? ''}
+            value={userProfile.email}
             icon={<Mail className="h-4 w-4 md:h-5 md:w-5 text-blue-500" />}
           />
-          {/* <AccountCard
+          <AccountCard
             title="Criação"
-            value={new Date(userProfile?.created_at).toLocaleDateString('pt-BR')}
+            value={new Date(userProfile.created_at).toLocaleDateString('pt-BR')}
             icon={<Calendar className="h-4 w-4 md:h-5 md:w-5 text-blue-500" />}
-          /> */}
+          />
           <AccountCard
             title="Verificação"
-            value={
-              userProfile?.email_verified ? 'Verificado' : 'Não verificado'
-            }
+            value={userProfile.email_verified ? 'Verificado' : 'Não verificado'}
             icon={
               <ShieldCheck
                 className={`h-4 w-4 md:h-5 md:w-5 ${
-                  userProfile?.email_verified
+                  userProfile.email_verified
                     ? 'text-green-500'
                     : 'text-yellow-500'
                 }`}
@@ -138,48 +119,46 @@ function MyAccount() {
                 Plano Atual
               </span>
               <span className="text-sm md:text-base font-medium">
-                {userProfile?.current_plan?.plan_name ?? 'Nenhum plano'}{' '}
+                {userProfile.current_plan.plan_name}
               </span>
             </div>
             <div className="flex justify-between items-center border-b pb-2">
               <span className="text-sm md:text-base text-gray-600">Status</span>
               <span className="text-sm md:text-base font-medium">
-                {userProfile?.current_plan.is_active ? 'Ativo' : 'Inativo'}
+                {userProfile.current_plan.is_active ? 'Ativo' : 'Inativo'}
               </span>
             </div>
             <div className="flex justify-between items-center border-b pb-2">
               <span className="text-sm md:text-base text-gray-600">
                 Data de Início
               </span>
-              {/* <span className="text-sm md:text-base font-medium">
+              <span className="text-sm md:text-base font-medium">
                 {new Date(
-                  userProfile?.current_plan.start_date
+                  userProfile.current_plan.start_date
                 ).toLocaleDateString('pt-BR')}
-              </span> */}
+              </span>
             </div>
-            {userProfile?.current_plan.end_date && (
+            {userProfile.current_plan.end_date && (
               <div className="flex justify-between items-center border-b pb-2">
                 <span className="text-sm md:text-base text-gray-600">
                   Data de Término
                 </span>
                 <span className="text-sm md:text-base font-medium">
-                  {userProfile?.current_plan?.end_date
-                    ? new Date(
-                        userProfile.current_plan.end_date
-                      ).toLocaleDateString('pt-BR')
-                    : 'Sem data'}
+                  {new Date(
+                    userProfile.current_plan.end_date
+                  ).toLocaleDateString('pt-BR')}
                 </span>
               </div>
             )}
           </div>
 
           {/* Seção de planos disponíveis */}
-          {/* {subscriptionPlans?.available_plans && (
+          {subscriptionPlans?.available_plans && (
             <PlansSection
               plans={subscriptionPlans}
-              currentPlanName={userProfile?.current_plan.plan_name}
+              currentPlanName={userProfile.current_plan.plan_name}
             />
-          )} */}
+          )}
 
           {/* Botões responsivos */}
           <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-2 md:gap-4">
