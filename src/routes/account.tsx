@@ -173,7 +173,7 @@ function MyAccount() {
         </motion.div>
 
         {/* Botão para apagar conta */}
-        <Dialog>
+        {/* <Dialog>
           <div className="mt-6">
             <DialogTrigger>
               <Button
@@ -185,10 +185,10 @@ function MyAccount() {
                 Apagar Conta
               </Button>
             </DialogTrigger>
-          </div>
+          </div> */}
 
-          {/* Modal de confirmação */}
-          <DialogContent>
+        {/* Modal de confirmação */}
+        {/* <DialogContent>
             <DialogHeader>
               <DialogTitle>
                 Tem certeza que deseja apagar sua conta?
@@ -212,7 +212,7 @@ function MyAccount() {
               </Button>
             </DialogFooter>
           </DialogContent>
-        </Dialog>
+        </Dialog> */}
       </motion.div>
     </Template>
   )
