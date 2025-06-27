@@ -6,6 +6,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
 import { UserProfileProvider } from './context/user-profile.context'
+import { GoogleOAuthProvider } from '@react-oauth/google'
+import { Elements } from '@stripe/react-stripe-js'
+import { VehicleFilterProvider } from './context/vehicle-filter.context'
+import { Toaster } from './components/ui/toaster'
+import { stripePromise } from '@/stripe'
 
 // Create a new router instance
 const router = createRouter({ routeTree })
@@ -17,6 +22,11 @@ declare module '@tanstack/react-router' {
     router: typeof router
   }
 }
+const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+
+if (!googleClientId) {
+  console.error('Google Client ID não configurado')
+}
 
 // Render the app
 const rootElement = document.getElementById('root')!
@@ -24,11 +34,18 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <UserProfileProvider>
+      <GoogleOAuthProvider clientId={googleClientId}>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
+          <Elements stripe={stripePromise}>
+            <VehicleFilterProvider>
+              <Toaster />
+              <UserProfileProvider>
+                <RouterProvider router={router} />
+              </UserProfileProvider>
+            </VehicleFilterProvider>
+          </Elements>
         </QueryClientProvider>
-      </UserProfileProvider>
+      </GoogleOAuthProvider>
     </StrictMode>
   )
 }
