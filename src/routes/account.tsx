@@ -1,15 +1,7 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
-import {
-  Mail,
-  User,
-  Calendar,
-  ShieldCheck,
-  Check,
-  Crown,
-  Star,
-} from 'lucide-react'
+import { Mail, User, Calendar, ShieldCheck } from 'lucide-react'
 import { AccountCard } from '@/features/account/components/AccountCard'
 import { PlanBadge } from '@/features/account/components/PlanBadge'
 import { useUserProfile } from '@/context/user-profile.context'
@@ -31,17 +23,13 @@ export const Route = createFileRoute('/account')({
 })
 
 function MyAccount() {
-  const { userProfile, isLoading } = useUserProfile()
+  // const { isLoading } = useUserProfile()
   const { mutateAsync: deleteUser, isPending: deleteUserIsPending } =
     useDeleteUser()
   const { data: subscriptionPlans } = useListSubscriptionsPlans()
-  if (isLoading) {
-    return <div>Carregando...</div> // Tela de loading enquanto os dados são carregados
-  }
-  if (!userProfile) {
-    return <div>Erro ao carregar dados da conta</div>
-  }
-  // const [isDialogOpen, setIsDialogOpen] = useState(false)
+  // if (isLoading) {
+  //   return <div>Carregando...</div> // Tela de loading enquanto os dados são carregados
+  // }
   const navigate = useNavigate()
   const removeUser = async () => {
     try {
@@ -68,36 +56,32 @@ function MyAccount() {
               Gerencie suas informações e plano de assinatura
             </p>
           </div>
-          <PlanBadge plan={userProfile.current_plan} />
+          {/* <PlanBadge plan={{ plan_name: '', is_active: false, , end_date: '' }} /> */}
         </div>
 
         {/* Grid de cards otimizado para mobile */}
         <div className="grid grid-cols-2 gap-3 md:gap-6 md:grid-cols-4">
           <AccountCard
             title="Nome"
-            value={userProfile.name}
+            value=""
             icon={<User className="h-4 w-4 md:h-5 md:w-5 text-blue-500" />}
           />
           <AccountCard
             title="Email"
-            value={userProfile.email}
+            value=""
             icon={<Mail className="h-4 w-4 md:h-5 md:w-5 text-blue-500" />}
           />
           <AccountCard
             title="Criação"
-            value={new Date(userProfile.created_at).toLocaleDateString('pt-BR')}
+            value={new Date().toLocaleDateString('pt-BR')}
             icon={<Calendar className="h-4 w-4 md:h-5 md:w-5 text-blue-500" />}
           />
           <AccountCard
             title="Verificação"
-            value={userProfile.email_verified ? 'Verificado' : 'Não verificado'}
+            value="Não verificado"
             icon={
               <ShieldCheck
-                className={`h-4 w-4 md:h-5 md:w-5 ${
-                  userProfile.email_verified
-                    ? 'text-green-500'
-                    : 'text-yellow-500'
-                }`}
+                className={`h-4 w-4 md:h-5 md:w-5 text-yellow-500`}
               />
             }
           />
@@ -119,44 +103,36 @@ function MyAccount() {
                 Plano Atual
               </span>
               <span className="text-sm md:text-base font-medium">
-                {userProfile.current_plan.plan_name}
+                Plano Básico
               </span>
             </div>
             <div className="flex justify-between items-center border-b pb-2">
               <span className="text-sm md:text-base text-gray-600">Status</span>
-              <span className="text-sm md:text-base font-medium">
-                {userProfile.current_plan.is_active ? 'Ativo' : 'Inativo'}
-              </span>
+              <span className="text-sm md:text-base font-medium">Ativo</span>
             </div>
             <div className="flex justify-between items-center border-b pb-2">
               <span className="text-sm md:text-base text-gray-600">
                 Data de Início
               </span>
               <span className="text-sm md:text-base font-medium">
-                {new Date(
-                  userProfile.current_plan.start_date
-                ).toLocaleDateString('pt-BR')}
+                01/01/2023
               </span>
             </div>
-            {userProfile.current_plan.end_date && (
-              <div className="flex justify-between items-center border-b pb-2">
-                <span className="text-sm md:text-base text-gray-600">
-                  Data de Término
-                </span>
-                <span className="text-sm md:text-base font-medium">
-                  {new Date(
-                    userProfile.current_plan.end_date
-                  ).toLocaleDateString('pt-BR')}
-                </span>
-              </div>
-            )}
+            <div className="flex justify-between items-center border-b pb-2">
+              <span className="text-sm md:text-base text-gray-600">
+                Data de Término
+              </span>
+              <span className="text-sm md:text-base font-medium">
+                31/12/2023
+              </span>
+            </div>
           </div>
 
           {/* Seção de planos disponíveis */}
           {subscriptionPlans?.available_plans && (
             <PlansSection
               plans={subscriptionPlans}
-              currentPlanName={userProfile.current_plan.plan_name}
+              currentPlanName="Plano Básico"
             />
           )}
 
@@ -183,7 +159,6 @@ function MyAccount() {
                 variant="destructive"
                 size="sm"
                 className="text-xs md:text-sm"
-                // onClick={() => setIsDialogOpen(true)}
               >
                 Apagar Conta
               </Button>
