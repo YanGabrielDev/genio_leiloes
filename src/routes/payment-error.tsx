@@ -17,6 +17,7 @@ export const Route = createFileRoute('/payment-error')({
 
 function RouteComponent() {
   const navigate = useNavigate()
+
   return (
     <Template toGo="/account">
       <motion.div

@@ -10,13 +10,27 @@ import {
 import { Button } from '@/components/ui/button'
 import { CheckCircle2 } from 'lucide-react'
 import { Template } from '@/components/Template'
-
+import { useUserStore } from '@/store/user.store'
+import userService from '@/features/auth/services/auth/auth.services'
+import { useEffect } from 'react'
 export const Route = createFileRoute('/payment-success')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
   const navigate = useNavigate()
+  const { setUserProfile } = useUserStore()
+  const updateUserProfile = async () => {
+    try {
+      const user = await userService.profileUser()
+      setUserProfile(user)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  useEffect(() => {
+    updateUserProfile()
+  }, [])
   return (
     <Template toGo="/account">
       <motion.div
