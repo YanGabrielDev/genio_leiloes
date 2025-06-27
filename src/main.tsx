@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
-import { UserProfileProvider } from './context/user-profile.context'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { Elements } from '@stripe/react-stripe-js'
 import { VehicleFilterProvider } from './context/vehicle-filter.context'
@@ -39,9 +38,7 @@ if (!rootElement.innerHTML) {
           <Elements stripe={stripePromise}>
             <VehicleFilterProvider>
               <Toaster />
-              <UserProfileProvider>
-                <RouterProvider router={router} />
-              </UserProfileProvider>
+              <RouterProvider router={router} />
             </VehicleFilterProvider>
           </Elements>
         </QueryClientProvider>
