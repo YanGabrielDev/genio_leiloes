@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useNavigate } from '@tanstack/react-router'
 
-import { useUserProfile } from '@/context/user-profile.context'
+// import { useUserProfile } from '@/context/user-profile.context'
 import { useToast } from '@/hooks/use-toast'
 import { useValidateToken } from '@/features/auth/hooks/use-validate-token'
 import usersServices from '@/features/auth/services/auth/auth.services'
@@ -46,7 +46,7 @@ export const useGoogleAuth = () => {
 
         const user = await usersServices.profileUser()
         setUserProfile(user)
-        localStorage.setItem('user', JSON.stringify(user))
+        // localStorage.setItem('user', JSON.stringify(user))
 
         toast({
           title: 'Login realizado com sucesso!',
