@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as PaymentSuccessImport } from './routes/payment-success'
+import { Route as PaymentErrorImport } from './routes/payment-error'
 import { Route as PaymentImport } from './routes/payment'
 import { Route as LoginImport } from './routes/login'
 import { Route as AccountImport } from './routes/account'
@@ -23,6 +24,12 @@ import { Route as DetailsVehicleIdImport } from './routes/details.$vehicleId'
 const PaymentSuccessRoute = PaymentSuccessImport.update({
   id: '/payment-success',
   path: '/payment-success',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PaymentErrorRoute = PaymentErrorImport.update({
+  id: '/payment-error',
+  path: '/payment-error',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -88,6 +95,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PaymentImport
       parentRoute: typeof rootRoute
     }
+    '/payment-error': {
+      id: '/payment-error'
+      path: '/payment-error'
+      fullPath: '/payment-error'
+      preLoaderRoute: typeof PaymentErrorImport
+      parentRoute: typeof rootRoute
+    }
     '/payment-success': {
       id: '/payment-success'
       path: '/payment-success'
@@ -112,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/account': typeof AccountRoute
   '/login': typeof LoginRoute
   '/payment': typeof PaymentRoute
+  '/payment-error': typeof PaymentErrorRoute
   '/payment-success': typeof PaymentSuccessRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
@@ -121,6 +136,7 @@ export interface FileRoutesByTo {
   '/account': typeof AccountRoute
   '/login': typeof LoginRoute
   '/payment': typeof PaymentRoute
+  '/payment-error': typeof PaymentErrorRoute
   '/payment-success': typeof PaymentSuccessRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
@@ -131,6 +147,7 @@ export interface FileRoutesById {
   '/account': typeof AccountRoute
   '/login': typeof LoginRoute
   '/payment': typeof PaymentRoute
+  '/payment-error': typeof PaymentErrorRoute
   '/payment-success': typeof PaymentSuccessRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
@@ -142,6 +159,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/login'
     | '/payment'
+    | '/payment-error'
     | '/payment-success'
     | '/details/$vehicleId'
   fileRoutesByTo: FileRoutesByTo
@@ -150,6 +168,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/login'
     | '/payment'
+    | '/payment-error'
     | '/payment-success'
     | '/details/$vehicleId'
   id:
@@ -158,6 +177,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/login'
     | '/payment'
+    | '/payment-error'
     | '/payment-success'
     | '/details/$vehicleId'
   fileRoutesById: FileRoutesById
@@ -168,6 +188,7 @@ export interface RootRouteChildren {
   AccountRoute: typeof AccountRoute
   LoginRoute: typeof LoginRoute
   PaymentRoute: typeof PaymentRoute
+  PaymentErrorRoute: typeof PaymentErrorRoute
   PaymentSuccessRoute: typeof PaymentSuccessRoute
   DetailsVehicleIdRoute: typeof DetailsVehicleIdRoute
 }
@@ -177,6 +198,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccountRoute: AccountRoute,
   LoginRoute: LoginRoute,
   PaymentRoute: PaymentRoute,
+  PaymentErrorRoute: PaymentErrorRoute,
   PaymentSuccessRoute: PaymentSuccessRoute,
   DetailsVehicleIdRoute: DetailsVehicleIdRoute,
 }
@@ -195,6 +217,7 @@ export const routeTree = rootRoute
         "/account",
         "/login",
         "/payment",
+        "/payment-error",
         "/payment-success",
         "/details/$vehicleId"
       ]
@@ -210,6 +233,9 @@ export const routeTree = rootRoute
     },
     "/payment": {
       "filePath": "payment.tsx"
+    },
+    "/payment-error": {
+      "filePath": "payment-error.tsx"
     },
     "/payment-success": {
       "filePath": "payment-success.tsx"
