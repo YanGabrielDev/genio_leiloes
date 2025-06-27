@@ -3,10 +3,10 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { Header } from '../Header'
 import Cookies from 'js-cookie'
-import { useUserProfile } from '@/context/user-profile.context'
 import { motion } from 'framer-motion'
 import { staggerContainer } from '@/styles/animations'
 import { ArrowLeft } from 'lucide-react'
+import { useUserStore } from '@/store/user.store'
 
 interface TemplateProps {
   children: React.ReactNode
@@ -25,7 +25,7 @@ export const Template = ({
   showFilters,
 }: TemplateProps) => {
   const navigate = useNavigate()
-  const { setUserProfile } = useUserProfile()
+  const { setUserProfile } = useUserStore()
   const onLogin = () => {
     navigate({ to: '/login' })
     Cookies.remove('accessToken')

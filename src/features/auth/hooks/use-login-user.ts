@@ -4,10 +4,10 @@ import { LoginUser } from '@/features/auth/services/auth/auth.types'
 import { useToast } from '../../../hooks/use-toast'
 import { useNavigate } from '@tanstack/react-router'
 import Cookies from 'js-cookie'
-import { useUserProfile } from '@/context/user-profile.context'
+import { useUserStore } from '@/store/user.store'
 
 export const useLoginUser = () => {
-  const { setUserProfile } = useUserProfile()
+  const { setUserProfile } = useUserStore()
   const { toast } = useToast()
   const navigate = useNavigate()
   return useMutation({

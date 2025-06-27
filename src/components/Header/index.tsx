@@ -3,9 +3,9 @@ import { DropdownFilter } from '../DropdownFilter'
 import { Input } from '../ui/input'
 import { useMemo } from 'react'
 import { AuthButton } from './auth-button'
-import { useUserProfile } from '@/context/user-profile.context'
 import { VehicleFilters } from '../VehicleFilters'
 import { useVehicleFilters } from '@/context/vehicle-filter.context'
+import { useUserStore } from '@/store/user.store'
 
 interface HeaderProps {
   cityFilterOptions?: {
@@ -18,7 +18,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
-  const { userProfile } = useUserProfile()
+  const { userProfile } = useUserStore()
   const { setVehicleFiltersState, vehicleFiltersState } = useVehicleFilters()
   const user = userProfile
     ? { name: userProfile.name, email: userProfile.email }
