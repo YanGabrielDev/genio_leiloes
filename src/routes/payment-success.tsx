@@ -1,0 +1,44 @@
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { motion } from 'framer-motion'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { CheckCircle2 } from 'lucide-react'
+
+export const Route = createFileRoute('/payment-success')({
+  component: RouteComponent,
+})
+
+function RouteComponent() {
+  const navigate = useNavigate()
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-md mx-auto"
+    >
+      <Card className="border-0 shadow-lg">
+        <CardHeader className="text-center">
+          <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
+          <CardTitle className="text-2xl font-bold">
+            Pagamento realizado
+          </CardTitle>
+          <CardDescription className="text-gray-500">
+            O seu pagamento foi realizado com sucesso.
+          </CardDescription>
+        </CardHeader>
+        <CardFooter className="flex justify-center">
+          <Button variant="outline" onClick={() => navigate({ to: '/' })}>
+            Voltar para a tela inicial
+          </Button>
+        </CardFooter>
+      </Card>
+    </motion.div>
+  )
+}
