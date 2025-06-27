@@ -9,6 +9,7 @@ import { useToast } from '@/hooks/use-toast'
 import { useValidateToken } from '@/features/auth/hooks/use-validate-token'
 import usersServices from '@/features/auth/services/auth/auth.services'
 import authServices from '@/features/auth/services/auth/auth.services'
+import { useUserStore } from '@/store/user.store'
 
 interface GoogleProfile {
   picture: string
@@ -20,9 +21,10 @@ interface GoogleProfile {
 export const useGoogleAuth = () => {
   const [googleProfile, setGoogleProfile] = useState<GoogleProfile | null>(null)
   const { mutateAsync: validateToken } = useValidateToken()
-  const { setUserProfile } = useUserProfile()
+  // const { setUserProfile } = useUserProfile()
   const { toast } = useToast()
   const navigate = useNavigate()
+  const { setUserProfile } = useUserStore()
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
