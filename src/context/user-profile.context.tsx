@@ -7,43 +7,50 @@ import {
   useEffect,
 } from 'react'
 
-// 2. Interface para o contexto do usuário
+// 1. Interface para o contexto do usuário
 interface UserProfileContextType {
   userProfile: ProfileData | null
   setUserProfile: (data: ProfileData | null) => void
   isLoading: boolean
 }
 
-// 3. Valor inicial para o contexto
+// 2. Valor inicial para o contexto
 const initialUserProfileContext: UserProfileContextType = {
   userProfile: null,
-  isLoading: false,
+  isLoading: true, // Inicializa o estado de loading como true
   setUserProfile: () => {}, // Função vazia para o valor inicial
 }
 
-// 4. Criação do Contexto
+// 3. Criação do Contexto
 export const UserProfileContext = createContext<UserProfileContextType>(
   initialUserProfileContext
 )
 
-// 5. Provedor do Contexto
+// 4. Provedor do Contexto
 interface UserProfileProviderProps {
   children: ReactNode
 }
 
 export const UserProfileProvider = ({ children }: UserProfileProviderProps) => {
   const [userProfile, setUserProfile] = useState<ProfileData | null>(null)
-  const [isLoading, setIsLoading] = useState(true) // Adicione um estado de loading
+  const [isLoading, setIsLoading] = useState(true) // Inicializa o estado de loading como true
 
   useEffect(() => {
     const userJson = localStorage.getItem('user')
 
     if (userJson) {
-      const user = JSON.parse(userJson)
-      setUserProfile(user)
-      console.log('user', user)
-
-      setTimeout(() => setIsLoading(false), 3000)
+      try {
+        const user = JSON.parse(userJson)
+        setUserProfile(user)
+        console.log('user', user)
+      } catch (error) {
+        console.error('Erro ao analisar dados do usuário:', error)
+        setUserProfile(null) // Reseta o perfil do usuário em caso de erro
+      } finally {
+        setIsLoading(false) // Define o estado de loading como false após a operação
+      }
+    } else {
+      setIsLoading(false) // Define o estado de loading como false se não houver dados do usuário
     }
   }, [])
 
@@ -55,7 +62,8 @@ export const UserProfileProvider = ({ children }: UserProfileProviderProps) => {
     </UserProfileContext.Provider>
   )
 }
-// 6. Hook customizado para consumir o Contexto
+
+// 5. Hook customizado para consumir o Contexto
 export const useUserProfile = () => {
   const context = useContext(UserProfileContext)
   if (context === undefined) {
@@ -64,6 +72,6 @@ export const useUserProfile = () => {
   return {
     userProfile: context.userProfile,
     setUserProfile: context.setUserProfile,
-    isLoading: context.isLoading, // Adicione isso
+    isLoading: context.isLoading,
   }
 }
