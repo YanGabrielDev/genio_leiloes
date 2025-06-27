@@ -88,7 +88,7 @@ function MyAccount() {
           />
           <AccountCard
             title="Criação"
-            value={new Date(userProfile.created_at).toLocaleDateString('pt-BR')}
+            value={userProfile.created_at}
             icon={<Calendar className="h-4 w-4 md:h-5 md:w-5 text-blue-500" />}
           />
           <AccountCard
@@ -136,9 +136,7 @@ function MyAccount() {
                 Data de Início
               </span>
               <span className="text-sm md:text-base font-medium">
-                {new Date(
-                  userProfile.current_plan.start_date
-                ).toLocaleDateString('pt-BR')}
+                {userProfile.current_plan.start_date}
               </span>
             </div>
             {userProfile.current_plan.end_date && (
@@ -147,9 +145,7 @@ function MyAccount() {
                   Data de Término
                 </span>
                 <span className="text-sm md:text-base font-medium">
-                  {new Date(
-                    userProfile.current_plan.end_date
-                  ).toLocaleDateString('pt-BR')}
+                  {userProfile.current_plan.end_date}
                 </span>
               </div>
             )}
