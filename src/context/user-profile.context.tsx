@@ -41,6 +41,8 @@ export const UserProfileProvider = ({ children }: UserProfileProviderProps) => {
     if (userJson) {
       const user = JSON.parse(userJson)
       setUserProfile(user)
+      console.log('user')
+
       setTimeout(() => setIsLoading(false), 3000)
     }
   }, [])
