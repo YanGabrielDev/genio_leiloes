@@ -7,25 +7,32 @@ import { useListAuction } from '@/features/home/hooks/useListAuction'
 import { auctionMock } from '@/mock/auction.mock'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
-import { useFilteredVehicles } from '@/features/home/hooks/useFilteredVehicles'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
 })
 
 function AppPage() {
-  // const [searchVehicle, setSearchVehicle] = useState('')
   const [page, setPage] = useState<number>(1)
   const { vehicleFiltersState } = useVehicleFilters()
+
+  // Desestruturando diretamente para melhorar a legibilidade
+  const {
+    priceRange: [priceMin, priceMax],
+    brandModelSearch,
+    year,
+  } = vehicleFiltersState
+
   const listAuction = useListAuction({
     page,
-    priceMax: vehicleFiltersState.priceRange[1],
-    priceMin: vehicleFiltersState.priceRange[0],
-    modelBrand: vehicleFiltersState.brandModelSearch,
-    year: vehicleFiltersState.year,
+    priceMax,
+    priceMin,
+    modelBrand: brandModelSearch, // Usando o nome desestruturado
+    year,
   })
 
   const vehicles = listAuction.data?.results
+
   const cityFilterOptions = useMemo(
     () =>
       auctionMock.map((auction) => ({
@@ -34,11 +41,6 @@ function AppPage() {
       })),
     []
   )
-
-  // const handleSearchChange = (newSearchValue: string) => {
-  //   setSearchVehicle(newSearchValue)
-  //   filterBySearch(newSearchValue)
-  // }
 
   const handlePageChange = (newPage: number) => setPage(newPage)
 
@@ -50,6 +52,7 @@ function AppPage() {
         ) : (
           vehicles?.map((item) => (
             <AuctionCard
+              key={item.id} // Garantindo que a key única está sendo usada
               year={item.ano}
               avaliacao={item.avaliacao}
               name={item.marca_modelo}

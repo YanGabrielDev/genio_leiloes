@@ -19,5 +19,8 @@ export const useListAuction = ({
         modelBrand,
         year,
       }),
+    // Adicionar staleTime e cacheTime se necessário para otimizar o cache
+    // staleTime: 1000 * 60 * 5, // Dados serão considerados 'stale' após 5 minutos
+    // cacheTime: 1000 * 60 * 10, // Dados permanecerão no cache por 10 minutos
   })
 }
