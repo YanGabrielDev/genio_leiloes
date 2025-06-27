@@ -37,16 +37,11 @@ export const UserProfileProvider = ({ children }: UserProfileProviderProps) => {
 
   useEffect(() => {
     const userJson = localStorage.getItem('user')
-    setIsLoading(false) // Marca o carregamento como completo
 
     if (userJson) {
-      try {
-        const user = JSON.parse(userJson)
-        setUserProfile(user)
-      } catch (error) {
-        console.error('Erro ao analisar dados do usuário:', error)
-        setUserProfile(null) // Reseta o perfil do usuário em caso de erro
-      }
+      const user = JSON.parse(userJson)
+      setUserProfile(user)
+      setTimeout(() => setIsLoading(false), 30000)
     }
   }, [])
 
