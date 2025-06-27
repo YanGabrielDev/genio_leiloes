@@ -45,6 +45,7 @@ export const UserProfileProvider = ({ children }: UserProfileProviderProps) => {
         setUserProfile(user)
       } catch (error) {
         console.error('Erro ao analisar dados do usuário:', error)
+        setUserProfile(null) // Reseta o perfil do usuário em caso de erro
       }
     }
   }, [])
