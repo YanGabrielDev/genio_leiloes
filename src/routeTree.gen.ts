@@ -15,6 +15,7 @@ import { Route as PaymentSuccessImport } from './routes/payment-success'
 import { Route as PaymentErrorImport } from './routes/payment-error'
 import { Route as PaymentImport } from './routes/payment'
 import { Route as LoginImport } from './routes/login'
+import { Route as AuctionAlertImport } from './routes/auction-alert'
 import { Route as AccountImport } from './routes/account'
 import { Route as IndexImport } from './routes/index'
 import { Route as DetailsVehicleIdImport } from './routes/details.$vehicleId'
@@ -42,6 +43,12 @@ const PaymentRoute = PaymentImport.update({
 const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuctionAlertRoute = AuctionAlertImport.update({
+  id: '/auction-alert',
+  path: '/auction-alert',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -79,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/account'
       fullPath: '/account'
       preLoaderRoute: typeof AccountImport
+      parentRoute: typeof rootRoute
+    }
+    '/auction-alert': {
+      id: '/auction-alert'
+      path: '/auction-alert'
+      fullPath: '/auction-alert'
+      preLoaderRoute: typeof AuctionAlertImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -124,6 +138,7 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
+  '/auction-alert': typeof AuctionAlertRoute
   '/login': typeof LoginRoute
   '/payment': typeof PaymentRoute
   '/payment-error': typeof PaymentErrorRoute
@@ -134,6 +149,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
+  '/auction-alert': typeof AuctionAlertRoute
   '/login': typeof LoginRoute
   '/payment': typeof PaymentRoute
   '/payment-error': typeof PaymentErrorRoute
@@ -145,6 +161,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
+  '/auction-alert': typeof AuctionAlertRoute
   '/login': typeof LoginRoute
   '/payment': typeof PaymentRoute
   '/payment-error': typeof PaymentErrorRoute
@@ -157,6 +174,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/account'
+    | '/auction-alert'
     | '/login'
     | '/payment'
     | '/payment-error'
@@ -166,6 +184,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/account'
+    | '/auction-alert'
     | '/login'
     | '/payment'
     | '/payment-error'
@@ -175,6 +194,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/account'
+    | '/auction-alert'
     | '/login'
     | '/payment'
     | '/payment-error'
@@ -186,6 +206,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccountRoute: typeof AccountRoute
+  AuctionAlertRoute: typeof AuctionAlertRoute
   LoginRoute: typeof LoginRoute
   PaymentRoute: typeof PaymentRoute
   PaymentErrorRoute: typeof PaymentErrorRoute
@@ -196,6 +217,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountRoute: AccountRoute,
+  AuctionAlertRoute: AuctionAlertRoute,
   LoginRoute: LoginRoute,
   PaymentRoute: PaymentRoute,
   PaymentErrorRoute: PaymentErrorRoute,
@@ -215,6 +237,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/account",
+        "/auction-alert",
         "/login",
         "/payment",
         "/payment-error",
@@ -227,6 +250,9 @@ export const routeTree = rootRoute
     },
     "/account": {
       "filePath": "account.tsx"
+    },
+    "/auction-alert": {
+      "filePath": "auction-alert.tsx"
     },
     "/login": {
       "filePath": "login.tsx"

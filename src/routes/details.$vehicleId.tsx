@@ -95,7 +95,7 @@ function VehicleDetailsPage() {
   if (!vehicle) {
     return (
       <Template>
-        <div className="container mx-auto p-4 text-center">
+        <div className="container mx-auto p-8 text-center">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
