@@ -28,6 +28,10 @@ export const AuthButton = ({ user, onLogin, onLogout }: AuthButtonProps) => {
   const goToMyAccount = () => {
     navigate({ to: '/account' })
   }
+
+  const goToAlert = () => {
+    navigate({ to: '/auction-alert' })
+  }
   return (
     <motion.div
       initial="hidden"
@@ -55,6 +59,9 @@ export const AuthButton = ({ user, onLogin, onLogout }: AuthButtonProps) => {
               onClick={goToMyAccount}
             >
               Minha conta
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer" onClick={goToAlert}>
+              Criar Alerta
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer" onClick={onLogout}>
               Sair

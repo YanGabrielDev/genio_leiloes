@@ -76,7 +76,7 @@ function RouteComponent() {
         className="space-y-8 bg-white rounded-lg p-4"
       >
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white">
-          Criar Alerta Personalizado para Este Veículo
+          Criar Alerta Personalizado para um veículo
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
