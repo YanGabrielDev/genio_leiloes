@@ -253,12 +253,7 @@ function RouteComponent() {
             whileTap={{ scale: 0.98 }}
             className="flex justify-center"
           >
-            <Button
-              type="submit"
-              className="w-full md:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
-            >
-              Criar Alerta
-            </Button>
+            <Button type="submit">Criar Alerta</Button>
           </motion.div>
         </form>
       </motion.div>
