@@ -33,11 +33,11 @@ export function CreateAlertPage() {
           </Button>
         </Link>
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
-          Criar Novo Alerta
+          Criar Alerta Personalizado
         </h1>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+      <div className="bg-white dark:bg-gray-800">
         <AlertForm onSubmit={handleSubmit} isSubmitting={isCreating} />
       </div>
     </div>

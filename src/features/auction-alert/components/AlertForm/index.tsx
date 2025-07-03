@@ -79,9 +79,6 @@ export const AlertForm = ({
       transition={{ duration: 0.5 }}
       className="space-y-8 bg-white dark:bg-gray-800 rounded-lg p-4 shadow"
     >
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white">
-        Criar Alerta Personalizado
-      </h2>
       <FormProvider {...methods}>
         {/* <Form {...methods}> */}
         <form

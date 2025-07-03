@@ -61,7 +61,7 @@ export const AuthButton = ({ user, onLogin, onLogout }: AuthButtonProps) => {
               Minha conta
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer" onClick={goToAlert}>
-              Criar Alerta
+              Meus Alerta
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer" onClick={onLogout}>
               Sair
