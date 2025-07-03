@@ -117,20 +117,29 @@ export const AlertForm = ({
                           Antes do valor X ser atingido
                         </Label>
                       </div>
-                      <FormItem className="flex items-center space-x-2">
+                      <div className="flex items-start space-x-2">
                         <FormControl>
                           <RadioGroupItem value="exato" />
                         </FormControl>
-                        <FormLabel>
+                        <Label
+                          htmlFor="exato"
+                          className="font-normal cursor-pointer leading-tight"
+                        >
                           No exato momento em que o valor X for atingido
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-2">
+                        </Label>
+                      </div>
+
+                      <div className="flex items-start space-x-2">
                         <FormControl>
                           <RadioGroupItem value="depois" />
                         </FormControl>
-                        <FormLabel>Após o valor X ser ultrapassado</FormLabel>
-                      </FormItem>
+                        <Label
+                          htmlFor="depois"
+                          className="font-normal cursor-pointer leading-tight"
+                        >
+                          Após o valor X ser ultrapassado{' '}
+                        </Label>
+                      </div>
                     </RadioGroup>
                   </FormControl>
                   <FormMessage />
