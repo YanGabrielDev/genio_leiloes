@@ -17,18 +17,18 @@ export const ConditionRadioGroup = ({
     className="grid grid-cols-1 md:grid-cols-3 gap-4"
   >
     <div className="flex items-center space-x-2">
-      <RadioGroupItem value="before" id="before" />
-      <Label htmlFor="before">Antes do valor X ser atingido</Label>
+      <RadioGroupItem value="antes" id="antes" />
+      <Label htmlFor="antes">Antes do valor X ser atingido</Label>
     </div>
     <div className="flex items-center space-x-2">
-      <RadioGroupItem value="exact" id="exact" />
-      <Label htmlFor="exact">
+      <RadioGroupItem value="exato" id="exato" />
+      <Label htmlFor="exato">
         No exato momento em que o valor X for atingido
       </Label>
     </div>
     <div className="flex items-center space-x-2">
-      <RadioGroupItem value="after" id="after" />
-      <Label htmlFor="after">Após o valor X ser ultrapassado</Label>
+      <RadioGroupItem value="depois" id="depois" />
+      <Label htmlFor="depois">Após o valor X ser ultrapassado</Label>
     </div>
   </RadioGroup>
 )
