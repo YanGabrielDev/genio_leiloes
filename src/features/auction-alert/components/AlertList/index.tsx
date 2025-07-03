@@ -45,7 +45,7 @@ export const AlertList = ({ alerts, onDelete, isLoading }: AlertListProps) => {
   console.log({ deletingIds })
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 px-6 py-4">
       <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
         Meus Alertas
       </h3>
