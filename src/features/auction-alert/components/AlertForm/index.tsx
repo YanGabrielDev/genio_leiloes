@@ -106,15 +106,24 @@ export const AlertForm = ({
                       defaultValue={field.value}
                       className="grid grid-cols-1 md:grid-cols-3 gap-4"
                     >
-                      <FormItem className="flex items-center space-x-2">
+                      <div className="flex items-start space-x-2">
                         <FormControl>
-                          <RadioGroupItem value="antes" />
+                          <RadioGroupItem
+                            value="antes"
+                            id="antes"
+                            className="mt-1"
+                          />
                         </FormControl>
-                        <FormLabel>Antes do valor X ser atingido</FormLabel>
-                      </FormItem>
+                        <Label
+                          htmlFor="antes"
+                          className="font-normal cursor-pointer leading-tight"
+                        >
+                          Antes do valor X ser atingido
+                        </Label>
+                      </div>
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
-                          <RadioGroupItem value="exato" />
+                          <RadioGroupItem value="exato" className="mt-1" />
                         </FormControl>
                         <FormLabel>
                           No exato momento em que o valor X for atingido
@@ -122,7 +131,7 @@ export const AlertForm = ({
                       </FormItem>
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
-                          <RadioGroupItem value="depois" />
+                          <RadioGroupItem value="depois" className="mt-1" />
                         </FormControl>
                         <FormLabel>Após o valor X ser ultrapassado</FormLabel>
                       </FormItem>
@@ -304,6 +313,7 @@ export const AlertForm = ({
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
+                        className="mt-1"
                       />
                     </FormControl>
                     <FormLabel>
@@ -322,6 +332,7 @@ export const AlertForm = ({
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
+                        className="mt-1"
                       />
                     </FormControl>
                     <FormLabel>Enviar apenas uma vez</FormLabel>
