@@ -3,10 +3,10 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
-import { ConditionRadioGroup } from './ConditionRadioGroup'
-import { ColorSelect } from './ColorSelect'
-import { YearRangeInput } from './YearRangeInput'
-import { AlertFormData } from '../types'
+import { ConditionRadioGroup } from '../ConditionRadioGroup'
+import { ColorSelect } from '../ColorSelect'
+import { YearRangeInput } from '../YearRangeInput'
+import { AlertFormData } from '../../types'
 
 interface AlertFormProps {
   formData: AlertFormData

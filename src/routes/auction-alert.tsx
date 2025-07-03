@@ -5,6 +5,7 @@ import { useAlertForm } from '@/features/auction-alert/hooks/use-alert-form'
 import { useListAlerts } from '@/features/auction-alert/hooks/use-list-alerts'
 import { useCreateAlert } from '@/features/auction-alert/hooks/use-create-alert'
 import { AlertForm } from '@/features/auction-alert/components/AlertForm'
+import { useDeleteAlert } from '@/features/auction-alert/hooks/use-delete-alert '
 
 export const Route = createFileRoute('/auction-alert')({
   component: RouteComponent,
@@ -20,7 +21,7 @@ function RouteComponent() {
   } = useAlertForm()
   const { data: alerts = [], isLoading: isLoadingAlerts } = useListAlerts()
   const { mutate: createAlert, isPending: isCreating } = useCreateAlert()
-  // const { mutate: deleteAlert } = useDeleteAlert();
+  const { mutate: deleteAlert } = useDeleteAlert()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -44,7 +45,7 @@ function RouteComponent() {
         <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow">
           <AlertList
             alerts={alerts}
-            onDelete={() => console.log('afas')}
+            onDelete={deleteAlert}
             isLoading={isLoadingAlerts}
           />
         </div>

@@ -1,6 +1,6 @@
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { AlertCondition } from '../types'
+import { AlertCondition } from '../../types'
 
 interface ConditionRadioGroupProps {
   value: AlertCondition

@@ -3,7 +3,7 @@ import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Alert as AlertComponent } from '@/components/ui/alert'
-import { Alert } from '../services/alert'
+import { Alert } from '../../services/alert'
 
 interface AlertListProps {
   alerts: Alert[]
