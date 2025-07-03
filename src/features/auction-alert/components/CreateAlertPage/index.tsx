@@ -37,7 +37,7 @@ export function CreateAlertPage() {
         </h1>
       </div>
 
-      <div className="bg-white dark:bg-gray-800">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4">
         <AlertForm onSubmit={handleSubmit} isSubmitting={isCreating} />
       </div>
     </div>
