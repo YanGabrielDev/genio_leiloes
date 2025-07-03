@@ -309,6 +309,7 @@ export const AlertForm = ({
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
+                        className="mt-2"
                       />
                     </FormControl>
                     <FormLabel>
@@ -327,6 +328,7 @@ export const AlertForm = ({
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
+                        className="mt-2"
                       />
                     </FormControl>
                     <FormLabel>Enviar apenas uma vez</FormLabel>
