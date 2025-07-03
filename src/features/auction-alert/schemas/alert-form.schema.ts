@@ -5,10 +5,8 @@ const currencyRegex = /^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$/
 export const alertFormSchema = z
   .object({
     momento_alerta: z.enum(['antes', 'exato', 'depois']),
-    valor_referencia: z
-      .string()
-      .min(1, 'Valor é obrigatório')
-      .refine((val) => currencyRegex.test(val), 'Valor monetário inválido'),
+    valor_referencia: z.string().min(1, 'Valor é obrigatório'),
+    //   .refine((val) => currencyRegex.test(val), 'Valor monetário inválido'),
     marca_modelo: z.string().min(3, 'Mínimo 3 caracteres'),
     ano_de: z
       .string()
