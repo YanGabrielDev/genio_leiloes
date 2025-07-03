@@ -25,7 +25,7 @@ export function CreateAlertPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div>
       <div className="flex items-center gap-4 mb-8">
         <Link to="/auction-alert">
           <Button variant="outline" size="icon">
