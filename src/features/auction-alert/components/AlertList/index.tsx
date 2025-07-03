@@ -5,10 +5,11 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useState } from 'react'
 import { Loader2 } from 'lucide-react'
 import { Alert } from '../../services/alert'
+import { UseMutateFunction } from '@tanstack/react-query'
 
 interface AlertListProps {
   alerts: Alert[]
-  onDelete: (id: number) => Promise<void> // Alterado para retornar Promise
+  onDelete: UseMutateFunction<void, Error, number, unknown>
   isLoading?: boolean
 }
 
