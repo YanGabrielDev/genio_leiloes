@@ -8,7 +8,7 @@ import { Link } from '@tanstack/react-router'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useDeleteAlert } from '@/features/auction-alert/hooks/use-delete-alert '
 
-export const Route = createFileRoute('/auction-alert')({
+export const Route = createFileRoute('/auction-alert/')({
   component: RouteComponent,
 })
 
@@ -24,7 +24,7 @@ function RouteComponent() {
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
             Meus Alertas
           </h1>
-          <Link to="/auction-alert/create">
+          <Link to="/auction-alert/create-alert">
             <Button className="gap-2">
               <Plus className="h-4 w-4" />
               Criar Novo Alerta
@@ -61,7 +61,7 @@ function RouteComponent() {
                   Comece criando um novo alerta de leilão.
                 </p>
                 <div className="mt-6">
-                  <Link to="/auction-alert/create">
+                  <Link to="/auction-alert/create-alert">
                     <Button>
                       <Plus className="-ml-0.5 mr-1.5 h-5 w-5" />
                       Novo Alerta
