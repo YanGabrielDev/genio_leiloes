@@ -46,7 +46,7 @@ function AppPage() {
 
   return (
     <Template showFilters cityFilterOptions={cityFilterOptions}>
-      <div className="px-4 py-8 grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-12 gap-4">
         {listAuction.isLoading ? (
           <SkeletonLoaderGrid count={24} />
         ) : (
