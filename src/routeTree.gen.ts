@@ -72,7 +72,7 @@ const DetailsVehicleIdRoute = DetailsVehicleIdImport.update({
 } as any)
 
 const AuctionAlertCreateRoute = AuctionAlertCreateImport.update({
-  id: '/create',
+  id: '/auction-alert/create',
   path: '/auction-alert/create',
   getParentRoute: () => AuctionAlertRoute,
 } as any)
