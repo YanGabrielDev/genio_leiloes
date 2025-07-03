@@ -10,13 +10,13 @@ import Cookies from 'js-cookie'
 export const apiUrl = import.meta.env.VITE_API_URL ?? ''
 const cookies = Cookies
 
-const token = cookies.get('accessToken')
-
 /**
  * Lista todos os alertas do usuário autenticado.
  * @returns {Promise<Alert[]>} Uma promessa que resolve para uma lista de alertas.
  */
 const listAlerts = async (): Promise<Alert[]> => {
+  const token = cookies.get('accessToken')
+
   const response = await api.get(`${apiUrl}/alertas/`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -32,6 +32,8 @@ const listAlerts = async (): Promise<Alert[]> => {
  * @returns {Promise<Alert>} Uma promessa que resolve para o alerta recém-criado.
  */
 const createAlert = async (data: CreateAlertPayload): Promise<Alert> => {
+  const token = cookies.get('accessToken')
+
   const response = await api.post(`${apiUrl}/alertas/`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -49,6 +51,8 @@ const createAlert = async (data: CreateAlertPayload): Promise<Alert> => {
 const getAlertDetails = async ({
   id,
 }: GetAlertDetailsParams): Promise<Alert> => {
+  const token = cookies.get('accessToken')
+
   const response = await api.get(`${apiUrl}/alertas/${id}/`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -64,6 +68,8 @@ const getAlertDetails = async ({
  * @returns {Promise<Alert>} Uma promessa que resolve para o alerta atualizado.
  */
 const updateAlert = async ({ id, data }: UpdateAlertParams): Promise<Alert> => {
+  const token = cookies.get('accessToken')
+
   const response = await api.put(`${apiUrl}/alertas/${id}/`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -79,6 +85,8 @@ const updateAlert = async ({ id, data }: UpdateAlertParams): Promise<Alert> => {
  * @returns {Promise<void>} Uma promessa que resolve quando o alerta é deletado com sucesso.
  */
 const deleteAlert = async ({ id }: DeleteAlertParams): Promise<void> => {
+  const token = cookies.get('accessToken')
+
   await api.delete(`${apiUrl}/alertas/${id}/`, {
     headers: {
       Authorization: `Bearer ${token}`,

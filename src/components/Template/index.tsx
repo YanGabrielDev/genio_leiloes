@@ -34,8 +34,8 @@ export const Template = ({
   const onLogout = () => {
     Cookies.remove('accessToken')
     localStorage.clear()
-    setUserProfile(null)
     window.location.href = '/'
+    setUserProfile(null)
   }
   return (
     <main className="bg-gray-100 flex flex-col min-h-screen">

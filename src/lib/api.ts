@@ -1,4 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
+import Cookies from 'js-cookie'
+// Adicione esta linha para importar sua função de logout
 
 export const api: AxiosInstance = axios.create({
   // headers: {
@@ -26,6 +28,13 @@ api.interceptors.response.use(
 
     if (response) {
       console.error('Erro de resposta:', response.data)
+
+      // Adicione esta verificação para erro 401
+      if (response.status === 401) {
+        Cookies.remove('accessToken')
+        localStorage.clear()
+        window.location.href = '/'
+      }
     } else if (request) {
       console.error('Erro de requisição:', request)
     } else {
