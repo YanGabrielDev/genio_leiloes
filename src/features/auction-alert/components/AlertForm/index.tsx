@@ -84,13 +84,7 @@ export const AlertForm = ({
       </h2>
       <FormProvider {...methods}>
         <Form {...methods}>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              methods.handleSubmit(onSubmit)(e)
-            }}
-            className="space-y-6"
-          >
+          <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-4">
               <FormField
                 control={methods.control}
