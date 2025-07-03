@@ -73,7 +73,7 @@ const DetailsVehicleIdRoute = DetailsVehicleIdImport.update({
 
 const AuctionAlertCreateRoute = AuctionAlertCreateImport.update({
   id: '/create',
-  path: '/create',
+  path: 'auction-alert/create',
   getParentRoute: () => AuctionAlertRoute,
 } as any)
 
@@ -158,7 +158,7 @@ const AuctionAlertRouteChildren: AuctionAlertRouteChildren = {
 }
 
 const AuctionAlertRouteWithChildren = AuctionAlertRoute._addFileChildren(
-  AuctionAlertRouteChildren,
+  AuctionAlertRouteChildren
 )
 
 export interface FileRoutesByFullPath {
