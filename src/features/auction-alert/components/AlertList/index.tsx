@@ -42,6 +42,7 @@ export const AlertList = ({ alerts, onDelete, isLoading }: AlertListProps) => {
       </div>
     )
   }
+  console.log({ deletingIds })
 
   return (
     <div className="space-y-4">
