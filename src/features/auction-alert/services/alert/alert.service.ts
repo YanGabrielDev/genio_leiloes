@@ -79,7 +79,12 @@ const updateAlert = async ({ id, data }: UpdateAlertParams): Promise<Alert> => {
  * @returns {Promise<void>} Uma promessa que resolve quando o alerta é deletado com sucesso.
  */
 const deleteAlert = async ({ id }: DeleteAlertParams): Promise<void> => {
-  await api.delete(`${apiUrl}/alertas/${id}/`)
+  await api.delete(`${apiUrl}/alertas/${id}/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  })
 }
 
 export default {
