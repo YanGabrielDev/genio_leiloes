@@ -2,22 +2,28 @@ import { Button } from '@/components/ui/button'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Alert as AlertComponent } from '@/components/ui/alert'
+import { useState } from 'react'
+import { Loader2 } from 'lucide-react'
 import { Alert } from '../../services/alert'
 
 interface AlertListProps {
   alerts: Alert[]
-  onDelete: (id: number) => void
+  onDelete: (id: number) => Promise<void> // Alterado para retornar Promise
   isLoading?: boolean
-  error?: Error | null
 }
 
-export const AlertList = ({
-  alerts,
-  onDelete,
-  isLoading,
-  error,
-}: AlertListProps) => {
+export const AlertList = ({ alerts, onDelete, isLoading }: AlertListProps) => {
+  const [deletingIds, setDeletingIds] = useState<number[]>([])
+
+  const handleDelete = async (id: number) => {
+    setDeletingIds((prev) => [...prev, id])
+    try {
+      await onDelete(id)
+    } finally {
+      setDeletingIds((prev) => prev.filter((item) => item !== id))
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -25,14 +31,6 @@ export const AlertList = ({
           <Skeleton key={i} className="h-24 w-full rounded-lg" />
         ))}
       </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <AlertComponent variant="destructive">
-        Falha ao carregar alertas: {error.message}
-      </AlertComponent>
     )
   }
 
@@ -64,12 +62,6 @@ export const AlertList = ({
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   Cor: {alert.cor} | Contato: {alert.contato}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {alert.alerta_global
-                    ? 'Todos veículos'
-                    : 'Veículo específico'}{' '}
-                  | {alert.enviar_uma_vez ? 'Enviar uma vez' : 'Enviar sempre'}
-                </p>
                 <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                   Criado em:{' '}
                   {format(new Date(alert.criado_em), 'PPpp', { locale: ptBR })}
@@ -78,10 +70,17 @@ export const AlertList = ({
               <Button
                 variant="destructive"
                 size="sm"
-                onClick={() => onDelete(alert.id)}
-                disabled={isLoading}
+                onClick={() => handleDelete(alert.id)}
+                disabled={deletingIds.includes(alert.id)}
               >
-                Excluir
+                {deletingIds.includes(alert.id) ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Excluindo...
+                  </>
+                ) : (
+                  'Excluir'
+                )}
               </Button>
             </div>
           </div>
