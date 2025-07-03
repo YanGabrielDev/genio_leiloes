@@ -19,6 +19,7 @@ import { Route as AuctionAlertImport } from './routes/auction-alert'
 import { Route as AccountImport } from './routes/account'
 import { Route as IndexImport } from './routes/index'
 import { Route as DetailsVehicleIdImport } from './routes/details.$vehicleId'
+import { Route as AuctionAlertCreateImport } from './routes/auction-alert.create'
 
 // Create/Update Routes
 
@@ -68,6 +69,12 @@ const DetailsVehicleIdRoute = DetailsVehicleIdImport.update({
   id: '/details/$vehicleId',
   path: '/details/$vehicleId',
   getParentRoute: () => rootRoute,
+} as any)
+
+const AuctionAlertCreateRoute = AuctionAlertCreateImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AuctionAlertRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -123,6 +130,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PaymentSuccessImport
       parentRoute: typeof rootRoute
     }
+    '/auction-alert/create': {
+      id: '/auction-alert/create'
+      path: '/create'
+      fullPath: '/auction-alert/create'
+      preLoaderRoute: typeof AuctionAlertCreateImport
+      parentRoute: typeof AuctionAlertImport
+    }
     '/details/$vehicleId': {
       id: '/details/$vehicleId'
       path: '/details/$vehicleId'
@@ -135,25 +149,39 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface AuctionAlertRouteChildren {
+  AuctionAlertCreateRoute: typeof AuctionAlertCreateRoute
+}
+
+const AuctionAlertRouteChildren: AuctionAlertRouteChildren = {
+  AuctionAlertCreateRoute: AuctionAlertCreateRoute,
+}
+
+const AuctionAlertRouteWithChildren = AuctionAlertRoute._addFileChildren(
+  AuctionAlertRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
-  '/auction-alert': typeof AuctionAlertRoute
+  '/auction-alert': typeof AuctionAlertRouteWithChildren
   '/login': typeof LoginRoute
   '/payment': typeof PaymentRoute
   '/payment-error': typeof PaymentErrorRoute
   '/payment-success': typeof PaymentSuccessRoute
+  '/auction-alert/create': typeof AuctionAlertCreateRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
-  '/auction-alert': typeof AuctionAlertRoute
+  '/auction-alert': typeof AuctionAlertRouteWithChildren
   '/login': typeof LoginRoute
   '/payment': typeof PaymentRoute
   '/payment-error': typeof PaymentErrorRoute
   '/payment-success': typeof PaymentSuccessRoute
+  '/auction-alert/create': typeof AuctionAlertCreateRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
 
@@ -161,11 +189,12 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
-  '/auction-alert': typeof AuctionAlertRoute
+  '/auction-alert': typeof AuctionAlertRouteWithChildren
   '/login': typeof LoginRoute
   '/payment': typeof PaymentRoute
   '/payment-error': typeof PaymentErrorRoute
   '/payment-success': typeof PaymentSuccessRoute
+  '/auction-alert/create': typeof AuctionAlertCreateRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
 }
 
@@ -179,6 +208,7 @@ export interface FileRouteTypes {
     | '/payment'
     | '/payment-error'
     | '/payment-success'
+    | '/auction-alert/create'
     | '/details/$vehicleId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -189,6 +219,7 @@ export interface FileRouteTypes {
     | '/payment'
     | '/payment-error'
     | '/payment-success'
+    | '/auction-alert/create'
     | '/details/$vehicleId'
   id:
     | '__root__'
@@ -199,6 +230,7 @@ export interface FileRouteTypes {
     | '/payment'
     | '/payment-error'
     | '/payment-success'
+    | '/auction-alert/create'
     | '/details/$vehicleId'
   fileRoutesById: FileRoutesById
 }
@@ -206,7 +238,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccountRoute: typeof AccountRoute
-  AuctionAlertRoute: typeof AuctionAlertRoute
+  AuctionAlertRoute: typeof AuctionAlertRouteWithChildren
   LoginRoute: typeof LoginRoute
   PaymentRoute: typeof PaymentRoute
   PaymentErrorRoute: typeof PaymentErrorRoute
@@ -217,7 +249,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountRoute: AccountRoute,
-  AuctionAlertRoute: AuctionAlertRoute,
+  AuctionAlertRoute: AuctionAlertRouteWithChildren,
   LoginRoute: LoginRoute,
   PaymentRoute: PaymentRoute,
   PaymentErrorRoute: PaymentErrorRoute,
@@ -252,7 +284,10 @@ export const routeTree = rootRoute
       "filePath": "account.tsx"
     },
     "/auction-alert": {
-      "filePath": "auction-alert.tsx"
+      "filePath": "auction-alert.tsx",
+      "children": [
+        "/auction-alert/create"
+      ]
     },
     "/login": {
       "filePath": "login.tsx"
@@ -265,6 +300,10 @@ export const routeTree = rootRoute
     },
     "/payment-success": {
       "filePath": "payment-success.tsx"
+    },
+    "/auction-alert/create": {
+      "filePath": "auction-alert.create.tsx",
+      "parent": "/auction-alert"
     },
     "/details/$vehicleId": {
       "filePath": "details.$vehicleId.tsx"
