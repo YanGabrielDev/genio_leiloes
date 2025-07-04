@@ -14,7 +14,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
 import { PlansSection } from '@/features/account/components/PlansSection'
 import { useUserStore } from '@/store/user.store'
 
@@ -28,7 +27,10 @@ function MyAccount() {
     useDeleteUser()
   const { userProfile } = useUserStore()
 
-  const { data: subscriptionPlans } = useListSubscriptionsPlans()
+  // const { data: subscriptionPlans } = useListSubscriptionsPlans()
+  const { plan } = useUserStore()
+
+  const subscriptionPlans = plan
   // if (isLoading) {
   //   return <div>Carregando...</div> // Tela de loading enquanto os dados são carregados
   // }

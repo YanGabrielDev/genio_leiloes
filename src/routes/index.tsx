@@ -6,7 +6,9 @@ import { useVehicleFilters } from '@/context/vehicle-filter.context'
 import { useListAuction } from '@/features/home/hooks/useListAuction'
 import { auctionMock } from '@/mock/auction.mock'
 import { createFileRoute } from '@tanstack/react-router'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
+import { useUserStore } from '@/store/user.store'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -15,6 +17,9 @@ export const Route = createFileRoute('/')({
 function AppPage() {
   const [page, setPage] = useState<number>(1)
   const { vehicleFiltersState } = useVehicleFilters()
+  const { data: subscriptionPlans, isLoading: isLoadingSubscriptionPlans } =
+    useListSubscriptionsPlans()
+  const { setUserPlan } = useUserStore()
 
   // Desestruturando diretamente para melhorar a legibilidade
   const {
@@ -43,7 +48,9 @@ function AppPage() {
   )
 
   const handlePageChange = (newPage: number) => setPage(newPage)
-
+  useEffect(() => {
+    if (subscriptionPlans) setUserPlan(subscriptionPlans)
+  }, [isLoadingSubscriptionPlans, subscriptionPlans])
   return (
     <Template showFilters cityFilterOptions={cityFilterOptions}>
       <div className="grid grid-cols-12 gap-4">
