@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { auctionBaseUrl } from '@/constant/configs'
 
 interface UseListCurrentVehicleStatus {
-  dataList: (string | null)[]
+  dataList?: (string | null)[]
 }
 
 export const useListCurrentVehicleStatus = ({

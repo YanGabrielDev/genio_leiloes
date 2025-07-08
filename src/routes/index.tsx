@@ -9,6 +9,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useMemo, useState } from 'react'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
 import { useUserStore } from '@/store/user.store'
+import { useListCurrentVehicleStatus } from '@/features/home/hooks/use-check-current-vehicle-status'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -36,6 +37,15 @@ function AppPage() {
     year,
   })
   const vehicles = listAuction.data?.results
+  const data = useListCurrentVehicleStatus({
+    dataList: vehicles?.map((vehicle) => {
+      if (!vehicle) return null
+      const params = new URLSearchParams(vehicle.link_lance_atual)
+      const vehicleId = params.get('data')
+      return vehicleId
+    }),
+  })
+  console.log({ data })
 
   const cityFilterOptions = useMemo(
     () =>
