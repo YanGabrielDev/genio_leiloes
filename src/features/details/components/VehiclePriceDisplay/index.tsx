@@ -19,7 +19,7 @@ export function VehiclePriceDisplay({
       transition={{ delay: 0.4 }}
     >
       <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
-        <p className="text-sm text-muted-foreground">Valor de avaliação</p>
+        <p className="text-sm text-muted-foreground">Último lance realizado</p>
         <p className="text-3xl font-bold text-primary">
           R${' '}
           {parseFloat(evaluationValue).toLocaleString('pt-BR', {

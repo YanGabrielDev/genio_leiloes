@@ -38,11 +38,7 @@ const analysis = async (data: Analysis): Promise<any> => {
 }
 
 const listCurrentVehicleStatus = async (url: string): Promise<any> => {
-  const response = await api.get(url, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0',
-    },
-  })
+  const response = await api.get(url)
   return response?.data
 }
 

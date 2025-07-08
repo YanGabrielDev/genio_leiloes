@@ -9,7 +9,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useMemo, useState } from 'react'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
 import { useUserStore } from '@/store/user.store'
-import { useListCurrentVehicleStatus } from '@/features/home/hooks/use-check-current-vehicle-status'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -38,19 +37,6 @@ function AppPage() {
   })
   const vehicles = listAuction.data?.results
 
-  const generateVehicleIds = () => {
-    if (!vehicles) return []
-    const ids = vehicles.map((vehicle) => {
-      const params = new URLSearchParams(vehicle.link_lance_atual)
-      const vehicleId = params.get('data')
-      return vehicleId
-    })
-    return ids
-  }
-  const vehicleIds = generateVehicleIds()
-  const data = useListCurrentVehicleStatus({ dataList: vehicleIds })
-  console.log({ data })
-
   const cityFilterOptions = useMemo(
     () =>
       auctionMock.map((auction) => ({
@@ -74,7 +60,7 @@ function AppPage() {
             <AuctionCard
               key={item.id} // Garantindo que a key única está sendo usada
               year={item.ano}
-              avaliacao={item.avaliacao}
+              avaliacao={item.avaliacao_atualizada ?? item.avaliacao}
               name={item.marca_modelo}
               type={item.tipo}
               imagens={item.imagens}

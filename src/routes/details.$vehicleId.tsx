@@ -155,7 +155,9 @@ function VehicleDetailsPage() {
             </motion.div>
           </div>
 
-          <VehiclePriceDisplay evaluationValue={vehicle.avaliacao} />
+          <VehiclePriceDisplay
+            evaluationValue={vehicle.avaliacao_atualizada ?? vehicle.avaliacao}
+          />
 
           <VehicleInfoCards
             year={vehicle.ano}
@@ -167,7 +169,7 @@ function VehicleDetailsPage() {
           <VehicleActions
             vehicleData={{
               ano: vehicle.ano,
-              avaliacao: vehicle.avaliacao,
+              avaliacao: vehicle.avaliacao_atualizada ?? vehicle.avaliacao,
               imagens: vehicle.imagens,
               marca_modelo: vehicle.marca_modelo,
             }}

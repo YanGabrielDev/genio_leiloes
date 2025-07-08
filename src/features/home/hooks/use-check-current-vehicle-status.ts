@@ -12,9 +12,13 @@ export const useListCurrentVehicleStatus = ({
   const url = new URL(auctionBaseUrl)
 
   if (dataList && dataList.length > 0) {
-    dataList.forEach((value) => {
-      if (value) url.searchParams.append('data[]', value.toString())
-    })
+    const opa = 236503
+
+    // dataList.forEach((value) => {
+    //   const opa = 236503
+    //   if (value) url.searchParams.append('data[]', opa.toString())
+    // })
+    url.searchParams.append('data[]', opa.toString())
   }
 
   return useQuery({
