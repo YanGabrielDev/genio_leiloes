@@ -65,7 +65,7 @@ export const AuctionCard = ({
           <div className="flex justify-between items-center">
             <div className="space-y-1">
               <span className="text-xs font-medium text-gray-500 uppercase">
-                Avaliação
+                Último valor consultado
               </span>
               <p className="text-lg font-bold text-emerald-600">
                 {' '}

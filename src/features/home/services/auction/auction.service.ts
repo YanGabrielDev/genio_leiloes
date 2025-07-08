@@ -2,8 +2,7 @@ import { Auction } from '@/interfaces/auction.interface'
 import { api } from '@/lib/api'
 import { FindVehicleById, ListAuctionParams, Analysis } from './action.types'
 import { Vehicles } from '@/interfaces/vehicle.interface'
-
-export const apiUrl = import.meta.env.VITE_API_URL ?? ''
+import { apiUrl } from '@/constant/configs'
 
 const listAuction = async ({
   page,
@@ -38,4 +37,18 @@ const analysis = async (data: Analysis): Promise<any> => {
   return response?.data?.avaliacao_visual
 }
 
-export default { listAuction, findVehicleById, analysis }
+const listCurrentVehicleStatus = async (url: string): Promise<any> => {
+  const response = await api.get(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0',
+    },
+  })
+  return response?.data
+}
+
+export default {
+  listAuction,
+  findVehicleById,
+  analysis,
+  listCurrentVehicleStatus,
+}

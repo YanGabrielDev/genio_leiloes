@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { VehicleAnalysisDialog } from '../VehicleAnalysisDialog'
+import { auctionHammer } from '@/assets/icons'
+import { Link } from '@tanstack/react-router'
 
 interface VehicleActionsProps {
   vehicleData: {
@@ -9,9 +11,17 @@ interface VehicleActionsProps {
     imagens: string[]
     marca_modelo: string
   }
+  currentLink: string
 }
 
-export function VehicleActions({ vehicleData }: VehicleActionsProps) {
+export function VehicleActions({
+  vehicleData,
+  currentLink,
+}: VehicleActionsProps) {
+  const params = new URLSearchParams(currentLink)
+  const vehicleId = params.get('data')
+  const vehicleLink = `https://leilao.detran.mg.gov.br/lotes/detalhes/${vehicleId}`
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -23,6 +33,12 @@ export function VehicleActions({ vehicleData }: VehicleActionsProps) {
       <Button variant="outline" size="lg" className="w-full sm:w-auto">
         Adicionar à lista
       </Button>
+      {/* <Button variant="ghost" size="lg" className="w-full sm:w-auto"> */}
+      <a href={vehicleLink} target="_blank">
+        {auctionHammer}
+      </a>
+
+      {/* </Button> */}
     </motion.div>
   )
 }

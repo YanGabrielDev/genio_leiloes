@@ -171,6 +171,7 @@ function VehicleDetailsPage() {
               imagens: vehicle.imagens,
               marca_modelo: vehicle.marca_modelo,
             }}
+            currentLink={vehicle.link_lance_atual}
           />
         </motion.div>
       </div>
