@@ -11,15 +11,15 @@ export const useListCurrentVehicleStatus = ({
 }: UseListCurrentVehicleStatus) => {
   const url = new URL(auctionBaseUrl)
 
-  if (dataList && dataList.length > 0) {
-    const opa = 236503
+  // if (dataList && dataList.length > 0) {
+  const opa = 236503
 
-    // dataList.forEach((value) => {
-    //   const opa = 236503
-    //   if (value) url.searchParams.append('data[]', opa.toString())
-    // })
-    url.searchParams.append('data[]', opa.toString())
-  }
+  // dataList.forEach((value) => {
+  //   const opa = 236503
+  //   if (value) url.searchParams.append('data[]', opa.toString())
+  // })
+  url.searchParams.append('data[]', opa.toString())
+  // }
 
   return useQuery({
     queryKey: ['list-current-vehicle-status', url.toString()],
