@@ -34,7 +34,7 @@ export function VehicleActions({
         Adicionar à lista
       </Button>
       {/* <Button variant="ghost" size="lg" className="w-full sm:w-auto"> */}
-      <a href={vehicleLink} target="_blank">
+      <a href={vehicleLink} target="_blank" className="ml-4">
         {auctionHammer}
       </a>
 
