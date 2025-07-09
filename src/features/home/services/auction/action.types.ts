@@ -16,3 +16,13 @@ export interface Analysis {
   avaliacao: string
   imagens: string[]
 }
+export interface CurrentVehicleStatusValues {
+  arrematante: null | string
+  status: string
+  tempo: number
+  valor: string
+  valorIncremento: string
+}
+export interface CurrentVehicleStatus {
+  [key: number]: CurrentVehicleStatusValues
+}

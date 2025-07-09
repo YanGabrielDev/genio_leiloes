@@ -41,7 +41,12 @@ export const SignForm = ({ openSignUpForm }: SignFormProps) => {
   return (
     <Form {...form}>
       {' '}
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          form.handleSubmit(onSubmit)(e)
+        }}
+      >
         <div className="w-full flex gap-4 flex-col min-w-80">
           <h1 className="font-bold text-primary text-5xl">Login</h1>
           <h2 className="text-primary text-base opacity-70 font-medium">

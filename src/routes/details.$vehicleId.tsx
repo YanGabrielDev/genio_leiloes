@@ -11,6 +11,8 @@ import { VehicleDetailsHeader } from '@/features/details/components/VehicleDetai
 import { VehicleImageCarousel } from '@/features/details/components/VehicleImageCarousel'
 import { VehicleInfoCards } from '@/features/details/components/VehicleInfoCards'
 import { VehiclePriceDisplay } from '@/features/details/components/VehiclePriceDisplay'
+import { useFindVehicleCurrentStatusById } from '@/features/details/hooks/use-find-vehicle-current-status-by-id'
+import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
 
 export const Route = createFileRoute('/details/$vehicleId')({
   component: VehicleDetailsPage,
@@ -28,9 +30,12 @@ function VehicleDetailsPage() {
     isLoading,
     isError,
   } = useFindVehicleById({ vehicleId: Number(vehicleId) })
-
+  const vehicleCurrentStatusById = useFindVehicleCurrentStatusById({
+    vehicleId: getCurrentVehicleId(vehicle?.link_lance_atual ?? ''),
+  })
+  console.log(vehicleCurrentStatusById.data)
   // --- Loading State ---
-  if (isLoading) {
+  if (isLoading || vehicleCurrentStatusById.isLoading) {
     return (
       <Template>
         <div className="container mx-auto p-4 space-y-6">
@@ -110,6 +115,8 @@ function VehicleDetailsPage() {
       </Template>
     )
   }
+  const evaluationValue =
+    vehicleCurrentStatusById.data?.valor ?? vehicle.avaliacao
 
   // --- Main Content ---
   return (
@@ -155,9 +162,7 @@ function VehicleDetailsPage() {
             </motion.div>
           </div>
 
-          <VehiclePriceDisplay
-            evaluationValue={vehicle.avaliacao_atualizada ?? vehicle.avaliacao}
-          />
+          <VehiclePriceDisplay evaluationValue={evaluationValue} />
 
           <VehicleInfoCards
             year={vehicle.ano}
@@ -169,7 +174,7 @@ function VehicleDetailsPage() {
           <VehicleActions
             vehicleData={{
               ano: vehicle.ano,
-              avaliacao: vehicle.avaliacao_atualizada ?? vehicle.avaliacao,
+              avaliacao: evaluationValue,
               imagens: vehicle.imagens,
               marca_modelo: vehicle.marca_modelo,
             }}

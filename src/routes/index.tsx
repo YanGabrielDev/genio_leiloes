@@ -10,6 +10,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
 import { useUserStore } from '@/store/user.store'
 import { useListCurrentVehicleStatus } from '@/features/home/hooks/use-check-current-vehicle-status'
+import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -37,16 +38,26 @@ function AppPage() {
     year,
   })
   const vehicles = listAuction.data?.results
-  const data = useListCurrentVehicleStatus({
+
+  const currentVehicleStatus = useListCurrentVehicleStatus({
     dataList: vehicles?.map((vehicle) => {
       if (!vehicle) return null
-      const params = new URLSearchParams(vehicle.link_lance_atual)
-      const vehicleId = params.get('data')
+      const vehicleId = getCurrentVehicleId(vehicle.link_lance_atual)
       return vehicleId
     }),
   })
-  console.log({ data })
+  const vehicleList = vehicles?.map((vehicle) => {
+    const vehicleId = getCurrentVehicleId(vehicle.link_lance_atual)
+    const currentVehicle = vehicleId
+      ? currentVehicleStatus?.data?.[Number(vehicleId)]
+      : null
+    const currentValue = currentVehicle?.valor
 
+    return {
+      ...vehicle,
+      avaliacao_atualizada: currentValue,
+    }
+  })
   const cityFilterOptions = useMemo(
     () =>
       auctionMock.map((auction) => ({
@@ -57,16 +68,19 @@ function AppPage() {
   )
 
   const handlePageChange = (newPage: number) => setPage(newPage)
+
   useEffect(() => {
     if (subscriptionPlans) setUserPlan(subscriptionPlans)
   }, [isLoadingSubscriptionPlans, subscriptionPlans])
+  console.log({ vehicleList })
+
   return (
     <Template showFilters cityFilterOptions={cityFilterOptions}>
       <div className="grid grid-cols-12 gap-4">
-        {listAuction.isLoading ? (
+        {listAuction.isLoading || currentVehicleStatus.isLoading ? (
           <SkeletonLoaderGrid count={24} />
         ) : (
-          vehicles?.map((item) => (
+          vehicleList?.map((item) => (
             <AuctionCard
               key={item.id} // Garantindo que a key única está sendo usada
               year={item.ano}

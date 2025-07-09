@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { auctionBaseUrl } from '@/constant/configs'
 
 interface UseListCurrentVehicleStatus {
-  dataList?: (string | null)[]
+  dataList?: (number | null)[]
 }
 
 export const useListCurrentVehicleStatus = ({
@@ -11,15 +11,11 @@ export const useListCurrentVehicleStatus = ({
 }: UseListCurrentVehicleStatus) => {
   const url = new URL(auctionBaseUrl)
 
-  // if (dataList && dataList.length > 0) {
-  const opa = 236503
-
-  // dataList.forEach((value) => {
-  //   const opa = 236503
-  //   if (value) url.searchParams.append('data[]', opa.toString())
-  // })
-  url.searchParams.append('data[]', opa.toString())
-  // }
+  if (dataList && dataList.length > 0) {
+    dataList.forEach((value) => {
+      if (value) url.searchParams.append('data[]', value.toString())
+    })
+  }
 
   return useQuery({
     queryKey: ['list-current-vehicle-status', url.toString()],

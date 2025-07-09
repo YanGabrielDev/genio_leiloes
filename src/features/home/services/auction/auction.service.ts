@@ -1,6 +1,11 @@
 import { Auction } from '@/interfaces/auction.interface'
 import { api } from '@/lib/api'
-import { FindVehicleById, ListAuctionParams, Analysis } from './action.types'
+import {
+  FindVehicleById,
+  ListAuctionParams,
+  Analysis,
+  CurrentVehicleStatus,
+} from './action.types'
 import { Vehicles } from '@/interfaces/vehicle.interface'
 import { apiUrl } from '@/constant/configs'
 
@@ -37,7 +42,9 @@ const analysis = async (data: Analysis): Promise<any> => {
   return response?.data?.avaliacao_visual
 }
 
-const listCurrentVehicleStatus = async (url: string): Promise<any> => {
+const listCurrentVehicleStatus = async (
+  url: string
+): Promise<CurrentVehicleStatus> => {
   const response = await api.get(url)
   return response?.data
 }
