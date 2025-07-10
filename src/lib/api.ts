@@ -3,11 +3,9 @@ import Cookies from 'js-cookie'
 // Adicione esta linha para importar sua função de logout
 
 export const api: AxiosInstance = axios.create({
-  // headers: {
-  //     'Content-Type': 'application/json',
-  // },
-  // params: {},
-  // withCredentials: true
+  headers: {
+    'Content-Type': 'application/json',
+  },
 })
 
 api.interceptors.request.use(

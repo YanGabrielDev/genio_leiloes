@@ -10,6 +10,7 @@ interface VehicleActionsProps {
     avaliacao: string
     imagens: string[]
     marca_modelo: string
+    lote_id: number
   }
   currentLink: string
 }

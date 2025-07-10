@@ -3,6 +3,10 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react' // Import Loader2
 import { useAnalysis } from '../../hooks/useAnalysis'
+import { useUserStore } from '@/store/user.store'
+import { useNavigate } from '@tanstack/react-router'
+import { toast } from '@/hooks/use-toast'
+import { useState } from 'react'
 
 interface VehicleAnalysisDialogProps {
   vehicleData: {
@@ -10,6 +14,7 @@ interface VehicleAnalysisDialogProps {
     avaliacao: string
     imagens: string[]
     marca_modelo: string
+    lote_id: number
   }
 }
 
@@ -21,33 +26,42 @@ export function VehicleAnalysisDialog({
     data: analysis,
     isPending: analysisIsPending,
   } = useAnalysis()
-
+  const navigate = useNavigate()
+  const { userProfile } = useUserStore()
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const handleAnalysis = () => {
+    if (!userProfile) {
+      toast({
+        description: 'Acesse a sua conta para usar o Analisar com IA.',
+        variant: 'info',
+      })
+      setTimeout(() => {
+        navigate({ to: '/login' })
+      }, 2000)
+      return
+    }
+    setIsModalOpen(!isModalOpen)
     postAnalysis({
       ano: String(vehicleData.ano),
       avaliacao: vehicleData.avaliacao,
-      // Only send the first image as per original logic
       imagens: [vehicleData.imagens[0]],
       marca_modelo: vehicleData.marca_modelo,
+      lote_id: vehicleData.lote_id,
     })
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button
-          size="lg"
-          className="w-full sm:w-auto"
-          variant="primary"
-          onClick={handleAnalysis}
-          disabled={analysisIsPending} // Disable button while pending
-        >
-          {analysisIsPending && (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          )}
-          Analisar com IA
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+      <Button
+        size="lg"
+        className="w-full sm:w-auto"
+        variant="primary"
+        onClick={handleAnalysis}
+        disabled={analysisIsPending} // Disable button while pending
+      >
+        {analysisIsPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        Analisar com IA
+      </Button>
       <DialogContent className="sm:max-w-[600px] bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl max-h-96 overflow-auto">
         <AnimatePresence>
           <motion.div

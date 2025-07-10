@@ -72,7 +72,6 @@ function AppPage() {
   useEffect(() => {
     if (subscriptionPlans) setUserPlan(subscriptionPlans)
   }, [isLoadingSubscriptionPlans, subscriptionPlans])
-  console.log({ vehicleList })
 
   return (
     <Template showFilters cityFilterOptions={cityFilterOptions}>

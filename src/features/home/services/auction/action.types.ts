@@ -15,6 +15,7 @@ export interface Analysis {
   ano: string
   avaliacao: string
   imagens: string[]
+  lote_id: number
 }
 export interface CurrentVehicleStatusValues {
   arrematante: null | string

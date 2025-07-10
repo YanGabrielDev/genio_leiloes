@@ -8,7 +8,8 @@ import {
 } from './action.types'
 import { Vehicles } from '@/interfaces/vehicle.interface'
 import { apiUrl } from '@/constant/configs'
-
+import Cookies from 'js-cookie'
+const cookies = Cookies
 const listAuction = async ({
   page,
   priceMax,
@@ -38,7 +39,11 @@ const findVehicleById = async ({
 }
 
 const analysis = async (data: Analysis): Promise<any> => {
-  const response = await api.post(`${apiUrl}/leiloes/analisar-veiculo/`, data)
+  const token = cookies.get('accessToken')
+  const response = await api.post(`${apiUrl}/leiloes/analisar-veiculo/`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+
   return response?.data?.avaliacao_visual
 }
 

@@ -1,6 +1,6 @@
 export interface Vehicles {
   id: number
-  lote: null | string
+  lote: null | number
   condicao: string
   chassi: string
   placa: string

@@ -33,7 +33,6 @@ function VehicleDetailsPage() {
   const vehicleCurrentStatusById = useFindVehicleCurrentStatusById({
     vehicleId: getCurrentVehicleId(vehicle?.link_lance_atual ?? ''),
   })
-  console.log(vehicleCurrentStatusById.data)
   // --- Loading State ---
   if (isLoading || vehicleCurrentStatusById.isLoading) {
     return (
@@ -177,6 +176,7 @@ function VehicleDetailsPage() {
               avaliacao: evaluationValue,
               imagens: vehicle.imagens,
               marca_modelo: vehicle.marca_modelo,
+              lote_id: Number(vehicle.lote),
             }}
             currentLink={vehicle.link_lance_atual}
           />

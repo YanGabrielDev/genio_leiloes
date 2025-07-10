@@ -8,8 +8,6 @@ export const useValidateToken = () => {
   return useMutation({
     mutationFn: (data: ValidateUsers) => usersServices.validateToken(data),
     onSuccess: async (data) => {
-      console.log(data)
-
       navigate({ to: '/' })
     },
   })
