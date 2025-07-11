@@ -23,7 +23,6 @@ function AppPage() {
     useListSubscriptionsPlans()
   const { setUserPlan } = useUserStore()
 
-  // Desestruturando diretamente para melhorar a legibilidade
   const {
     priceRange: [priceMin, priceMax],
     brandModelSearch,
@@ -34,7 +33,7 @@ function AppPage() {
     page,
     priceMax,
     priceMin,
-    modelBrand: brandModelSearch, // Usando o nome desestruturado
+    modelBrand: brandModelSearch,
     year,
   })
   const vehicles = listAuction.data?.results
@@ -81,7 +80,7 @@ function AppPage() {
         ) : (
           vehicleList?.map((item) => (
             <AuctionCard
-              key={item.id} // Garantindo que a key única está sendo usada
+              key={item.id}
               year={item.ano}
               avaliacao={item.avaliacao_atualizada ?? item.avaliacao}
               name={item.marca_modelo}
@@ -92,7 +91,7 @@ function AppPage() {
           ))
         )}
       </div>
-      <div className="w-full flex items-center justify-center mb-8">
+      <div className="w-full flex items-center justify-center mb-8 mt-8">
         <PaginationSection
           page={page}
           handleChangePage={handlePageChange}

@@ -31,12 +31,12 @@ export function VehicleActions({
       className="flex flex-col sm:flex-row gap-3 pt-4"
     >
       <VehicleAnalysisDialog vehicleData={vehicleData} />
-      <Button variant="outline" size="lg" className="w-full sm:w-auto">
-        Adicionar à lista
-      </Button>
+
       {/* <Button variant="ghost" size="lg" className="w-full sm:w-auto"> */}
       <a href={vehicleLink} target="_blank" className="ml-4">
-        {auctionHammer}
+        <Button variant="outline" size="lg" className="w-full sm:w-auto">
+          Ir para o leilão {auctionHammer}
+        </Button>{' '}
       </a>
 
       {/* </Button> */}
