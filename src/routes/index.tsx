@@ -11,6 +11,7 @@ import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-sub
 import { useUserStore } from '@/store/user.store'
 import { useListCurrentVehicleStatus } from '@/features/home/hooks/use-check-current-vehicle-status'
 import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
+import { Helmet } from 'react-helmet-async'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -73,31 +74,62 @@ function AppPage() {
   }, [isLoadingSubscriptionPlans, subscriptionPlans])
 
   return (
-    <Template showFilters cityFilterOptions={cityFilterOptions}>
-      <div className="grid grid-cols-12 gap-4">
-        {listAuction.isLoading || currentVehicleStatus.isLoading ? (
-          <SkeletonLoaderGrid count={24} />
-        ) : (
-          vehicleList?.map((item) => (
-            <AuctionCard
-              key={item.id}
-              year={item.ano}
-              avaliacao={item.avaliacao_atualizada ?? item.avaliacao}
-              name={item.marca_modelo}
-              type={item.tipo}
-              imagens={item.imagens}
-              id={item.id}
-            />
-          ))
-        )}
-      </div>
-      <div className="w-full flex items-center justify-center mb-8 mt-8">
-        <PaginationSection
-          page={page}
-          handleChangePage={handlePageChange}
-          totalItems={listAuction.data?.count ?? 0}
+    <>
+      <Helmet>
+        <title>
+          Leilões Detran com Análise por IA | Avaliação Inteligente de Veículos
+        </title>
+
+        <meta
+          name="description"
+          content="Veja leilões oficiais do Detran com tecnologia de inteligência artificial para avaliação precisa de veículos. Encontre carros e motos com transparência e segurança."
         />
-      </div>
-    </Template>
+        <meta
+          name="keywords"
+          content="leilão Detran, leilões de veículos, avaliação por IA, inteligência artificial, carros usados, motos em leilão, caminhões Detran, análise inteligente de veículos"
+        />
+
+        <meta property="og:title" content="Leilões Detran com Análise por IA" />
+        <meta
+          property="og:description"
+          content="Acesse os leilões de veículos do Detran com avaliação feita por inteligência artificial. Segurança, precisão e ótimos preços em veículos usados."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://busca-leiloes.vercel.app" />
+        <meta
+          property="og:image"
+          content="https://busca-leiloes.vercel.app/imagens/genio-leiloes.webp"
+        />
+
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://busca-leiloes.vercel.app" />
+      </Helmet>
+      <Template showFilters cityFilterOptions={cityFilterOptions}>
+        <div className="grid grid-cols-12 gap-4">
+          {listAuction.isLoading || currentVehicleStatus.isLoading ? (
+            <SkeletonLoaderGrid count={24} />
+          ) : (
+            vehicleList?.map((item) => (
+              <AuctionCard
+                key={item.id}
+                year={item.ano}
+                avaliacao={item.avaliacao_atualizada ?? item.avaliacao}
+                name={item.marca_modelo}
+                type={item.tipo}
+                imagens={item.imagens}
+                id={item.id}
+              />
+            ))
+          )}
+        </div>
+        <div className="w-full flex items-center justify-center mb-8 mt-8">
+          <PaginationSection
+            page={page}
+            handleChangePage={handlePageChange}
+            totalItems={listAuction.data?.count ?? 0}
+          />
+        </div>
+      </Template>
+    </>
   )
 }

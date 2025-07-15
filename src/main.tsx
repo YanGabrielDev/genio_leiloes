@@ -10,6 +10,7 @@ import { Elements } from '@stripe/react-stripe-js'
 import { VehicleFilterProvider } from './context/vehicle-filter.context'
 import { Toaster } from './components/ui/toaster'
 import { stripePromise } from '@/stripe'
+import { HelmetProvider } from 'react-helmet-async'
 
 // Create a new router instance
 const router = createRouter({ routeTree })
@@ -38,7 +39,9 @@ if (!rootElement.innerHTML) {
           <Elements stripe={stripePromise}>
             <VehicleFilterProvider>
               <Toaster />
-              <RouterProvider router={router} />
+              <HelmetProvider>
+                <RouterProvider router={router} />
+              </HelmetProvider>
             </VehicleFilterProvider>
           </Elements>
         </QueryClientProvider>

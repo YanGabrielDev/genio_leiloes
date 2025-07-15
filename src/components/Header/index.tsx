@@ -25,7 +25,7 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
     <header className="bg-white px-12 w-full flex flex-col gap-4 py-4  border-b-primary border-b">
       <div className="flex justify-between items-center">
         <span className="text-primary font-semibold text-2xl flex items-center">
-          Busca leilões
+          Gênio Leilões
         </span>
 
         <AuthButton user={user} onLogin={onLogin} onLogout={onLogout} />
