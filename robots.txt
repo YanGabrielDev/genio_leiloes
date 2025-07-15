@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://genio-leiloes.vercel.app/sitemap.xml
