@@ -95,14 +95,14 @@ function AppPage() {
           content="Acesse os leilões de veículos do Detran com avaliação feita por inteligência artificial. Segurança, precisão e ótimos preços em veículos usados."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://busca-leiloes.vercel.app" />
+        <meta property="og:url" content="https://genio-leiloes.vercel.app" />
         <meta
           property="og:image"
-          content="https://busca-leiloes.vercel.app/imagens/genio-leiloes.webp"
+          content="https://genio-leiloes.vercel.app/imagens/genio-leiloes.webp"
         />
 
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://busca-leiloes.vercel.app" />
+        <link rel="canonical" href="https://genio-leiloes.vercel.app" />
       </Helmet>
       <Template showFilters cityFilterOptions={cityFilterOptions}>
         <div className="grid grid-cols-12 gap-4">
