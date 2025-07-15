@@ -97,6 +97,10 @@ function AppPage() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://genio-leiloes.vercel.app" />
         <meta
+          name="google-site-verification"
+          content="WFx8v4XixaF4MN5UbfYXw0Y_smLNfhITzP5BmE7wUyk"
+        />
+        <meta
           property="og:image"
           content="https://genio-leiloes.vercel.app/imagens/genio-leiloes.webp"
         />
