@@ -116,6 +116,7 @@ function AppPage() {
             vehicleList?.map((item) => (
               <AuctionCard
                 key={item.id}
+                currentVehicleLoading={currentVehicleStatus.isLoading}
                 year={item.ano}
                 avaliacao={item.avaliacao_atualizada ?? item.avaliacao}
                 name={item.marca_modelo}
