@@ -1,16 +1,14 @@
+import { loaderIcon } from '@/assets/icons'
 import { motion } from 'framer-motion'
 
 interface VehiclePriceDisplayProps {
   evaluationValue: string
-}
-
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  loading: boolean
 }
 
 export function VehiclePriceDisplay({
   evaluationValue,
+  loading,
 }: VehiclePriceDisplayProps) {
   return (
     <motion.div
@@ -19,13 +17,23 @@ export function VehiclePriceDisplay({
       transition={{ delay: 0.4 }}
     >
       <div className="bg-primary/10 p-4 rounded-lg border border-primary/20">
-        <p className="text-sm text-muted-foreground">Último lance realizado</p>
-        <p className="text-3xl font-bold text-primary">
-          R${' '}
-          {parseFloat(evaluationValue).toLocaleString('pt-BR', {
-            minimumFractionDigits: 2,
-          })}
+        <p className="text-sm text-muted-foreground">
+          {loading ? 'Buscando último lance...' : 'Último lance realizado'}
         </p>
+
+        {loading ? (
+          <div className="flex items-center space-x-2 h-9">
+            {loaderIcon}
+            <span className="text-primary/50 text-lg">---</span>
+          </div>
+        ) : (
+          <p className="text-3xl font-bold text-primary">
+            R${' '}
+            {parseFloat(evaluationValue).toLocaleString('pt-BR', {
+              minimumFractionDigits: 2,
+            })}
+          </p>
+        )}
       </div>
     </motion.div>
   )

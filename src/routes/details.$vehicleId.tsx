@@ -34,7 +34,7 @@ function VehicleDetailsPage() {
     vehicleId: getCurrentVehicleId(vehicle?.link_lance_atual ?? ''),
   })
   // --- Loading State ---
-  if (isLoading || vehicleCurrentStatusById.isLoading) {
+  if (isLoading) {
     return (
       <Template>
         <div className="container mx-auto p-4 space-y-6">
@@ -161,7 +161,10 @@ function VehicleDetailsPage() {
             </motion.div>
           </div>
 
-          <VehiclePriceDisplay evaluationValue={evaluationValue} />
+          <VehiclePriceDisplay
+            evaluationValue={evaluationValue}
+            loading={vehicleCurrentStatusById.isLoading}
+          />
 
           <VehicleInfoCards
             year={vehicle.ano}
