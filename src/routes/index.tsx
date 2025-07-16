@@ -110,7 +110,7 @@ function AppPage() {
       </Helmet>
       <Template showFilters cityFilterOptions={cityFilterOptions}>
         <div className="grid grid-cols-12 gap-4">
-          {listAuction.isLoading || currentVehicleStatus.isLoading ? (
+          {listAuction.isLoading ? (
             <SkeletonLoaderGrid count={24} />
           ) : (
             vehicleList?.map((item) => (
