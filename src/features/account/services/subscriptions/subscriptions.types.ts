@@ -8,6 +8,7 @@ export interface Plan {
   features: string[]
   monthly_price: string
   annual_price: string
+  requests_ai: number
   recommended: boolean
 }
 
@@ -16,6 +17,7 @@ export interface UserPlan {
   start_date: string
   end_date: string | null
   is_active: boolean
+  requests_ai_used: number
 }
 
 export interface ListSubscriptionsPlans {
