@@ -33,10 +33,11 @@ export function VehicleAnalysisDialog({
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
 
   const hasReachedLimit =
-    !!plan && plan.user_plan.requests_ai_used >= plan.user_plan.plan.requests_ai
+    !!plan &&
+    plan.user_plan.requests_ai_used === plan.user_plan.plan.requests_ai
 
   const handleAnalysis = () => {
-    if (!userProfile) {
+    if (!userProfile && !hasReachedLimit) {
       toast({
         description: 'Acesse a sua conta para usar o Analisar com IA.',
         variant: 'info',
@@ -70,7 +71,7 @@ export function VehicleAnalysisDialog({
           className="w-full sm:w-auto"
           variant="primary"
           onClick={handleAnalysis}
-          disabled={analysisIsPending || hasReachedLimit}
+          disabled={analysisIsPending}
         >
           {analysisIsPending ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />

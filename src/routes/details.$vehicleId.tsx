@@ -13,6 +13,9 @@ import { VehicleInfoCards } from '@/features/details/components/VehicleInfoCards
 import { VehiclePriceDisplay } from '@/features/details/components/VehiclePriceDisplay'
 import { useFindVehicleCurrentStatusById } from '@/features/details/hooks/use-find-vehicle-current-status-by-id'
 import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
+import { useStore } from 'zustand'
+import { useUserStore } from '@/store/user.store'
+import { Card } from '@/components/ui/card'
 
 export const Route = createFileRoute('/details/$vehicleId')({
   component: VehicleDetailsPage,
@@ -33,6 +36,8 @@ function VehicleDetailsPage() {
   const vehicleCurrentStatusById = useFindVehicleCurrentStatusById({
     vehicleId: getCurrentVehicleId(vehicle?.link_lance_atual ?? ''),
   })
+  const { plan } = useUserStore()
+
   // --- Loading State ---
   if (isLoading) {
     return (
@@ -114,6 +119,7 @@ function VehicleDetailsPage() {
       </Template>
     )
   }
+
   const evaluationValue =
     vehicleCurrentStatusById.data?.valor ?? vehicle.avaliacao
 
@@ -132,6 +138,29 @@ function VehicleDetailsPage() {
         />
 
         <motion.div variants={fadeIn} className="space-y-6">
+          {/* Adicionando o card de análises disponíveis */}
+          {plan && (
+            <Card className="border-primary p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-medium text-primary">Análises com IA</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Você ainda possui{' '}
+                    {plan.user_plan.plan.requests_ai -
+                      plan.user_plan.requests_ai_used}{' '}
+                    análises disponíveis este mês
+                  </p>
+                </div>
+                <Badge
+                  variant="outline"
+                  className="border-primary text-primary"
+                >
+                  {plan.user_plan.plan.title}
+                </Badge>
+              </div>
+            </Card>
+          )}
+
           <div>
             <motion.h1
               initial={{ opacity: 0, y: 10 }}
