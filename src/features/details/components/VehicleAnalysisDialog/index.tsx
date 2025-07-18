@@ -75,8 +75,6 @@ export function VehicleAnalysisDialog({
         >
           {analysisIsPending ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          ) : hasReachedLimit ? (
-            'Limite atingido'
           ) : (
             'Analisar com IA'
           )}
