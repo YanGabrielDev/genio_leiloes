@@ -47,6 +47,19 @@ const analysis = async (data: Analysis): Promise<any> => {
   return response?.data?.avaliacao_visual
 }
 
+const favoriteVehicle = async (veiculoId: number): Promise<any> => {
+  const token = cookies.get('accessToken')
+  const response = await api.post(
+    `${apiUrl}/leiloes/favoritar-veiculo/`,
+    { veiculo_id: veiculoId },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  )
+
+  return response?.data?.avaliacao_visual
+}
+
 const listCurrentVehicleStatus = async (
   url: string
 ): Promise<CurrentVehicleStatus> => {
@@ -59,4 +72,5 @@ export default {
   findVehicleById,
   analysis,
   listCurrentVehicleStatus,
+  favoriteVehicle,
 }
