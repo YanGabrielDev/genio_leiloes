@@ -209,6 +209,7 @@ function VehicleDetailsPage() {
               imagens: vehicle.imagens,
               marca_modelo: vehicle.marca_modelo,
               lote_id: Number(vehicle.lote),
+              vehicleId: vehicle.id,
             }}
             currentLink={vehicle.link_lance_atual}
           />

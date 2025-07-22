@@ -16,6 +16,7 @@ interface VehicleActionsProps {
     imagens: string[]
     marca_modelo: string
     lote_id: number
+    vehicleId: number
     is_favorite?: boolean // Adicione esta propriedade se existir na API
   }
   currentLink: string
@@ -41,7 +42,7 @@ export function VehicleActions({
       return
     }
 
-    favoriteVehicle(vehicleData.lote_id, {
+    favoriteVehicle(vehicleData.vehicleId, {
       onSuccess: () => {
         setIsFavorite(!isFavorite)
       },
