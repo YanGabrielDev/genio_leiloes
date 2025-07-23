@@ -4,12 +4,14 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
+  DrawerDescription,
 } from '@/components/ui/drawer'
 import { useNavigate } from '@tanstack/react-router'
-// import { VehicleCard } from './VehicleCard'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { SkeletonLoaderGrid } from '../SkeletonLoaderGrid'
 import { AuctionCard } from '@/features/home/components/AuctionCard'
+import { Button } from '../ui/button'
+import { HeartOff, ArrowRight } from 'lucide-react'
 
 export function FavoritesDrawer({
   open,
@@ -21,36 +23,64 @@ export function FavoritesDrawer({
   const listFavorite = useListFavorite()
   const navigate = useNavigate()
 
-  //   const handleNavigateToVehicle = (vehicleId: number) => {
-  //     navigate({ to: '/vehicle/$id', params: { id: String(vehicleId) } })
-  //     onOpenChange(false)
-  //   }
-  //   console.log({ favorites })
+  const handleNavigateToVehicle = (vehicleId: number) => {
+    navigate({
+      to: '/details/$vehicleId',
+      params: { vehicleId: String(vehicleId) },
+    })
+    onOpenChange(false)
+  }
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="h-[80vh]">
-        <div className="mx-auto w-full max-w-4xl">
-          <DrawerHeader>
-            <DrawerTitle className="text-2xl">Meus Favoritos</DrawerTitle>
+      <DrawerContent className="h-[90vh]">
+        <div className="mx-auto w-full max-w-7xl px-4">
+          <DrawerHeader className="text-left">
+            <DrawerTitle className="text-2xl font-bold">
+              Meus Favoritos
+            </DrawerTitle>
+            <DrawerDescription>
+              {listFavorite.data?.length || 0} veículos salvos
+            </DrawerDescription>
           </DrawerHeader>
 
-          {listFavorite.isLoading ? (
-            <SkeletonLoaderGrid count={24} />
-          ) : (
-            listFavorite.data?.map((item) => (
-              <AuctionCard
-                key={item.id}
-                currentVehicleLoading={listFavorite.isLoading}
-                year={item.ano}
-                avaliacao={item.avaliacao_atualizada ?? item.avaliacao}
-                name={item.marca_modelo}
-                type={item.tipo}
-                imagens={item.imagens}
-                id={item.id}
-              />
-            ))
-          )}
+          <div className="pb-6 px-4">
+            {listFavorite.isLoading ? (
+              <SkeletonLoaderGrid count={6} />
+            ) : listFavorite.data?.length === 0 ? (
+              //   <EmptyState
+              //     icon={<HeartOff className="h-12 w-12 text-muted-foreground" />}
+              //     title="Nenhum veículo favoritado"
+              //     description="Comece a favoritar veículos para vê-los aqui"
+              //     action={
+              <Button onClick={() => onOpenChange(false)}>
+                Explorar veículos
+              </Button>
+            ) : (
+              //     }
+              //   />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {listFavorite.data?.map((item) => (
+                  <div
+                    key={item.id}
+                    className="relative group"
+                    onClick={() => handleNavigateToVehicle(item.id)}
+                  >
+                    <AuctionCard
+                      currentVehicleLoading={listFavorite.isLoading}
+                      year={item.ano}
+                      avaliacao={item.avaliacao_atualizada ?? item.avaliacao}
+                      name={item.marca_modelo}
+                      type={item.tipo}
+                      imagens={item.imagens}
+                      id={item.id}
+                    />
+                    <ArrowRight className="absolute right-4 top-4 h-5 w-5 text-white bg-primary/80 p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </DrawerContent>
     </Drawer>
