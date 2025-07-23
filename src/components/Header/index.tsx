@@ -3,6 +3,10 @@ import { AuthButton } from './auth-button'
 import { VehicleFilters } from '../VehicleFilters'
 import { useVehicleFilters } from '@/context/vehicle-filter.context'
 import { useUserStore } from '@/store/user.store'
+import { Button } from '../ui/button'
+import { Heart } from 'lucide-react'
+import { useState } from 'react'
+import { FavoritesDrawer } from './FavoritesDrawer'
 
 interface HeaderProps {
   cityFilterOptions?: {
@@ -16,43 +20,75 @@ interface HeaderProps {
 
 export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
   const { userProfile } = useUserStore()
+  const [openFavorites, setOpenFavorites] = useState(false)
   const { setVehicleFiltersState, vehicleFiltersState } = useVehicleFilters()
   const user = userProfile
     ? { name: userProfile.name, email: userProfile.email }
     : null
 
+  const handleOpenFavorites = () => {
+    if (!userProfile) {
+      onLogin?.()
+      return
+    }
+    setOpenFavorites(true)
+  }
+
   return (
-    <header className="bg-white px-12 w-full flex flex-col gap-4 py-4  border-b-primary border-b">
-      <div className="flex justify-between items-center">
-        <span className="text-primary font-semibold text-2xl flex items-center">
-          Gênio Leilões
-        </span>
+    <>
+      <header className="bg-white px-12 w-full flex flex-col gap-4 py-4 border-b-primary border-b">
+        <div className="flex justify-between items-center">
+          <span className="text-primary font-semibold text-2xl flex items-center">
+            Gênio Leilões
+          </span>
 
-        <AuthButton user={user} onLogin={onLogin} onLogout={onLogout} />
-      </div>
+          <div className="flex items-center gap-4">
+            {user && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleOpenFavorites}
+                className="relative hover:bg-red-50 hover:text-red-500"
+              >
+                <Heart className="h-5 w-5" />
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  666
+                </span>
+                {/* {userProfile?.favorites_count && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  {userProfile.favorites_count}
+                </span>
+              )} */}
+              </Button>
+            )}
 
-      {showFilters && (
-        <div className="flex gap-1 items-start w-full md:flex-row flex-col ">
-          <div className="md:w-1/3 w-full">
-            <Input
-              placeholder="Buscar veiculo"
-              value={vehicleFiltersState.brandModelSearch}
-              onChange={(event) => {
-                const value = event.target.value
-                setVehicleFiltersState((prevState) => {
-                  return {
-                    ...prevState,
-                    brandModelSearch: value,
-                  }
-                })
-              }}
-            />
-          </div>
-          <div className="relative">
-            <VehicleFilters />
+            <AuthButton user={user} onLogin={onLogin} onLogout={onLogout} />
           </div>
         </div>
-      )}
-    </header>
+
+        {showFilters && (
+          <div className="flex gap-1 items-start w-full md:flex-row flex-col">
+            <div className="md:w-1/3 w-full">
+              <Input
+                placeholder="Buscar veículo"
+                value={vehicleFiltersState.brandModelSearch}
+                onChange={(event) => {
+                  const value = event.target.value
+                  setVehicleFiltersState((prevState) => ({
+                    ...prevState,
+                    brandModelSearch: value,
+                  }))
+                }}
+              />
+            </div>
+            <div className="relative">
+              <VehicleFilters />
+            </div>
+          </div>
+        )}
+      </header>
+
+      <FavoritesDrawer open={openFavorites} onOpenChange={setOpenFavorites} />
+    </>
   )
 }

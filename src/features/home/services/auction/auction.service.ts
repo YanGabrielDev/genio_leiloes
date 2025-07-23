@@ -67,10 +67,16 @@ const listCurrentVehicleStatus = async (
   return response?.data
 }
 
+const listFavorite = async (): Promise<Vehicles> => {
+  const response = await api.get(`${apiUrl}/leiloes/favoritar-veiculo/`)
+  return response?.data
+}
+
 export default {
   listAuction,
   findVehicleById,
   analysis,
   listCurrentVehicleStatus,
   favoriteVehicle,
+  listFavorite,
 }
