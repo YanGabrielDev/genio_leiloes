@@ -65,22 +65,22 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                 }}
               />
             </div>
-            <div className="relative">
+            <div className="relative flex gap-4 items-center">
               <VehicleFilters />
+              {user && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={handleOpenFavorites}
+                  className="relative hover:bg-red-50 hover:text-red-500"
+                >
+                  <Heart className="h-5 w-5" />
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                    {listFavorite?.data?.length}
+                  </span>
+                </Button>
+              )}
             </div>
-            {user && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleOpenFavorites}
-                className="relative hover:bg-red-50 hover:text-red-500"
-              >
-                <Heart className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                  {listFavorite?.data?.length}
-                </span>
-              </Button>
-            )}
           </div>
         )}
       </header>
