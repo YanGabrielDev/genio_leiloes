@@ -12,15 +12,18 @@ import { SkeletonLoaderGrid } from '../SkeletonLoaderGrid'
 import { AuctionCard } from '@/features/home/components/AuctionCard'
 import { Button } from '../ui/button'
 import { HeartOff, ArrowRight } from 'lucide-react'
+import { UseQueryResult } from '@tanstack/react-query'
+import { Vehicles } from '@/interfaces/vehicle.interface'
 
 export function FavoritesDrawer({
   open,
   onOpenChange,
+  listFavorite,
 }: {
   open: boolean
   onOpenChange: (open: boolean) => void
+  listFavorite: UseQueryResult<Vehicles[], Error>
 }) {
-  const listFavorite = useListFavorite()
   const navigate = useNavigate()
 
   const handleNavigateToVehicle = (vehicleId: number) => {

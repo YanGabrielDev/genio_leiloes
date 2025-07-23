@@ -7,6 +7,7 @@ import { Button } from '../ui/button'
 import { Heart } from 'lucide-react'
 import { useState } from 'react'
 import { FavoritesDrawer } from './FavoritesDrawer'
+import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 
 interface HeaderProps {
   cityFilterOptions?: {
@@ -21,6 +22,8 @@ interface HeaderProps {
 export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
   const { userProfile } = useUserStore()
   const [openFavorites, setOpenFavorites] = useState(false)
+  const listFavorite = useListFavorite()
+
   const { setVehicleFiltersState, vehicleFiltersState } = useVehicleFilters()
   const user = userProfile
     ? { name: userProfile.name, email: userProfile.email }
@@ -42,7 +45,7 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
             Gênio Leilões
           </span>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 md:flex-row flex-col">
             {user && (
               <Button
                 variant="ghost"
@@ -52,7 +55,7 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
               >
                 <Heart className="h-5 w-5" />
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                  666
+                  {listFavorite?.data?.length}
                 </span>
                 {/* {userProfile?.favorites_count && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
@@ -88,7 +91,11 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
         )}
       </header>
 
-      <FavoritesDrawer open={openFavorites} onOpenChange={setOpenFavorites} />
+      <FavoritesDrawer
+        open={openFavorites}
+        onOpenChange={setOpenFavorites}
+        listFavorite={listFavorite}
+      />
     </>
   )
 }
