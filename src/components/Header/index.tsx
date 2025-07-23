@@ -46,6 +46,7 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
           </span>
 
           <div className="flex items-center gap-4 md:flex-row flex-col">
+            <AuthButton user={user} onLogin={onLogin} onLogout={onLogout} />
             {user && (
               <Button
                 variant="ghost"
@@ -57,15 +58,8 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                   {listFavorite?.data?.length}
                 </span>
-                {/* {userProfile?.favorites_count && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                  {userProfile.favorites_count}
-                </span>
-              )} */}
               </Button>
             )}
-
-            <AuthButton user={user} onLogin={onLogin} onLogout={onLogout} />
           </div>
         </div>
 
