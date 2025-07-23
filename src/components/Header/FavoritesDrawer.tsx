@@ -19,7 +19,7 @@ export function FavoritesDrawer({
   open: boolean
   onOpenChange: (open: boolean) => void
 }) {
-  //   const { data: favorites, isLoading, isError } = useListFavorite()
+  const { data: favorites, isLoading, isError } = useListFavorite()
   const navigate = useNavigate()
 
   //   const handleNavigateToVehicle = (vehicleId: number) => {
