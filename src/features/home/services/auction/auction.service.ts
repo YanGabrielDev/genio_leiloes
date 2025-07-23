@@ -67,7 +67,7 @@ const listCurrentVehicleStatus = async (
   return response?.data
 }
 
-const listFavorite = async (): Promise<Vehicles> => {
+const listFavorite = async (): Promise<Vehicles[]> => {
   const token = cookies.get('accessToken')
 
   const response = await api.get(`${apiUrl}/leiloes/favoritar-veiculo/`, {
