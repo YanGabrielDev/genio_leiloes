@@ -12,6 +12,7 @@ import { useUserStore } from '@/store/user.store'
 import { useListCurrentVehicleStatus } from '@/features/home/hooks/use-check-current-vehicle-status'
 import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
 import { Helmet } from 'react-helmet-async'
+import { Vehicles } from '@/interfaces/vehicle.interface'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -116,13 +117,12 @@ function AppPage() {
             vehicleList?.map((item) => (
               <AuctionCard
                 key={item.id}
-                currentVehicleLoading={currentVehicleStatus.isLoading}
-                year={item.ano}
-                avaliacao={item.avaliacao_atualizada ?? item.avaliacao}
-                name={item.marca_modelo}
-                type={item.tipo}
-                imagens={item.imagens}
-                id={item.id}
+                vehicle={item as Vehicles}
+                onToggleFavorite={function (id: number): void {
+                  throw new Error('Function not implemented.')
+                }}
+                currentVehicleLoading={false} // isFavorite={item.isFavorite} // Optional - if you have favorites functionality
+                // onToggleFavorite={handleToggleFavorite} // Optional - if you have favorites functionality
               />
             ))
           )}

@@ -1,7 +1,7 @@
 export interface Vehicles {
   id: number
   lote: null | number
-  condicao: string
+  condicao: 'Sucata' | 'Conservado'
   chassi: string
   placa: string
   marca_modelo: string
