@@ -71,12 +71,8 @@ export function FavoritesDrawer({
                   >
                     <AuctionCard
                       currentVehicleLoading={listFavorite.isLoading}
-                      year={item.ano}
-                      avaliacao={item.avaliacao_atualizada ?? item.avaliacao}
-                      name={item.marca_modelo}
-                      type={item.tipo}
-                      imagens={item.imagens}
-                      id={item.id}
+                      vehicle={item}
+                      onToggleFavorite={() => console.log('opa')}
                     />
                     <ArrowRight className="absolute right-4 top-4 h-5 w-5 text-white bg-primary/80 p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10" />
                   </div>

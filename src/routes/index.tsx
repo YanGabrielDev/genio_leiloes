@@ -121,7 +121,7 @@ function AppPage() {
                 onToggleFavorite={function (id: number): void {
                   throw new Error('Function not implemented.')
                 }}
-                currentVehicleLoading={false} // isFavorite={item.isFavorite} // Optional - if you have favorites functionality
+                currentVehicleLoading={currentVehicleStatus.isLoading} // isFavorite={item.isFavorite} // Optional - if you have favorites functionality
                 // onToggleFavorite={handleToggleFavorite} // Optional - if you have favorites functionality
               />
             ))
