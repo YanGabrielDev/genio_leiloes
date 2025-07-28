@@ -15,7 +15,7 @@ import { Helmet } from 'react-helmet-async'
 import { Vehicles } from '@/interfaces/vehicle.interface'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { toast } from '@/hooks/use-toast'
-import { useFavoriteVehicle } from '@/hooks/use-favorite-vehicle'
+import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -82,15 +82,7 @@ function AppPage() {
       return
     }
 
-    toggleFavorite(vehicleId, {
-      onSuccess: () => {
-        toast({
-          description: favoriteItemids?.includes(vehicleId)
-            ? 'Veículo removido dos favoritos'
-            : 'Veículo adicionado aos favoritos',
-        })
-      },
-    })
+    toggleFavorite(vehicleId)
   }
 
   const handlePageChange = (newPage: number) => setPage(newPage)
