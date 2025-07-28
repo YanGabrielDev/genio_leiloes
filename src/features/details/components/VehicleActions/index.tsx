@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { VehicleAnalysisDialog } from '../VehicleAnalysisDialog'
 import { auctionHammer } from '@/assets/icons'
 import { Link } from '@tanstack/react-router'
-import { Heart, HeartOff } from 'lucide-react'
+import { Heart, HeartOff } from 'lucide-react' // Ícones do Lucide
 import { useState } from 'react'
 import { useUserStore } from '@/store/user.store'
 import { toast } from '@/hooks/use-toast'
@@ -17,7 +17,7 @@ interface VehicleActionsProps {
     marca_modelo: string
     lote_id: number
     vehicleId: number
-    is_favorite?: boolean
+    is_favorite?: boolean // Adicione esta propriedade se existir na API
   }
   currentLink: string
 }
@@ -27,8 +27,8 @@ export function VehicleActions({
   currentLink,
 }: VehicleActionsProps) {
   const [isFavorite, setIsFavorite] = useState(vehicleData.is_favorite || false)
-  const { mutate: toggleFavorite, isPending } = useFavoriteVehicle()
   const { userProfile } = useUserStore()
+  const { mutate: favoriteVehicle, isPending } = useFavoriteVehicle()
   const params = new URLSearchParams(currentLink)
   const vehicleId = params.get('data')
   const vehicleLink = `https://leilao.detran.mg.gov.br/lotes/detalhes/${vehicleId}`
@@ -42,14 +42,9 @@ export function VehicleActions({
       return
     }
 
-    toggleFavorite(vehicleData.vehicleId, {
+    favoriteVehicle(vehicleData.vehicleId, {
       onSuccess: () => {
         setIsFavorite(!isFavorite)
-        toast({
-          description: isFavorite
-            ? 'Veículo removido dos favoritos'
-            : 'Veículo adicionado aos favoritos',
-        })
       },
     })
   }
