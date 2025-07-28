@@ -7,7 +7,6 @@ import {
   DrawerDescription,
 } from '@/components/ui/drawer'
 import { useNavigate } from '@tanstack/react-router'
-import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { SkeletonLoaderGrid } from '../SkeletonLoaderGrid'
 import { AuctionCard } from '@/features/home/components/AuctionCard'
 import { Button } from '../ui/button'

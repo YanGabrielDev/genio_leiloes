@@ -13,6 +13,9 @@ import { useListCurrentVehicleStatus } from '@/features/home/hooks/use-check-cur
 import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
 import { Helmet } from 'react-helmet-async'
 import { Vehicles } from '@/interfaces/vehicle.interface'
+import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
+import { toast } from '@/hooks/use-toast'
+import { useFavoriteVehicle } from '@/hooks/use-favorite-vehicle'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -21,9 +24,12 @@ export const Route = createFileRoute('/')({
 function AppPage() {
   const [page, setPage] = useState<number>(1)
   const { vehicleFiltersState } = useVehicleFilters()
+  const { data: favoriteItems } = useListFavorite()
   const { data: subscriptionPlans, isLoading: isLoadingSubscriptionPlans } =
     useListSubscriptionsPlans()
-  const { setUserPlan } = useUserStore()
+  const { setUserPlan, userProfile } = useUserStore()
+  const { mutate: toggleFavorite } = useFavoriteVehicle()
+  const favoriteItemids = favoriteItems?.map((item) => item.id)
 
   const {
     priceRange: [priceMin, priceMax],
@@ -67,6 +73,25 @@ function AppPage() {
       })),
     []
   )
+  const handleFavorite = (vehicleId: number) => {
+    if (!userProfile) {
+      toast({
+        description: 'Faça login para favoritar veículos',
+        variant: 'info',
+      })
+      return
+    }
+
+    toggleFavorite(vehicleId, {
+      onSuccess: () => {
+        toast({
+          description: favoriteItemids?.includes(vehicleId)
+            ? 'Veículo removido dos favoritos'
+            : 'Veículo adicionado aos favoritos',
+        })
+      },
+    })
+  }
 
   const handlePageChange = (newPage: number) => setPage(newPage)
 
@@ -118,11 +143,9 @@ function AppPage() {
               <AuctionCard
                 key={item.id}
                 vehicle={item as Vehicles}
-                onToggleFavorite={function (id: number): void {
-                  throw new Error('Function not implemented.')
-                }}
-                currentVehicleLoading={currentVehicleStatus.isLoading} // isFavorite={item.isFavorite} // Optional - if you have favorites functionality
-                // onToggleFavorite={handleToggleFavorite} // Optional - if you have favorites functionality
+                onToggleFavorite={handleFavorite}
+                isFavorite={favoriteItemids?.includes(item.id)}
+                currentVehicleLoading={currentVehicleStatus.isLoading}
               />
             ))
           )}

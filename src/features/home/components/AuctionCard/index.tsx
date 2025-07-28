@@ -12,12 +12,14 @@ interface AuctionCardProps {
   vehicle: Vehicles
   onToggleFavorite: (id: number) => void // Ajustado para aceitar number
   currentVehicleLoading: boolean // Mantido para o indicador de loading
+  isFavorite?: boolean
 }
 
 export function AuctionCard({
   vehicle,
   onToggleFavorite,
   currentVehicleLoading,
+  isFavorite,
 }: AuctionCardProps) {
   const navigate = useNavigate()
   // Função para formatar o tempo restante
@@ -81,7 +83,7 @@ export function AuctionCard({
           >
             <Heart
               className={`w-4 h-4 ${
-                false ? 'fill-red-500 text-red-500' : 'text-gray-600'
+                isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'
               }`}
             />
           </Button>
