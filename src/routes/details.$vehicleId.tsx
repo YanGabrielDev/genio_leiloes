@@ -16,6 +16,7 @@ import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
 import { useStore } from 'zustand'
 import { useUserStore } from '@/store/user.store'
 import { Card } from '@/components/ui/card'
+import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 
 export const Route = createFileRoute('/details/$vehicleId')({
   component: VehicleDetailsPage,
@@ -33,6 +34,9 @@ function VehicleDetailsPage() {
     isLoading,
     isError,
   } = useFindVehicleById({ vehicleId: Number(vehicleId) })
+  const { data: favoriteItems } = useListFavorite()
+
+  const favoriteItemids = favoriteItems?.map((item) => item.id)
   const vehicleCurrentStatusById = useFindVehicleCurrentStatusById({
     vehicleId: getCurrentVehicleId(vehicle?.link_lance_atual ?? ''),
   })
@@ -210,6 +214,7 @@ function VehicleDetailsPage() {
               marca_modelo: vehicle.marca_modelo,
               lote_id: Number(vehicle.lote),
               vehicleId: vehicle.id,
+              is_favorite: favoriteItemids?.includes(vehicle.id),
             }}
             currentLink={vehicle.link_lance_atual}
           />

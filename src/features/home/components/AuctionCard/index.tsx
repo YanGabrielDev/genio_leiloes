@@ -22,17 +22,7 @@ export function AuctionCard({
   isFavorite,
 }: AuctionCardProps) {
   const navigate = useNavigate()
-  // Função para formatar o tempo restante
-  const formatTimeRemaining = (seconds: number) => {
-    const days = Math.floor(seconds / (3600 * 24))
-    const hours = Math.floor((seconds % (3600 * 24)) / 3600)
-    const minutes = Math.floor((seconds % 3600) / 60)
-    const secs = Math.floor(seconds % 60)
 
-    if (days > 0) return `${days}d ${hours}h`
-    if (hours > 0) return `${hours}h ${minutes}m`
-    return `${minutes}m ${secs}s`
-  }
   const handleClick = () => {
     navigate({
       to: '/details/$vehicleId',
