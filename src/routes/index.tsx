@@ -127,6 +127,7 @@ function AppPage() {
         <link rel="canonical" href="https://genio-leiloes.vercel.app" />
       </Helmet>
       <Template showFilters cityFilterOptions={cityFilterOptions}>
+        <h2 className="text-2xl font-bold mb-4">Veículos Disponíveis:</h2>
         <div className="grid grid-cols-12 gap-4">
           {listAuction.isLoading ? (
             <SkeletonLoaderGrid count={24} />
