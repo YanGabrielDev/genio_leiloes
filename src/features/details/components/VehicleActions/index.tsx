@@ -26,28 +26,28 @@ export function VehicleActions({
   vehicleData,
   currentLink,
 }: VehicleActionsProps) {
-  const [isFavorite, setIsFavorite] = useState(vehicleData.is_favorite || false)
+  // const [isFavorite, setIsFavorite] = useState(vehicleData.is_favorite || false)
   const { userProfile } = useUserStore()
   const { mutate: favoriteVehicle, isPending } = useFavoriteVehicle()
   const params = new URLSearchParams(currentLink)
   const vehicleId = params.get('data')
   const vehicleLink = `https://leilao.detran.mg.gov.br/lotes/detalhes/${vehicleId}`
 
-  const handleFavorite = () => {
-    if (!userProfile) {
-      toast({
-        description: 'Faça login para favoritar veículos',
-        variant: 'info',
-      })
-      return
-    }
+  // const handleFavorite = () => {
+  //   if (!userProfile) {
+  //     toast({
+  //       description: 'Faça login para favoritar veículos',
+  //       variant: 'info',
+  //     })
+  //     return
+  //   }
 
-    favoriteVehicle(vehicleData.vehicleId, {
-      onSuccess: () => {
-        setIsFavorite(!isFavorite)
-      },
-    })
-  }
+  //   favoriteVehicle(vehicleData.vehicleId, {
+  //     onSuccess: () => {
+  //       setIsFavorite(!isFavorite)
+  //     },
+  //   })
+  // }
 
   return (
     <motion.div
@@ -57,7 +57,7 @@ export function VehicleActions({
       className="flex flex-col sm:flex-row gap-3 pt-4"
     >
       <VehicleAnalysisDialog vehicleData={vehicleData} />
-
+      {/* 
       <Button
         variant="ghost"
         size="lg"
@@ -80,7 +80,7 @@ export function VehicleActions({
           )}
         </motion.div>
         <span className="ml-2">{isFavorite ? 'Remover' : 'Favoritar'}</span>
-      </Button>
+      </Button> */}
 
       <a href={vehicleLink} target="_blank" className="ml-4">
         <Button variant="outline" size="lg" className="w-full sm:w-auto">

@@ -133,6 +133,8 @@ function VehicleDetailsPage() {
       <VehicleDetailsHeader
         leilaoNome={vehicle.leilao.nome}
         vehicleMarcaModelo={vehicle.marca_modelo}
+        veihcleYear={vehicle.ano}
+        vehicleId={vehicle.id}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
