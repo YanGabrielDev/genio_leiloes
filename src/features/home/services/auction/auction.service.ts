@@ -5,9 +5,10 @@ import {
   ListAuctionParams,
   Analysis,
   CurrentVehicleStatus,
+  ListLastMoves,
 } from './action.types'
 import { Vehicles } from '@/interfaces/vehicle.interface'
-import { apiUrl } from '@/constant/configs'
+import { apiUrl, auctionBaseUrl } from '@/constant/configs'
 import Cookies from 'js-cookie'
 const cookies = Cookies
 const listAuction = async ({
@@ -79,6 +80,15 @@ const listFavorite = async (): Promise<Vehicles[]> => {
   return response?.data
 }
 
+const listLastMoves = async (vehicleId: number): Promise<ListLastMoves> => {
+  console.log('chamou')
+
+  const response = await api.get(
+    `${auctionBaseUrl}/single-leilao-status/${vehicleId}`
+  )
+  return response?.data
+}
+
 export default {
   listAuction,
   findVehicleById,
@@ -86,4 +96,5 @@ export default {
   listCurrentVehicleStatus,
   favoriteVehicle,
   listFavorite,
+  listLastMoves,
 }

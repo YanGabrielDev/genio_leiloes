@@ -13,7 +13,7 @@ interface UseListCurrentVehicleStatus {
 export const useFindVehicleCurrentStatusById = ({
   vehicleId,
 }: UseListCurrentVehicleStatus) => {
-  const url = new URL(auctionBaseUrl)
+  const url = new URL(auctionBaseUrl + '/leilao-status')
 
   if (vehicleId) {
     url.searchParams.append('data[]', vehicleId.toString())

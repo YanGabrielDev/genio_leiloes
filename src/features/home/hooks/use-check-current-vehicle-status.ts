@@ -9,7 +9,7 @@ interface UseListCurrentVehicleStatus {
 export const useListCurrentVehicleStatus = ({
   dataList,
 }: UseListCurrentVehicleStatus) => {
-  const url = new URL(auctionBaseUrl)
+  const url = new URL(auctionBaseUrl + '/leilao-status')
 
   if (dataList && dataList.length > 0) {
     dataList.forEach((value) => {
