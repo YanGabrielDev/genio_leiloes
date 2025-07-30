@@ -27,3 +27,16 @@ export interface CurrentVehicleStatusValues {
 export interface CurrentVehicleStatus {
   [key: number]: CurrentVehicleStatusValues
 }
+
+export interface ListLastMoves {
+  arrematante: string
+  statusLeilao: string
+  valorIncremento: string
+  valor: string
+  tempo: number
+  ultimosLances: Array<{
+    pre_arrematante: string
+    valor: string
+    data_hora: string
+  }>
+}
