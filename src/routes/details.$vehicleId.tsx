@@ -17,6 +17,7 @@ import { useStore } from 'zustand'
 import { useUserStore } from '@/store/user.store'
 import { Card } from '@/components/ui/card'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
+import { useListLastMoves } from '@/features/details/hooks/use-list-last-moves'
 
 export const Route = createFileRoute('/details/$vehicleId')({
   component: VehicleDetailsPage,
@@ -34,7 +35,12 @@ function VehicleDetailsPage() {
     isLoading,
     isError,
   } = useFindVehicleById({ vehicleId: Number(vehicleId) })
+  const { data: listLastMoves, isLoading: isLoadingListLastMoves } =
+    useListLastMoves({
+      vehicleId: Number(vehicle?.lote),
+    })
   const { data: favoriteItems } = useListFavorite()
+  console.log({ listLastMoves, vehicle })
 
   const favoriteItemids = favoriteItems?.map((item) => item.id)
   const vehicleCurrentStatusById = useFindVehicleCurrentStatusById({
@@ -206,6 +212,8 @@ function VehicleDetailsPage() {
             color={vehicle.cor}
             leilaoName={vehicle.leilao.nome}
             leilaoState={vehicle.leilao.estado}
+            leilaoData={listLastMoves}
+            isLoadingLeilaoData={isLoadingListLastMoves}
           />
 
           <VehicleActions
