@@ -49,12 +49,50 @@ export function VehicleInfoCards({
         <Tabs defaultValue="leilao">
           <CardHeader className="pb-0 border-b-0">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="leilao">Informações do Leilão</TabsTrigger>
               <TabsTrigger value="especificacoes">Especificações</TabsTrigger>
+
+              <TabsTrigger value="leilao">Informações do Leilão</TabsTrigger>
             </TabsList>
           </CardHeader>
 
           <CardContent className="p-6">
+            <TabsContent value="especificacoes">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Ano
+                  </p>
+                  <p className="text-base font-semibold">
+                    {year || 'Não informado'}
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Cor
+                  </p>
+                  <p className="text-base font-semibold">
+                    {color || 'Não informada'}
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Leilão
+                  </p>
+                  <p className="text-base font-semibold">{leilaoName}</p>
+                </div>
+
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Localização
+                  </p>
+                  <p className="text-base font-semibold">
+                    {leilaoState || 'Não informada'}
+                  </p>
+                </div>
+              </div>
+            </TabsContent>
             <TabsContent value="leilao">
               {isLoadingLeilaoData ? (
                 <div className="space-y-4">
@@ -163,44 +201,6 @@ export function VehicleInfoCards({
                   </div>
                 </div>
               )}
-            </TabsContent>
-
-            <TabsContent value="especificacoes">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="space-y-1">
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Ano
-                  </p>
-                  <p className="text-base font-semibold">
-                    {year || 'Não informado'}
-                  </p>
-                </div>
-
-                <div className="space-y-1">
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Cor
-                  </p>
-                  <p className="text-base font-semibold">
-                    {color || 'Não informada'}
-                  </p>
-                </div>
-
-                <div className="space-y-1">
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Leilão
-                  </p>
-                  <p className="text-base font-semibold">{leilaoName}</p>
-                </div>
-
-                <div className="space-y-1">
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Localização
-                  </p>
-                  <p className="text-base font-semibold">
-                    {leilaoState || 'Não informada'}
-                  </p>
-                </div>
-              </div>
             </TabsContent>
           </CardContent>
         </Tabs>
