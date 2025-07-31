@@ -160,7 +160,7 @@ export const PaymentForm = ({ stripePriceId }: PaymentForm) => {
                   Processando...
                 </>
               ) : (
-                'Pay $10.00'
+                'Realizar compra'
               )}
             </Button>
           </CardFooter>

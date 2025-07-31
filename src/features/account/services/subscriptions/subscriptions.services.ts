@@ -28,7 +28,7 @@ const subscriptionsCreateCheckoutSession = async (
   const token = cookies.get('accessToken')
 
   const response = await api.post(
-    `${apiUrl}/subscriptions/create-checkout-session/`,
+    `${apiUrl}/subscriptions/moedas/checkout/`,
     data,
     {
       headers: {

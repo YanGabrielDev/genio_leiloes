@@ -77,7 +77,7 @@ export function PackageCard({ pack, recommended = false }: PackageCardProps) {
           navigate({
             to: '/payment',
             search: {
-              pacote_id: pack.id.toString(),
+              stripe_monthly_price_id: pack.id.toString(),
             },
           })
         }
