@@ -40,7 +40,7 @@ export const PaymentForm = ({ stripePriceId }: PaymentForm) => {
     }
 
     try {
-      const { url } = await createCheckoutSession({ price_id: stripePriceId })
+      const { url } = await createCheckoutSession({ pack_id: stripePriceId })
 
       // Redireciona para a URL de checkout do Stripe
       if (url) {

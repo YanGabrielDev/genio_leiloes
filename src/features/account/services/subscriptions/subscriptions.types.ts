@@ -32,5 +32,5 @@ export interface ListSubscriptionsPlans {
 }
 
 export interface CreateCheckoutSession {
-  price_id: string
+  pack_id: string
 }
