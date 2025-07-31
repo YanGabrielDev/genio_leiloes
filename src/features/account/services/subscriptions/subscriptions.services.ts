@@ -13,7 +13,7 @@ const cookies = Cookies
 const listSubscriptionsPlans = async (): Promise<ListSubscriptionsPlans> => {
   const token = cookies.get('accessToken')
 
-  const response = await api.get(`${apiUrl}/subscriptions/plans/`, {
+  const response = await api.get(`${apiUrl}/subscriptions/moedas/`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',

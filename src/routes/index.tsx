@@ -30,6 +30,7 @@ function AppPage() {
   const { setUserPlan, userProfile } = useUserStore()
   const { mutate: toggleFavorite } = useFavoriteVehicle()
   const favoriteItemids = favoriteItems?.map((item) => item.id)
+  console.log({ subscriptionPlans })
 
   const {
     priceRange: [priceMin, priceMax],
