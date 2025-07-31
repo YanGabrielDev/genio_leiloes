@@ -21,8 +21,14 @@ export interface UserPlan {
 }
 
 export interface ListSubscriptionsPlans {
-  user_plan: UserPlan
-  available_plans: Plan[]
+  saldo_moedas: number
+  pacotes_disponiveis: {
+    id: number
+    title: string
+    description: string
+    quantidade_moedas: string
+    preco: string
+  }[]
 }
 
 export interface CreateCheckoutSession {

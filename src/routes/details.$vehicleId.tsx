@@ -151,7 +151,7 @@ function VehicleDetailsPage() {
 
         <motion.div variants={fadeIn} className="space-y-6">
           {/* Adicionando o card de análises disponíveis */}
-          {plan && (
+          {/* {plan && (
             <Card className="border-primary p-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -171,7 +171,7 @@ function VehicleDetailsPage() {
                 </Badge>
               </div>
             </Card>
-          )}
+          )} */}
 
           {/* <div>
             <motion.h1
