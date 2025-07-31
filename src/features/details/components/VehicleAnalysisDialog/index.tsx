@@ -32,26 +32,26 @@ export function VehicleAnalysisDialog({
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
 
-  const hasReachedLimit =
-    !!plan &&
-    plan.user_plan.requests_ai_used === plan.user_plan.plan.requests_ai
+  // const hasReachedLimit =
+  //   !!plan &&
+  //   plan.user_plan.requests_ai_used === plan.user_plan.plan.requests_ai
 
   const handleAnalysis = () => {
-    if (!userProfile && !hasReachedLimit) {
-      toast({
-        description: 'Acesse a sua conta para usar o Analisar com IA.',
-        variant: 'info',
-      })
-      setTimeout(() => {
-        navigate({ to: '/login' })
-      }, 2000)
-      return
-    }
+    // if (!userProfile && !hasReachedLimit) {
+    //   toast({
+    //     description: 'Acesse a sua conta para usar o Analisar com IA.',
+    //     variant: 'info',
+    //   })
+    //   setTimeout(() => {
+    //     navigate({ to: '/login' })
+    //   }, 2000)
+    //   return
+    // }
 
-    if (hasReachedLimit) {
-      setShowUpgradeModal(true)
-      return
-    }
+    // if (hasReachedLimit) {
+    //   setShowUpgradeModal(true)
+    //   return
+    // }
 
     setIsModalOpen(true)
     postAnalysis({
