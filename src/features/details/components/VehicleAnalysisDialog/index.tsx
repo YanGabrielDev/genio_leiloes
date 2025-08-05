@@ -78,18 +78,12 @@ export function VehicleAnalysisDialog({
           }}
         >
           <Button
+            size="lg"
+            className="w-full sm:w-auto"
             variant="outline"
             onClick={handleAnalysis}
             disabled={analysisIsPending}
           >
-            {/* Efeito de brilho animado */}
-            <motion.span
-              className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100"
-              initial={{ x: '-100%' }}
-              whileHover={{ x: '100%' }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-
             {analysisIsPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (

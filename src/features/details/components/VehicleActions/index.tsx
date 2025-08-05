@@ -29,11 +29,11 @@ export function VehicleActions({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5 }}
-      className="flex flex-col sm:flex-row gap-3 pt-4"
+      className="flex flex-col sm:flex-row gap-4 pt-4"
     >
       <VehicleAnalysisDialog vehicleData={vehicleData} />
 
-      <a href={vehicleLink} target="_blank" className="ml-4">
+      <a href={vehicleLink} target="_blank">
         <Button variant="outline" size="lg" className="w-full sm:w-auto">
           Ir para o leilão {auctionHammer}
         </Button>
