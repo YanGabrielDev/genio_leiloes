@@ -140,23 +140,23 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                       className="pl-10"
                     />
                   </div>
-                  <div className="relative flex gap-4 items-center">
+                  <div className="relative flex gap-4 items-center w-full">
                     <VehicleFilters />
+                    {/* Contador de Moedas */}
+                    {userProfile && (
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-1 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent ml-auto"
+                      >
+                        <Coins className="h-5 w-5 text-yellow-500" />
+                        <span className="font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                          {plan?.saldo_moedas || 0}
+                        </span>
+                      </motion.div>
+                    )}
                   </div>
                 </div>
-              )}
-              {/* Contador de Moedas */}
-              {userProfile && (
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-1 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent ml-auto"
-                >
-                  <Coins className="h-5 w-5 text-yellow-500" />
-                  <span className="font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                    {plan?.saldo_moedas || 0}
-                  </span>
-                </motion.div>
               )}
             </div>
           </div>
