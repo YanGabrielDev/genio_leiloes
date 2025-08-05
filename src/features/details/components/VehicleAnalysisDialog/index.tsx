@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Sparkles, Coins } from 'lucide-react' // Adicionei o ícone Coins
 import { useAnalysis } from '../../hooks/useAnalysis'
 import { useUserStore } from '@/store/user.store'
 import { useNavigate } from '@tanstack/react-router'
@@ -32,26 +32,26 @@ export function VehicleAnalysisDialog({
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
 
-  // const hasReachedLimit =
-  //   !!plan &&
-  //   plan.user_plan.requests_ai_used === plan.user_plan.plan.requests_ai
-
   const handleAnalysis = () => {
-    // if (!userProfile && !hasReachedLimit) {
-    //   toast({
-    //     description: 'Acesse a sua conta para usar o Analisar com IA.',
-    //     variant: 'info',
-    //   })
-    //   setTimeout(() => {
-    //     navigate({ to: '/login' })
-    //   }, 2000)
-    //   return
-    // }
+    if (!userProfile) {
+      toast({
+        description: 'Acesse a sua conta para usar o Analisar com IA.',
+        variant: 'info',
+      })
+      setTimeout(() => {
+        navigate({ to: '/login' })
+      }, 2000)
+      return
+    }
 
-    // if (hasReachedLimit) {
-    //   setShowUpgradeModal(true)
-    //   return
-    // }
+    if ((plan?.saldo_moedas || 0) < 30) {
+      toast({
+        title: 'Moedas insuficientes',
+        description: 'Você precisa de 30 moedas para usar esta análise',
+        variant: 'destructive',
+      })
+      return
+    }
 
     setIsModalOpen(true)
     postAnalysis({
@@ -66,19 +66,64 @@ export function VehicleAnalysisDialog({
   return (
     <>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <Button
-          size="lg"
-          className="w-full sm:w-auto"
-          variant="primary"
-          onClick={handleAnalysis}
-          disabled={analysisIsPending}
+        <motion.div
+          initial={{ scale: 1 }}
+          animate={{
+            scale: [1, 1.02, 1],
+            boxShadow: [
+              '0 0 0 0 rgba(124, 58, 237, 0)',
+              '0 0 0 3px rgba(124, 58, 237, 0.3)',
+              '0 0 0 0 rgba(124, 58, 237, 0)',
+            ],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 2,
+            ease: 'easeInOut',
+          }}
+          className="inline-block"
         >
-          {analysisIsPending ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          ) : (
-            'Analisar com IA'
-          )}
-        </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={handleAnalysis}
+            disabled={analysisIsPending}
+          >
+            {/* Efeito de brilho animado */}
+            <motion.span
+              className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: '100%' }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+
+            {analysisIsPending ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <>
+                <motion.span
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 10, -10, 0],
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 3,
+                    ease: 'easeInOut',
+                  }}
+                >
+                  <Sparkles className="mr-2 h-4 w-4 text-purple-500" />
+                </motion.span>{' '}
+                Analisar com IA
+                <span className="ml-2 flex items-center gap-1">
+                  <Coins className="h-4 w-4 text-yellow-500" />
+                  <span className="text-sm font-bold">30</span>
+                </span>
+              </>
+            )}
+          </Button>
+        </motion.div>
+
         <DialogContent className="sm:max-w-[600px] bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl max-h-96 overflow-auto">
           <AnimatePresence>
             <motion.div
