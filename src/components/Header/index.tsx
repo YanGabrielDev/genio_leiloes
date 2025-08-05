@@ -11,6 +11,7 @@ import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { motion } from 'framer-motion'
 import { useToast } from '@/hooks/use-toast'
 import logo from '../../../public/genio_icon.png'
+import { Link } from '@tanstack/react-router'
 interface HeaderProps {
   cityFilterOptions?: {
     value: string
@@ -65,19 +66,21 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
             {/* Top Row */}
             <div className="flex items-center justify-between h-16">
               {/* Logo */}
-              <div className="flex items-center space-x-2">
-                <img
-                  src={logo}
-                  alt="Gênio da lampada com um matelo na mão logo"
-                  className="h-12 w-12 rounded-lg object-cover"
-                />
-                <div>
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                    Gênio Leilão
-                  </h1>
-                  <p className="text-xs text-gray-500">Veículos do Detran</p>
+              <Link to="/">
+                <div className="flex items-center space-x-2">
+                  <img
+                    src={logo}
+                    alt="Gênio da lampada com um matelo na mão logo"
+                    className="h-12 w-12 rounded-lg object-cover"
+                  />
+                  <div>
+                    <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                      Gênio Leilão
+                    </h1>
+                    <p className="text-xs text-gray-500">Veículos do Detran</p>
+                  </div>
                 </div>
-              </div>
+              </Link>
 
               {/* Navigation Icons */}
               <div className="flex items-center space-x-4">
