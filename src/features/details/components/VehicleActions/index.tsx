@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { VehicleAnalysisDialog } from '../VehicleAnalysisDialog'
 import { auctionHammer } from '@/assets/icons'
+import { useState, useEffect } from 'react'
 
 interface VehicleActionsProps {
   vehicleData: {
@@ -11,7 +12,7 @@ interface VehicleActionsProps {
     marca_modelo: string
     lote_id: number
     vehicleId: number
-    is_favorite?: boolean // Adicione esta propriedade se existir na API
+    is_favorite?: boolean
   }
   currentLink: string
 }

@@ -14,6 +14,7 @@ import { useFindVehicleCurrentStatusById } from '@/features/details/hooks/use-fi
 import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { useListLastMoves } from '@/features/details/hooks/use-list-last-moves'
+import { useEffect, useState } from 'react'
 
 export const Route = createFileRoute('/details/$vehicleId')({
   component: VehicleDetailsPage,
@@ -23,6 +24,13 @@ const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 }
+const benefits = [
+  '⚡ Tabela FIPE atualizada',
+  '💰 Custos mensais do veículo',
+  '🔧 Problemas crônicos conhecidos',
+  '✅ Avaliação: vale a pena ou não?',
+  '📸 Detecção de danos nas imagens',
+]
 
 function VehicleDetailsPage() {
   const { vehicleId } = Route.useParams()
@@ -41,7 +49,15 @@ function VehicleDetailsPage() {
   const vehicleCurrentStatusById = useFindVehicleCurrentStatusById({
     vehicleId: getCurrentVehicleId(vehicle?.link_lance_atual ?? ''),
   })
+  const [currentBenefit, setCurrentBenefit] = useState(0)
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBenefit((prev) => (prev + 1) % benefits.length)
+    }, 3000) // Muda a cada 3 segundos
+
+    return () => clearInterval(interval)
+  }, [])
   // --- Loading State ---
   if (isLoading) {
     return (
@@ -157,7 +173,22 @@ function VehicleDetailsPage() {
             leilaoData={listLastMoves}
             isLoadingLeilaoData={isLoadingListLastMoves}
           />
-
+          {/* Container dos benefícios animados */}
+          <div className="flex items-center gap-4">
+            <span className="text-primary text-sm">
+              Benefícios do analise com IA:
+            </span>
+            <motion.div
+              key={currentBenefit}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium shadow-sm"
+            >
+              {benefits[currentBenefit]}
+            </motion.div>
+          </div>
           <VehicleActions
             vehicleData={{
               ano: vehicle.ano,

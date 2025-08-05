@@ -104,7 +104,7 @@ export function VehicleAnalysisDialog({
                 Analisar com IA
                 <span className="ml-2 flex items-center gap-1">
                   <Coins className="h-4 w-4 text-yellow-500" />
-                  <span className="text-sm font-bold">30</span>
+                  <span className="text-sm font-bold">25</span>
                 </span>
               </>
             )}
