@@ -174,7 +174,7 @@ function VehicleDetailsPage() {
             isLoadingLeilaoData={isLoadingListLastMoves}
           />
           {/* Container dos benefícios animados */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-col md:flex-row">
             <span className="text-primary text-sm">
               Benefícios do analise com IA:
             </span>
