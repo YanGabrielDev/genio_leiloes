@@ -1,4 +1,4 @@
-import { Heart, Search, Sparkles } from 'lucide-react'
+import { Heart, Search, Sparkles, Coins } from 'lucide-react' // Adicionei o ícone Coins
 import { Input } from '../ui/input'
 import { AuthButton } from './auth-button'
 import { VehicleFilters } from '../VehicleFilters'
@@ -12,6 +12,7 @@ import { motion } from 'framer-motion'
 import { useToast } from '@/hooks/use-toast'
 import logo from '../../../public/genio_icon.png'
 import { Link } from '@tanstack/react-router'
+
 interface HeaderProps {
   cityFilterOptions?: {
     value: string
@@ -23,7 +24,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
-  const { userProfile } = useUserStore()
+  const { userProfile, plan } = useUserStore()
   const [openFavorites, setOpenFavorites] = useState(false)
   const listFavorite = useListFavorite()
   const { toast } = useToast()
@@ -121,28 +122,43 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
             </div>
 
             {/* Search and Filters */}
-            {showFilters && (
-              <div className="flex gap-4 items-start w-full md:flex-row flex-col">
-                <div className="relative flex-1 max-w-2xl">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  <Input
-                    placeholder="Buscar por modelo, marca ou placa..."
-                    value={vehicleFiltersState.brandModelSearch}
-                    onChange={(event) => {
-                      const value = event.target.value
-                      setVehicleFiltersState((prevState) => ({
-                        ...prevState,
-                        brandModelSearch: value,
-                      }))
-                    }}
-                    className="pl-10"
-                  />
+            <div className="w-full flex">
+              {showFilters && (
+                <div className="flex gap-4 items-start w-full md:flex-row flex-col">
+                  <div className="relative flex-1 max-w-2xl">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Input
+                      placeholder="Buscar por modelo, marca ou placa..."
+                      value={vehicleFiltersState.brandModelSearch}
+                      onChange={(event) => {
+                        const value = event.target.value
+                        setVehicleFiltersState((prevState) => ({
+                          ...prevState,
+                          brandModelSearch: value,
+                        }))
+                      }}
+                      className="pl-10"
+                    />
+                  </div>
+                  <div className="relative flex gap-4 items-center">
+                    <VehicleFilters />
+                  </div>
                 </div>
-                <div className="relative flex gap-4 items-center">
-                  <VehicleFilters />
-                </div>
-              </div>
-            )}
+              )}
+              {/* Contador de Moedas */}
+              {userProfile && (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-1 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent ml-auto"
+                >
+                  <Coins className="h-5 w-5 text-yellow-500" />
+                  <span className="font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                    {plan?.saldo_moedas || 0}
+                  </span>
+                </motion.div>
+              )}
+            </div>
           </div>
         </div>
       </header>
