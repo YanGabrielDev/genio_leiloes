@@ -70,21 +70,14 @@ export function VehicleAnalysisDialog({
           initial={{ scale: 1 }}
           animate={{
             scale: [1, 1.02, 1],
-            boxShadow: [
-              '0 0 0 0 rgba(124, 58, 237, 0)',
-              '0 0 0 3px rgba(124, 58, 237, 0.3)',
-              '0 0 0 0 rgba(124, 58, 237, 0)',
-            ],
           }}
           transition={{
             repeat: Infinity,
             duration: 2,
             ease: 'easeInOut',
           }}
-          className="inline-block"
         >
           <Button
-            size="lg"
             variant="outline"
             onClick={handleAnalysis}
             disabled={analysisIsPending}
