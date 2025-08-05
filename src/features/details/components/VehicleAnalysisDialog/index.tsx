@@ -117,7 +117,7 @@ export function VehicleAnalysisDialog({
           </Button>
         </motion.div>
 
-        <DialogContent className="sm:max-w-[600px] bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl max-h-96 overflow-auto">
+        <DialogContent className=" bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl max-h-96 overflow-auto">
           <AnimatePresence>
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
