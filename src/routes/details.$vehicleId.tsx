@@ -4,7 +4,6 @@ import { Template } from '@/components/Template'
 import { Skeleton } from '@/components/ui/skeleton'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { useFindVehicleById } from '@/features/details/hooks/findVehicleById'
 import { VehicleActions } from '@/features/details/components/VehicleActions'
 import { VehicleDetailsHeader } from '@/features/details/components/VehicleDetailsHeader'
@@ -13,9 +12,6 @@ import { VehicleInfoCards } from '@/features/details/components/VehicleInfoCards
 import { VehiclePriceDisplay } from '@/features/details/components/VehiclePriceDisplay'
 import { useFindVehicleCurrentStatusById } from '@/features/details/hooks/use-find-vehicle-current-status-by-id'
 import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
-import { useStore } from 'zustand'
-import { useUserStore } from '@/store/user.store'
-import { Card } from '@/components/ui/card'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { useListLastMoves } from '@/features/details/hooks/use-list-last-moves'
 
@@ -40,13 +36,11 @@ function VehicleDetailsPage() {
       vehicleId: Number(vehicle?.lote),
     })
   const { data: favoriteItems } = useListFavorite()
-  console.log({ listLastMoves, vehicle })
 
   const favoriteItemids = favoriteItems?.map((item) => item.id)
   const vehicleCurrentStatusById = useFindVehicleCurrentStatusById({
     vehicleId: getCurrentVehicleId(vehicle?.link_lance_atual ?? ''),
   })
-  const { plan } = useUserStore()
 
   // --- Loading State ---
   if (isLoading) {
@@ -150,58 +144,6 @@ function VehicleDetailsPage() {
         />
 
         <motion.div variants={fadeIn} className="space-y-6">
-          {/* Adicionando o card de análises disponíveis */}
-          {/* {plan && (
-            <Card className="border-primary p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-medium text-primary">Análises com IA</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Você ainda possui{' '}
-                    {plan.user_plan.plan.requests_ai -
-                      plan.user_plan.requests_ai_used}{' '}
-                    análises disponíveis este mês
-                  </p>
-                </div>
-                <Badge
-                  variant="outline"
-                  className="border-primary text-primary"
-                >
-                  {plan.user_plan.plan.title}
-                </Badge>
-              </div>
-            </Card>
-          )} */}
-
-          {/* <div>
-            <motion.h1
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-3xl font-bold tracking-tight"
-            >
-              {vehicle.marca_modelo}
-            </motion.h1>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="flex items-center gap-2 mt-2"
-            >
-              <Badge variant="secondary" className="text-sm">
-                Lote: {vehicle.lote}
-              </Badge>
-              <Badge
-                variant={
-                  vehicle.condicao === 'Sucata' ? 'destructive' : 'outline'
-                }
-              >
-                {vehicle.condicao || 'Condição não informada'}
-              </Badge>
-            </motion.div>
-          </div> */}
-
           <VehiclePriceDisplay
             evaluationValue={evaluationValue}
             loading={vehicleCurrentStatusById.isLoading}
