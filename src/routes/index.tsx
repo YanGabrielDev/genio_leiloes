@@ -121,7 +121,7 @@ function AppPage() {
         />
         <meta
           property="og:image"
-          content="https://genio-leiloes.vercel.app/imagens/genio-leiloes.webp"
+          content="https://genio-leiloes.vercel.app/imagens/genio_icon.png"
         />
 
         <meta name="robots" content="index, follow" />

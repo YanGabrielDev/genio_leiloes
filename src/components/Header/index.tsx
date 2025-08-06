@@ -125,10 +125,10 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
             <div className="w-full flex">
               <div className="flex gap-4 items-start w-full md:flex-row flex-col">
                 {showFilters && (
-                  <div className="relative flex-1 max-w-2xl">
+                  <div className="relative flex-1 max-w-2xl min-w-80">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
-                      placeholder="Buscar por modelo, marca ou placa..."
+                      placeholder="Buscar por modelo ou marca"
                       value={vehicleFiltersState.brandModelSearch}
                       onChange={(event) => {
                         const value = event.target.value
@@ -142,7 +142,7 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                   </div>
                 )}
 
-                <div className="relative flex gap-4 items-center w-full">
+                <div className="relative flex gap-4 items-center w-full sm:w-auto">
                   {showFilters && <VehicleFilters />}
 
                   {/* Contador de Moedas */}
