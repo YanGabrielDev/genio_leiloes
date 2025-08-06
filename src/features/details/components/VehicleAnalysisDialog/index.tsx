@@ -65,7 +65,6 @@ export function VehicleAnalysisDialog({
       marca_modelo: vehicleData.marca_modelo,
       lote_id: vehicleData.lote_id,
     })
-    refetch()
   }
   useEffect(() => {
     if (subscriptionPlans) setUserPlan(subscriptionPlans)
@@ -87,7 +86,7 @@ export function VehicleAnalysisDialog({
         >
           <Button
             size="lg"
-            className="w-full sm:w-auto"
+            className="w-full ml-auto"
             variant="outline"
             onClick={handleAnalysis}
             disabled={analysisIsPending}
