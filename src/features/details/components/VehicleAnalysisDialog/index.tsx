@@ -6,8 +6,9 @@ import { useAnalysis } from '../../hooks/useAnalysis'
 import { useUserStore } from '@/store/user.store'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from '@/hooks/use-toast'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UpgradePlanModal } from '../UpgradePlanModal'
+import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
 
 interface VehicleAnalysisDialogProps {
   vehicleData: {
@@ -28,10 +29,14 @@ export function VehicleAnalysisDialog({
     isPending: analysisIsPending,
   } = useAnalysis()
   const navigate = useNavigate()
-  const { userProfile, plan } = useUserStore()
+  const { userProfile, plan, setUserPlan } = useUserStore()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
-
+  const {
+    data: subscriptionPlans,
+    isLoading: isLoadingSubscriptionPlans,
+    refetch,
+  } = useListSubscriptionsPlans()
   const handleAnalysis = () => {
     if (!userProfile) {
       toast({
@@ -52,7 +57,6 @@ export function VehicleAnalysisDialog({
       })
       return
     }
-
     setIsModalOpen(true)
     postAnalysis({
       ano: String(vehicleData.ano),
@@ -61,7 +65,11 @@ export function VehicleAnalysisDialog({
       marca_modelo: vehicleData.marca_modelo,
       lote_id: vehicleData.lote_id,
     })
+    refetch()
   }
+  useEffect(() => {
+    if (subscriptionPlans) setUserPlan(subscriptionPlans)
+  }, [isLoadingSubscriptionPlans, subscriptionPlans])
 
   return (
     <>
