@@ -25,7 +25,6 @@ export function CreateAlertPage() {
         })
         return
       }
-      await updateSubscriptionsPlans()
       const payload = {
         ...formData,
         valor_referencia: parseCurrencyToNumber(formData.valor_referencia),
@@ -33,6 +32,8 @@ export function CreateAlertPage() {
         ano_ate: parseInt(formData.ano_ate) || 0,
       }
       await createAlert(payload)
+      await updateSubscriptionsPlans()
+
       navigate({ to: '/auction-alert' })
     } catch (error) {
       console.error(error)
