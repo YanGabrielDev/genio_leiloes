@@ -3,11 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
-import { ConditionRadioGroup } from '../ConditionRadioGroup'
-import { ColorSelect } from '../ColorSelect'
-import { YearRangeInput } from '../YearRangeInput'
-import { AlertFormData } from '../../types'
-import { Form, FormProvider, useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import {
   alertFormSchema,
   AlertFormValues,
@@ -30,6 +26,7 @@ import {
 } from '@/components/ui/select'
 import { formatCurrency } from '../../utils/currency.utils'
 import { Coins } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
 
 interface AlertFormProps {
   onSubmit: (data: AlertFormValues) => void // Changed this line
@@ -66,7 +63,7 @@ export const AlertForm = ({
       enviar_uma_vez: false,
     },
   })
-
+  const navigate = useNavigate()
   const handleCurrencyBlur = (field: 'valor_referencia') => {
     const value = methods.getValues(field)
     if (value) {
@@ -350,6 +347,12 @@ export const AlertForm = ({
             whileTap={{ scale: 0.98 }}
             className="flex justify-center gap-4"
           >
+            <Button
+              variant="destructive"
+              onClick={() => navigate({ to: '/auction-alert' })}
+            >
+              Cancelar
+            </Button>
             <Button type="submit" disabled={isSubmitting} variant={'outline'}>
               {isSubmitting ? 'Criando...' : 'Criar Alerta'}
               <span className="ml-2 flex items-center gap-1">
