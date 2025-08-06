@@ -5,12 +5,27 @@ import { parseCurrencyToNumber } from '@/features/auction-alert/utils/currency.u
 import { ArrowLeft } from 'lucide-react'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
+import { useUpdateSubscriptionsPlans } from '@/features/account/hooks/use-update-subscriptions-plans'
+import { useUserStore } from '@/store/user.store'
+import { toast } from '@/hooks/use-toast'
 
 export function CreateAlertPage() {
   const { mutateAsync: createAlert, isPending: isCreating } = useCreateAlert()
   const navigate = useNavigate()
+  const { plan } = useUserStore()
+  const { mutateAsync: updateSubscriptionsPlans } =
+    useUpdateSubscriptionsPlans()
   const handleSubmit = async (formData: AlertFormValues) => {
     try {
+      if ((plan?.saldo_moedas || 0) < 50) {
+        toast({
+          title: 'Moedas insuficientes',
+          description: 'Você precisa de 50 moedas para criar um novo alerta',
+          variant: 'destructive',
+        })
+        return
+      }
+      await updateSubscriptionsPlans()
       const payload = {
         ...formData,
         valor_referencia: parseCurrencyToNumber(formData.valor_referencia),

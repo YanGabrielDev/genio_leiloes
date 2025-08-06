@@ -29,6 +29,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { formatCurrency } from '../../utils/currency.utils'
+import { Coins } from 'lucide-react'
 
 interface AlertFormProps {
   onSubmit: (data: AlertFormValues) => void // Changed this line
@@ -347,10 +348,14 @@ export const AlertForm = ({
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="flex justify-center"
+            className="flex justify-center gap-4"
           >
-            <Button type="submit" disabled={isSubmitting}>
+            <Button type="submit" disabled={isSubmitting} variant={'outline'}>
               {isSubmitting ? 'Criando...' : 'Criar Alerta'}
+              <span className="ml-2 flex items-center gap-1">
+                <Coins className="h-4 w-4 text-yellow-500" />
+                <span className="text-sm font-bold">50</span>
+              </span>
             </Button>
           </motion.div>
         </form>
