@@ -142,7 +142,7 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                   </div>
                 )}
 
-                <div className="relative flex gap-4 items-center w-full sm:w-auto">
+                <div className="relative flex gap-4 items-center w-full ">
                   {showFilters && <VehicleFilters />}
 
                   {/* Contador de Moedas */}
