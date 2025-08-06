@@ -1,12 +1,15 @@
 import { Template } from '@/components/Template'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { AlertList } from '@/features/auction-alert/components/AlertList'
 import { useListAlerts } from '@/features/auction-alert/hooks/use-list-alerts'
 import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-react'
+import { Coins, Plus } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useDeleteAlert } from '@/features/auction-alert/hooks/use-delete-alert '
+import { useUserStore } from '@/store/user.store'
+import { toast } from '@/hooks/use-toast'
+import { useUpdateSubscriptionsPlans } from '@/features/account/hooks/use-update-subscriptions-plans'
 
 export const Route = createFileRoute('/auction-alert/')({
   component: RouteComponent,
@@ -15,6 +18,22 @@ export const Route = createFileRoute('/auction-alert/')({
 function RouteComponent() {
   const { data: alerts = [], isLoading: isLoadingAlerts } = useListAlerts()
   const { mutate: deleteAlert } = useDeleteAlert()
+  const { plan } = useUserStore()
+  const { mutateAsync: updateSubscriptionsPlans } =
+    useUpdateSubscriptionsPlans()
+  const navigate = useNavigate()
+  const goToCreateAlert = async () => {
+    if ((plan?.saldo_moedas || 0) < 50) {
+      toast({
+        title: 'Moedas insuficientes',
+        description: 'Você precisa de 50 moedas para criar um novo alerta',
+        variant: 'destructive',
+      })
+      return
+    }
+    await updateSubscriptionsPlans()
+    navigate({ to: '/auction-alert/create-alert' })
+  }
 
   return (
     <Template toGo="/">
@@ -23,12 +42,14 @@ function RouteComponent() {
         <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
           Meus Alertas
         </h1>
-        <Link to="/auction-alert/create-alert">
-          <Button className="gap-2">
-            <Plus className="h-4 w-4" />
-            Criar Novo Alerta
-          </Button>
-        </Link>
+        <Button className="gap-2" onClick={goToCreateAlert} variant={'outline'}>
+          <Plus className="h-4 w-4" />
+          Criar Novo Alerta
+          <span className="ml-2 flex items-center gap-1">
+            <Coins className="h-4 w-4 text-yellow-500" />
+            <span className="text-sm font-bold">50</span>
+          </span>
+        </Button>
       </div>
 
       {/* Card da listagem */}

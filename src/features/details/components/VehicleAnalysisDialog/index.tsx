@@ -32,11 +32,8 @@ export function VehicleAnalysisDialog({
   const { userProfile, plan, setUserPlan } = useUserStore()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
-  const {
-    data: subscriptionPlans,
-    isLoading: isLoadingSubscriptionPlans,
-    refetch,
-  } = useListSubscriptionsPlans()
+  const { data: subscriptionPlans, isLoading: isLoadingSubscriptionPlans } =
+    useListSubscriptionsPlans()
   const handleAnalysis = () => {
     if (!userProfile) {
       toast({
@@ -49,7 +46,7 @@ export function VehicleAnalysisDialog({
       return
     }
 
-    if ((plan?.saldo_moedas || 0) < 30) {
+    if ((plan?.saldo_moedas || 0) < 25) {
       toast({
         title: 'Moedas insuficientes',
         description: 'Você precisa de 30 moedas para usar esta análise',
