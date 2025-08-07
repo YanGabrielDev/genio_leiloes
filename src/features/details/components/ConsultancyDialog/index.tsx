@@ -33,9 +33,9 @@ export function ConsultancyDialog({
 
 Por favor, me envie mais informações sobre a consultoria. Obrigado!`
 
-  // Codifica a mensagem para URL
   const encodedMessage = encodeURIComponent(defaultMessage)
   const whatsappUrl = `https://wa.me/553183165687?text=${encodedMessage}`
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -44,55 +44,61 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
           Solicitar consultoria
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-md sm:max-w-lg">
-        <DialogHeader>
-          <DialogTitle className="text-center">
-            🔍 Consultoria Especializada para Este Veículo
-          </DialogTitle>
-        </DialogHeader>
-        <div className="space-y-4 py-4">
-          <p>Quer tomar a decisão certa antes de dar o lance?</p>
+      <DialogContent className="max-w-[480px] rounded-xl">
+        <div className="p-6">
+          <div className="flex items-center text-xl font-bold mb-4">
+            <span className="mr-2">🔍</span>
+            <h3>Consultoria Especializada para Este Veículo</h3>
+          </div>
 
-          <p>
-            Eu faço uma análise completa e personalizada deste veículo para
-            você, incluindo:
+          <p className="text-gray-800 mb-5">
+            Quer tomar a decisão certa antes de dar o lance? Conte com uma
+            análise completa e personalizada deste veículo:
           </p>
 
-          <ul className="list-disc pl-5 space-y-2">
-            <li>
-              Pesquisa de preço de transporte (cegonha ou guincho) até sua
-              cidade
+          <ul className="space-y-3 mb-5">
+            <li className="flex items-start">
+              <span className="mr-2">✅</span>
+              <span>Transporte até sua cidade (cegonha ou guincho)</span>
             </li>
-            <li>
-              Datas e horários de visitação no pátio para análise presencial
+            <li className="flex items-start">
+              <span className="mr-2">✅</span>
+              <span>Datas e horários de visitação no pátio</span>
             </li>
-            <li>Avaliação de danos visuais com Inteligência Artificial</li>
-            <li>
-              Estimativa do valor de mercado real (tabela FIPE + contexto de
-              leilão)
+            <li className="flex items-start">
+              <span className="mr-2">✅</span>
+              <span>Avaliação de danos com Inteligência Artificial</span>
             </li>
-            <li>
-              Checagem de histórico de sinistros, roubo e leilões anteriores
+            <li className="flex items-start">
+              <span className="mr-2">✅</span>
+              <span>Estimativa do valor real (FIPE + contexto de leilão)</span>
             </li>
-            <li>Orientação sobre custos extras e riscos ocultos</li>
+            <li className="flex items-start">
+              <span className="mr-2">✅</span>
+              <span>Histórico de sinistros, roubos e leilões</span>
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">✅</span>
+              <span>Custos extras e riscos ocultos</span>
+            </li>
           </ul>
 
-          <p>
-            Você não precisa decidir no escuro.
-            <br />
-            Clique abaixo e fale comigo no WhatsApp.
-            <br />
-            Essa consultoria é exclusiva para este veículo e pode evitar um
-            prejuízo ou garantir uma ótima compra.
-          </p>
-
-          <div className="pt-4">
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-              <Button className="w-full bg-green-600 hover:bg-green-700">
-                🟢 Falar com um Especialista Agora {whatsappIcon}
-              </Button>
-            </a>
+          <div className="bg-blue-50 p-4 border-l-4 border-green-500 rounded-lg mb-5 text-gray-800">
+            Essa consultoria é exclusiva para este veículo. Evite prejuízos,
+            negocie com segurança e garanta uma ótima compra.
           </div>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full"
+          >
+            <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+              Falar com um Especialista Agora
+              {whatsappIcon}
+            </Button>
+          </a>
         </div>
       </DialogContent>
     </Dialog>
