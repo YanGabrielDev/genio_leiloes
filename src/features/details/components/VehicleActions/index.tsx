@@ -41,7 +41,7 @@ export function VehicleActions({
         </Button>
       </a>
 
-      <ConsultancyDialog />
+      <ConsultancyDialog vehicleData={vehicleData} />
     </motion.div>
   )
 }
