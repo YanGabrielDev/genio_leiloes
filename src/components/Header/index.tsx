@@ -11,8 +11,8 @@ import { motion } from 'framer-motion'
 import { useToast } from '@/hooks/use-toast'
 import logo from '../../../public/genio_icon.png'
 import { Link } from '@tanstack/react-router'
-import { FavoritesDrawer } from './favorites-drawer'
 import { CoinAction } from './coin-action'
+import { FavoritesDrawer } from './favorites-drawer'
 
 interface HeaderProps {
   cityFilterOptions?: {
@@ -147,8 +147,7 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                   {showFilters && <VehicleFilters />}
 
                   {/* Contador de Moedas */}
-
-                  <CoinAction />
+                  {userProfile && <CoinAction />}
                 </div>
               </div>
             </div>
