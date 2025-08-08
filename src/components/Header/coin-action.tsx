@@ -15,11 +15,11 @@ export const CoinAction = () => {
 
   return (
     <Dialog>
-      <DialogTrigger className=" ml-auto">
+      <DialogTrigger asChild>
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-1 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent ml-auto"
+          className="flex items-center gap-1 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent ml-auto cursor-pointer"
         >
           <Coins className="h-5 w-5 text-yellow-500" />
           <span className="font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
@@ -28,10 +28,11 @@ export const CoinAction = () => {
         </motion.div>
       </DialogTrigger>
 
-      {/* Modal de confirmação */}
-      <DialogContent>
+      <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl rounded-lg">
         <DialogHeader>
-          <DialogTitle>Nossos pacotes</DialogTitle>
+          <DialogTitle className="text-2xl font-bold text-center">
+            Escolha o Melhor Plano para Você
+          </DialogTitle>
         </DialogHeader>
         {plan && plan?.pacotes_disponiveis?.length !== 0 && (
           <PlansSection plans={plan} />

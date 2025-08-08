@@ -1,8 +1,8 @@
-// src/features/account/components/PacoteCard.tsx
 import { motion } from 'framer-motion'
 import { Check, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from '@tanstack/react-router'
+import { cn } from '@/lib/utils'
 
 interface Package {
   id: number
@@ -15,75 +15,92 @@ interface Package {
 interface PackageCardProps {
   pack: Package
   recommended?: boolean
+  className?: string
 }
 
-export function PackageCard({ pack, recommended = false }: PackageCardProps) {
+export function PackageCard({
+  pack,
+  recommended = false,
+  className,
+}: PackageCardProps) {
   const navigate = useNavigate()
 
   return (
     <motion.div
-      whileHover={{ y: -5 }}
-      className={`border rounded-lg p-4 relative ${
-        recommended ? 'border-2 border-yellow-400' : 'border-gray-200'
-      } bg-white`}
+      whileHover={{ y: -5, scale: 1.02 }}
+      className={cn(
+        `border rounded-xl p-6 relative h-full flex flex-col transition-all duration-200 shadow-sm hover:shadow-md ${
+          recommended
+            ? 'border-2 border-yellow-400 bg-gradient-to-b from-yellow-50 to-white'
+            : 'border-gray-200 bg-white'
+        }`,
+        className
+      )}
     >
       {recommended && (
-        <div className="absolute -top-2 -right-2 bg-yellow-400 text-xs font-bold px-2 py-1 rounded-full flex items-center">
+        <div className="absolute -top-3 -right-3 bg-yellow-400 text-xs font-bold px-3 py-1 rounded-full flex items-center z-10 shadow-md">
           <Zap className="h-3 w-3 mr-1" />
-          Recomendado
+          <span className="text-xs">Recomendado</span>
         </div>
       )}
 
-      <div className="flex justify-between items-start mb-2">
-        <h3 className="text-lg font-bold">{pack.title}</h3>
-        <div className="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded">
-          {pack.quantidade_moedas} moedas
+      <div className="flex flex-col h-full">
+        <div className="flex justify-between items-start mb-4">
+          <h3 className="text-xl font-bold text-gray-800">{pack.title}</h3>
+          <div className="bg-blue-100 text-blue-800 text-sm font-bold px-3 py-1 rounded-full">
+            {pack.quantidade_moedas} moedas
+          </div>
         </div>
-      </div>
 
-      <p className="text-sm text-gray-600 mb-3">{pack.description}</p>
+        <p className="text-gray-600 mb-5">{pack.description}</p>
 
-      <div className="mb-4">
-        <div className="flex items-end">
-          <span className="text-2xl font-bold">R$ {pack.preco}</span>
-        </div>
-      </div>
-
-      <div className="mb-4">
-        <h4 className="text-sm font-semibold mb-2">Vantagens:</h4>
-        <ul className="space-y-2">
-          <li className="flex items-start">
-            <Check className="h-4 w-4 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-            <span className="text-sm">
-              {pack.quantidade_moedas} moedas para usar
+        <div className="mb-6">
+          <div className="flex items-end">
+            <span className="text-3xl font-bold text-gray-900">
+              R$ {pack.preco}
             </span>
-          </li>
-          <li className="flex items-start">
-            <Check className="h-4 w-4 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-            <span className="text-sm">Entrega imediata</span>
-          </li>
-          <li className="flex items-start">
-            <Check className="h-4 w-4 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-            <span className="text-sm">Suporte 24/7</span>
-          </li>
-        </ul>
-      </div>
+            <span className="text-sm text-gray-500 ml-1">/único</span>
+          </div>
+        </div>
 
-      <Button
-        variant={recommended ? 'default' : 'secondary'}
-        size="sm"
-        className="w-full"
-        onClick={() =>
-          navigate({
-            to: '/payment',
-            search: {
-              stripe_monthly_price_id: pack.id.toString(),
-            },
-          })
-        }
-      >
-        Comprar agora
-      </Button>
+        <div className="mb-6 flex-grow">
+          <h4 className="text-sm font-semibold mb-3 text-gray-700">
+            Vantagens:
+          </h4>
+          <ul className="space-y-3">
+            <li className="flex items-start">
+              <Check className="h-5 w-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
+              <span className="text-gray-700">
+                {pack.quantidade_moedas} moedas para usar
+              </span>
+            </li>
+            <li className="flex items-start">
+              <Check className="h-5 w-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
+              <span className="text-gray-700">Entrega imediata</span>
+            </li>
+            <li className="flex items-start">
+              <Check className="h-5 w-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
+              <span className="text-gray-700">Suporte 24/7</span>
+            </li>
+          </ul>
+        </div>
+
+        <Button
+          variant={recommended ? 'default' : 'outline'}
+          size="lg"
+          className={`w-full mt-auto ${recommended ? 'bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700' : ''}`}
+          onClick={() =>
+            navigate({
+              to: '/payment',
+              search: {
+                stripe_monthly_price_id: pack.id.toString(),
+              },
+            })
+          }
+        >
+          Comprar agora
+        </Button>
+      </div>
     </motion.div>
   )
 }
