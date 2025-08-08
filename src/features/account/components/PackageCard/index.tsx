@@ -48,7 +48,7 @@ export function PackageCard({
         <div className="flex justify-between items-start mb-4">
           <h3 className="text-xl font-bold text-gray-800">{pack.title}</h3>
           <div className="bg-blue-100 text-blue-800 text-sm font-bold px-3 py-1 rounded-full">
-            {pack.quantidade_moedas} moedas
+            {pack.quantidade_moedas.replace('.00', '')} moedas
           </div>
         </div>
 
