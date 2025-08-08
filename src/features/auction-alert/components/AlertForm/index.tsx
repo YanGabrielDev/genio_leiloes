@@ -357,7 +357,7 @@ export const AlertForm = ({
               {isSubmitting ? 'Criando...' : 'Criar Alerta'}
               <span className="ml-2 flex items-center gap-1">
                 <Coins className="h-4 w-4 text-yellow-500" />
-                <span className="text-sm font-bold">50</span>
+                <span className="text-sm font-bold">20</span>
               </span>
             </Button>
           </motion.div>
