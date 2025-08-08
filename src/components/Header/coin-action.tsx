@@ -28,15 +28,17 @@ export const CoinAction = () => {
         </motion.div>
       </DialogTrigger>
 
-      <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl rounded-lg">
-        <DialogHeader>
+      <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl rounded-lg h-[90vh] max-h-[800px] flex flex-col">
+        <DialogHeader className="px-1">
           <DialogTitle className="text-2xl font-bold text-center">
             Escolha o Melhor Plano para Você
           </DialogTitle>
         </DialogHeader>
-        {plan && plan?.pacotes_disponiveis?.length !== 0 && (
-          <PlansSection plans={plan} />
-        )}
+        <div className="overflow-y-auto flex-1 px-2 py-1 -mx-2">
+          {plan && plan?.pacotes_disponiveis?.length !== 0 && (
+            <PlansSection plans={plan} />
+          )}
+        </div>
       </DialogContent>
     </Dialog>
   )
