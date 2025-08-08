@@ -31,7 +31,7 @@ export const CoinAction = () => {
       <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl rounded-lg h-[90vh] max-h-[800px] flex flex-col">
         <DialogHeader className="px-1">
           <DialogTitle className="text-2xl font-bold text-center">
-            Escolha o Melhor Plano para Você
+            Escolha o Melhor Pacote para Você
           </DialogTitle>
         </DialogHeader>
         <div className="overflow-y-auto flex-1 px-2 py-1 -mx-2">
