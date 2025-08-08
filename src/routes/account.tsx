@@ -139,10 +139,10 @@ function MyAccount() {
         </div>
 
         {/* Seção de planos disponíveis */}
-        {subscriptionPlans &&
+        {/* {subscriptionPlans &&
           subscriptionPlans?.pacotes_disponiveis.length !== 0 && (
             <PlansSection plans={subscriptionPlans} />
-          )}
+          )} */}
 
         {/* Botões responsivos */}
         <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-2 md:gap-4">

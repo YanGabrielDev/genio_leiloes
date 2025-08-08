@@ -6,12 +6,13 @@ import { useVehicleFilters } from '@/context/vehicle-filter.context'
 import { useUserStore } from '@/store/user.store'
 import { Button } from '../ui/button'
 import { useState } from 'react'
-import { FavoritesDrawer } from './FavoritesDrawer'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { motion } from 'framer-motion'
 import { useToast } from '@/hooks/use-toast'
 import logo from '../../../public/genio_icon.png'
 import { Link } from '@tanstack/react-router'
+import { FavoritesDrawer } from './favorites-drawer'
+import { CoinAction } from './coin-action'
 
 interface HeaderProps {
   cityFilterOptions?: {
@@ -146,18 +147,8 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                   {showFilters && <VehicleFilters />}
 
                   {/* Contador de Moedas */}
-                  {userProfile && (
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-1 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent ml-auto"
-                    >
-                      <Coins className="h-5 w-5 text-yellow-500" />
-                      <span className="font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                        {plan?.saldo_moedas || 0}
-                      </span>
-                    </motion.div>
-                  )}
+
+                  <CoinAction />
                 </div>
               </div>
             </div>

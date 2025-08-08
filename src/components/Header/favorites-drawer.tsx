@@ -10,7 +10,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { SkeletonLoaderGrid } from '../SkeletonLoaderGrid'
 import { AuctionCard } from '@/features/home/components/AuctionCard'
 import { Button } from '../ui/button'
-import { HeartOff, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { Vehicles } from '@/interfaces/vehicle.interface'
 
