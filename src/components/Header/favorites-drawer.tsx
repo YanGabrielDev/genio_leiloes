@@ -13,6 +13,7 @@ import { Button } from '../ui/button'
 import { ArrowRight } from 'lucide-react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { Vehicles } from '@/interfaces/vehicle.interface'
+import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
 
 export function FavoritesDrawer({
   open,
@@ -24,6 +25,7 @@ export function FavoritesDrawer({
   listFavorite: UseQueryResult<Vehicles[], Error>
 }) {
   const navigate = useNavigate()
+  const { mutate: toggleFavorite } = useFavoriteVehicle()
 
   const handleNavigateToVehicle = (vehicleId: number) => {
     navigate({
@@ -71,7 +73,7 @@ export function FavoritesDrawer({
                     <AuctionCard
                       currentVehicleLoading={listFavorite.isLoading}
                       vehicle={item}
-                      onToggleFavorite={() => console.log('opa')}
+                      onToggleFavorite={() => toggleFavorite(item.id)}
                     />
                     <ArrowRight className="absolute right-4 top-4 h-5 w-5 text-white bg-primary/80 p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10" />
                   </div>
