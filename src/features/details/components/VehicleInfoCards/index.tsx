@@ -49,9 +49,16 @@ export function VehicleInfoCards({
         <Tabs defaultValue="leilao">
           <CardHeader className="pb-0 border-b-0">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="especificacoes">Especificações</TabsTrigger>
+              <TabsTrigger
+                value="especificacoes"
+                className="text-xs md:text-sm"
+              >
+                Especificações
+              </TabsTrigger>
 
-              <TabsTrigger value="leilao">Informações do Leilão</TabsTrigger>
+              <TabsTrigger value="leilao" className="text-xs md:text-sm">
+                Informações do Leilão
+              </TabsTrigger>
             </TabsList>
           </CardHeader>
 
