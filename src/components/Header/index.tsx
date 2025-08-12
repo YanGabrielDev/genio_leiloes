@@ -1,11 +1,11 @@
-import { Heart, Search, Sparkles, Coins } from 'lucide-react' // Adicionei o ícone Coins
+import { Heart, Search, Sparkles, Coins } from 'lucide-react'
 import { Input } from '../ui/input'
 import { AuthButton } from './auth-button'
 import { VehicleFilters } from '../VehicleFilters'
 import { useVehicleFilters } from '@/context/vehicle-filter.context'
 import { useUserStore } from '@/store/user.store'
 import { Button } from '../ui/button'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { motion } from 'framer-motion'
 import { useToast } from '@/hooks/use-toast'
@@ -13,6 +13,7 @@ import logo from '../../../public/genio_icon.png'
 import { Link } from '@tanstack/react-router'
 import { CoinAction } from './coin-action'
 import { FavoritesDrawer } from './favorites-drawer'
+import { useDebounce } from '@/hooks/use-debounce'
 
 interface HeaderProps {
   cityFilterOptions?: {
@@ -25,7 +26,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
-  const { userProfile, plan } = useUserStore()
+  const { userProfile } = useUserStore()
   const [openFavorites, setOpenFavorites] = useState(false)
   const listFavorite = useListFavorite()
   const { toast } = useToast()
@@ -33,6 +34,18 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
   const user = userProfile
     ? { name: userProfile.name, email: userProfile.email }
     : null
+
+  const [localSearchTerm, setLocalSearchTerm] = useState(
+    vehicleFiltersState.brandModelSearch
+  )
+  const debouncedSearchTerm = useDebounce(localSearchTerm, 500)
+
+  useEffect(() => {
+    setVehicleFiltersState((prevState) => ({
+      ...prevState,
+      brandModelSearch: debouncedSearchTerm,
+    }))
+  }, [debouncedSearchTerm, setVehicleFiltersState])
 
   const handleOpenFavorites = () => {
     if (!userProfile) {
@@ -65,9 +78,7 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="container mx-auto px-4">
           <div className="flex flex-col gap-4 py-4">
-            {/* Top Row */}
             <div className="flex items-center justify-between h-16">
-              {/* Logo */}
               <Link to="/">
                 <div className="flex items-center space-x-2">
                   <img
@@ -84,7 +95,6 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                 </div>
               </Link>
 
-              {/* Navigation Icons */}
               <div className="flex items-center space-x-4">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -130,13 +140,9 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <Input
                       placeholder="Buscar por modelo ou marca"
-                      value={vehicleFiltersState.brandModelSearch}
+                      value={localSearchTerm}
                       onChange={(event) => {
-                        const value = event.target.value
-                        setVehicleFiltersState((prevState) => ({
-                          ...prevState,
-                          brandModelSearch: value,
-                        }))
+                        setLocalSearchTerm(event.target.value)
                       }}
                       className="pl-10"
                     />
@@ -146,7 +152,6 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                 <div className="relative flex gap-4 items-center w-full ">
                   {showFilters && <VehicleFilters />}
 
-                  {/* Contador de Moedas */}
                   {userProfile && <CoinAction />}
                 </div>
               </div>
