@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Loader2, Sparkles, Coins } from 'lucide-react' // Adicionei o ícone Coins
-import { useAnalysis } from '../../hooks/useAnalysis'
+import { Loader2, Sparkles, Coins } from 'lucide-react'
+import { useAnalysis } from '../../hooks/use-analysis'
 import { useUserStore } from '@/store/user.store'
 import { useNavigate } from '@tanstack/react-router'
 import { toast } from '@/hooks/use-toast'
@@ -34,6 +34,7 @@ export function VehicleAnalysisDialog({
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const { data: subscriptionPlans, isLoading: isLoadingSubscriptionPlans } =
     useListSubscriptionsPlans()
+
   const handleAnalysis = () => {
     if (!userProfile) {
       toast({
@@ -63,82 +64,76 @@ export function VehicleAnalysisDialog({
       lote_id: vehicleData.lote_id,
     })
   }
+
   useEffect(() => {
     if (subscriptionPlans) setUserPlan(subscriptionPlans)
   }, [isLoadingSubscriptionPlans, subscriptionPlans])
 
   return (
     <>
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <motion.div
-          initial={{ scale: 1 }}
-          animate={{
-            scale: [1, 1.02, 1],
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 2,
-            ease: 'easeInOut',
-          }}
+      {/* Botão com animação pulsante */}
+      <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+        <Button
+          size="lg"
+          className="w-full ml-auto flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all"
+          variant="outline"
+          onClick={handleAnalysis}
+          disabled={analysisIsPending}
         >
-          <Button
-            size="lg"
-            className="w-full ml-auto"
-            variant="outline"
-            onClick={handleAnalysis}
-            disabled={analysisIsPending}
-          >
-            {analysisIsPending ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <>
-                <motion.span
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    rotate: [0, 10, -10, 0],
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 3,
-                    ease: 'easeInOut',
-                  }}
-                >
-                  <Sparkles className="mr-2 h-4 w-4 text-purple-500" />
-                </motion.span>{' '}
-                Analisar com IA
-                <span className="ml-2 flex items-center gap-1">
-                  <Coins className="h-4 w-4 text-yellow-500" />
-                  <span className="text-sm font-bold">10</span>
-                </span>
-              </>
-            )}
-          </Button>
-        </motion.div>
+          {analysisIsPending ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <>
+              <motion.span
+                animate={{ scale: [1, 1.2, 1], rotate: [0, 8, -8, 0] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+              >
+                <Sparkles className="h-4 w-4 text-purple-500" />
+              </motion.span>
+              Analisar com IA
+              <span className="ml-2 flex items-center gap-1">
+                <Coins className="h-4 w-4 text-yellow-500" />
+                <span className="text-sm font-bold">10</span>
+              </span>
+            </>
+          )}
+        </Button>
+      </motion.div>
 
-        <DialogContent className=" bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl max-h-96 overflow-auto">
-          <AnimatePresence>
+      {/* Modal */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl p-6 max-h-[80vh] overflow-auto">
+          <AnimatePresence mode="wait">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
+              key={analysisIsPending ? 'loading' : 'result'}
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.98 }}
               transition={{ duration: 0.3 }}
             >
               {analysisIsPending ? (
-                <div className="flex items-center justify-center py-10">
-                  <Loader2 className="mr-2 h-8 w-8 animate-spin text-primary" />
-                  <span className="text-lg font-medium text-muted-foreground">
-                    Realizando análise...
+                <div className="flex flex-col items-center justify-center py-10 text-center">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary mb-4" />
+                  <span className="text-lg font-medium text-gray-600 animate-pulse">
+                    Realizando análise com IA...
                   </span>
                 </div>
               ) : (
-                <span className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-gray-700 text-sm leading-relaxed space-y-4"
+                >
                   {analysis || 'Nenhuma análise disponível.'}
-                </span>
+                </motion.div>
               )}
             </motion.div>
           </AnimatePresence>
         </DialogContent>
       </Dialog>
 
+      {/* Modal de upgrade */}
       <UpgradePlanModal
         open={showUpgradeModal}
         onOpenChange={setShowUpgradeModal}
