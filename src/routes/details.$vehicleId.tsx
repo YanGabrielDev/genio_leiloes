@@ -53,11 +53,10 @@ function VehicleDetailsPage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentBenefit((prev) => (prev + 1) % benefits.length)
-    }, 3000) // Muda a cada 3 segundos
+    }, 3000)
 
     return () => clearInterval(interval)
   }, [])
-  // --- Loading State ---
   if (isLoading) {
     return (
       <Template>
@@ -90,7 +89,6 @@ function VehicleDetailsPage() {
     )
   }
 
-  // --- Error State ---
   if (isError) {
     return (
       <Template>
@@ -119,7 +117,6 @@ function VehicleDetailsPage() {
     )
   }
 
-  // --- Not Found State ---
   if (!vehicle) {
     return (
       <Template>
@@ -142,7 +139,6 @@ function VehicleDetailsPage() {
   const evaluationValue =
     vehicleCurrentStatusById.data?.valor ?? vehicle.avaliacao
 
-  // --- Main Content ---
   return (
     <Template toGo="/">
       <VehicleDetailsHeader
@@ -172,7 +168,6 @@ function VehicleDetailsPage() {
             leilaoData={listLastMoves}
             isLoadingLeilaoData={isLoadingListLastMoves}
           />
-          {/* Container dos benefícios animados */}
           <div className="flex items-center gap-4 flex-col md:flex-row">
             <span className="text-primary text-sm">
               Benefícios do analise com IA:
