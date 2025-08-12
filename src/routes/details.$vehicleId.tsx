@@ -1,10 +1,9 @@
-// src/routes/details.$vehicleId.tsx
 import { createFileRoute } from '@tanstack/react-router'
 import { Template } from '@/components/Template'
 import { Skeleton } from '@/components/ui/skeleton'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { useFindVehicleById } from '@/features/details/hooks/findVehicleById'
+import { useFindVehicleById } from '@/features/details/hooks/use-find-vehicle-by-id'
 import { VehicleActions } from '@/features/details/components/VehicleActions'
 import { VehicleDetailsHeader } from '@/features/details/components/VehicleDetailsHeader'
 import { VehicleImageCarousel } from '@/features/details/components/VehicleImageCarousel'

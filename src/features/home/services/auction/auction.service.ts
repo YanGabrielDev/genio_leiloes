@@ -81,8 +81,6 @@ const listFavorite = async (): Promise<Vehicles[]> => {
 }
 
 const listLastMoves = async (vehicleId: number): Promise<ListLastMoves> => {
-  console.log('chamou')
-
   const response = await api.get(
     `${auctionBaseUrl}/single-leilao-status/${vehicleId}`
   )

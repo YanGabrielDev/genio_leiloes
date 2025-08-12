@@ -3,7 +3,7 @@ import { PaginationSection } from '@/components/PaginationSection'
 import { SkeletonLoaderGrid } from '@/components/SkeletonLoaderGrid'
 import { Template } from '@/components/Template'
 import { useVehicleFilters } from '@/context/vehicle-filter.context'
-import { useListAuction } from '@/features/home/hooks/useListAuction'
+import { useListAuction } from '@/features/home/hooks/use-list-auction'
 import { auctionMock } from '@/mock/auction.mock'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useMemo, useState } from 'react'
@@ -30,7 +30,6 @@ function AppPage() {
   const { setUserPlan, userProfile } = useUserStore()
   const { mutate: toggleFavorite } = useFavoriteVehicle()
   const favoriteItemids = favoriteItems?.map((item) => item.id)
-  console.log({ subscriptionPlans })
 
   const {
     priceRange: [priceMin, priceMax],

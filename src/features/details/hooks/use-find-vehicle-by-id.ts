@@ -1,7 +1,10 @@
 import { Vehicles } from '@/interfaces/vehicle.interface'
 import auctionService from '@/features/home/services/auction/auction.service'
 import { useQuery } from '@tanstack/react-query'
-import { UseGetVehicleById } from './types'
+
+export interface UseGetVehicleById {
+  vehicleId?: number
+}
 
 export const useFindVehicleById = ({ vehicleId }: UseGetVehicleById) => {
   return useQuery<Vehicles, Error>({
