@@ -25,7 +25,7 @@ export function ConsultancyDialog({
   }
 }) {
   const defaultMessage = `Olá, gostaria de solicitar uma consultoria especializada para o veículo:
-  
+
 *Detalhes do Veículo:*
 - Modelo: ${vehicleData?.marca_modelo || 'Não especificado'}
 - Ano: ${vehicleData?.ano || 'Não especificado'}
@@ -40,50 +40,52 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="default" size="lg" className="w-full sm:w-auto gap-2">
-          <MessageCircleMore className="w-4 h-4" />
+          <MessageCircleMore className="h-4 w-4" />
           Solicitar consultoria
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[480px] rounded-xl">
-        <div className="p-6">
-          <div className="flex items-center text-xl font-bold mb-4">
-            <span className="mr-2">🔍</span>
+      <DialogContent className="w-[90%] max-w-[480px] rounded-xl overflow-auto max-h-[90vh]">
+        <DialogHeader className="p-4 md:p-6 pb-0">
+          <DialogTitle className="flex items-center text-xl font-bold">
+            <span className="mr-2 text-4xl">🔍</span>
             <h3>Consultoria Especializada para Este Veículo</h3>
-          </div>
+          </DialogTitle>
+        </DialogHeader>
 
-          <p className="text-gray-800 mb-5">
+        <div className="p-4 md:p-6 pt-0">
+          <p className="text-sm text-gray-700 mb-5">
             Quer tomar a decisão certa antes de dar o lance? Conte com uma
             análise completa e personalizada deste veículo:
           </p>
 
-          <ul className="space-y-3 mb-5">
+          <ul className="space-y-3 mb-5 text-sm text-gray-700">
             <li className="flex items-start">
-              <span className="mr-2">✅</span>
+              <span className="mr-2 mt-0.5 text-green-500">✅</span>
               <span>Transporte até sua cidade (cegonha ou guincho)</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">✅</span>
+              <span className="mr-2 mt-0.5 text-green-500">✅</span>
               <span>Datas e horários de visitação no pátio</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">✅</span>
+              <span className="mr-2 mt-0.5 text-green-500">✅</span>
               <span>Avaliação de danos com Inteligência Artificial</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">✅</span>
+              <span className="mr-2 mt-0.5 text-green-500">✅</span>
               <span>Estimativa do valor real (FIPE + contexto de leilão)</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">✅</span>
+              <span className="mr-2 mt-0.5 text-green-500">✅</span>
               <span>Histórico de sinistros, roubos e leilões</span>
             </li>
             <li className="flex items-start">
-              <span className="mr-2">✅</span>
+              <span className="mr-2 mt-0.5 text-green-500">✅</span>
               <span>Custos extras e riscos ocultos</span>
             </li>
           </ul>
 
-          <div className="bg-blue-50 p-4 border-l-4 border-green-500 rounded-lg mb-5 text-gray-800">
+          <div className="bg-blue-50 p-4 border-l-4 border-green-500 rounded-lg mb-5 text-sm text-gray-800">
             Essa consultoria é exclusiva para este veículo. Evite prejuízos,
             negocie com segurança e garanta uma ótima compra.
           </div>
@@ -95,8 +97,7 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
             className="block w-full"
           >
             <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
-              Falar com um Especialista Agora
-              {whatsappIcon}
+              Falar com um Especialista Agora {whatsappIcon}
             </Button>
           </a>
         </div>
