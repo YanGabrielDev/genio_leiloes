@@ -38,7 +38,7 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
   const [localSearchTerm, setLocalSearchTerm] = useState(
     vehicleFiltersState.brandModelSearch
   )
-  const debouncedSearchTerm = useDebounce(localSearchTerm, 500)
+  const debouncedSearchTerm = useDebounce(localSearchTerm, 1000)
 
   useEffect(() => {
     setVehicleFiltersState((prevState) => ({
