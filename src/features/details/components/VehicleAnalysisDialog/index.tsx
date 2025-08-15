@@ -9,6 +9,7 @@ import { toast } from '@/hooks/use-toast'
 import { useEffect, useState } from 'react'
 import { UpgradePlanModal } from '../UpgradePlanModal'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
+import { MarkdownRenderer } from '@/components/MarkdownRenderer'
 
 interface VehicleAnalysisDialogProps {
   vehicleData: {
@@ -125,7 +126,11 @@ export function VehicleAnalysisDialog({
                   transition={{ duration: 0.8 }}
                   className="text-gray-700 text-sm leading-relaxed space-y-4"
                 >
-                  {analysis || 'Nenhuma análise disponível.'}
+                  {analysis ? (
+                    <MarkdownRenderer content={analysis} />
+                  ) : (
+                    'Nenhuma análise disponível.'
+                  )}
                 </motion.div>
               )}
             </motion.div>
