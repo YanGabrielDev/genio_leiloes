@@ -9,6 +9,7 @@ import { toast } from '@/hooks/use-toast'
 import { useEffect, useState } from 'react'
 import { UpgradePlanModal } from '../UpgradePlanModal'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
+import { MarkdownRenderer } from '@/components/MarkdownRenderer'
 
 interface VehicleAnalysisDialogProps {
   vehicleData: {
@@ -50,7 +51,7 @@ export function VehicleAnalysisDialog({
     if ((plan?.saldo_moedas || 0) < 10) {
       toast({
         title: 'Moedas insuficientes',
-        description: 'Você precisa de 30 moedas para usar esta análise',
+        description: 'Você precisa de 10 moedas para usar esta análise',
         variant: 'destructive',
       })
       return
@@ -67,7 +68,7 @@ export function VehicleAnalysisDialog({
 
   useEffect(() => {
     if (subscriptionPlans) setUserPlan(subscriptionPlans)
-  }, [isLoadingSubscriptionPlans, subscriptionPlans])
+  }, [isLoadingSubscriptionPlans, subscriptionPlans, setUserPlan])
 
   return (
     <>
@@ -125,7 +126,11 @@ export function VehicleAnalysisDialog({
                   transition={{ duration: 0.8 }}
                   className="text-gray-700 text-sm leading-relaxed space-y-4"
                 >
-                  {analysis || 'Nenhuma análise disponível.'}
+                  {analysis ? (
+                    <MarkdownRenderer content={analysis} />
+                  ) : (
+                    'Nenhuma análise disponível.'
+                  )}
                 </motion.div>
               )}
             </motion.div>
