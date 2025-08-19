@@ -58,7 +58,7 @@ function MyAccount() {
             Gerencie suas informações e plano de assinatura
           </p>
         </div>
-        <PlanBadge plan={userProfile.current_plan} />
+        {/* <PlanBadge plan={userProfile.current_plan} /> */}
       </div>
 
       {/* Grid de cards otimizado para mobile */}
