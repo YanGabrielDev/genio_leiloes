@@ -1,4 +1,4 @@
-import { Heart, Search, Sparkles, Coins } from 'lucide-react'
+import { Heart, Search, Sparkles, Coins, Bell } from 'lucide-react'
 import { Input } from '../ui/input'
 import { AuthButton } from './auth-button'
 import { VehicleFilters } from '../VehicleFilters'
@@ -153,10 +153,8 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                 <div className="relative flex gap-4 items-center w-full ">
                   {showFilters && <VehicleFilters />}
                   {showFilters && userProfile && (
-                    <Button
-                      variant="destructive"
-                      onClick={() => navigate({ to: '/auction-alert' })}
-                    >
+                    <Button onClick={() => navigate({ to: '/auction-alert' })}>
+                      <Bell className="mr-2 h-4 w-4" />
                       Criar Alerta
                     </Button>
                   )}
