@@ -31,10 +31,10 @@ function RouteComponent() {
             </Button>
           </Link>
         </div>
-        <h2 className="text-1xl font-bold text-gray-600 dark:text-white">
+        <h2 className="text-sx font-normal text-gray-600 dark:text-white">
           ⏰ Configure alertas personalizados e seja o primeiro a saber quando o
           carro dos seus sonhos aparecer em leilão. Você só será notificado
-          sobre veículos que combinam exatamente com o que você procura.{' '}
+          sobre veículos que combinam exatamente com o que você procura.
         </h2>
       </div>
 
