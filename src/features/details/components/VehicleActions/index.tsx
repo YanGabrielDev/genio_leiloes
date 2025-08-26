@@ -1,8 +1,9 @@
+// VehicleActions.tsx
+
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { VehicleAnalysisDialog } from '../VehicleAnalysisDialog'
 import { auctionHammer } from '@/assets/icons'
-
 import { ConsultancyDialog } from '../ConsultancyDialog'
 
 interface VehicleActionsProps {
@@ -33,14 +34,15 @@ export function VehicleActions({
       transition={{ delay: 0.5 }}
       className="flex flex-col sm:flex-row gap-4 pt-4"
     >
+      {/* NOVO POSICIONAMENTO: Avaliação Inteligente agora é o primeiro botão */}
       <VehicleAnalysisDialog vehicleData={vehicleData} />
-
+      {/* Outros botões em seguida */}
       <a href={vehicleLink} target="_blank">
         <Button variant="outline" size="lg" className="w-full sm:w-auto">
+          {' '}
           Ir para o leilão {auctionHammer}
         </Button>
       </a>
-
       <ConsultancyDialog vehicleData={vehicleData} />
     </motion.div>
   )

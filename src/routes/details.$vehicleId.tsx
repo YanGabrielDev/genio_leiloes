@@ -147,27 +147,31 @@ function VehicleDetailsPage() {
         veihcleYear={vehicle.ano}
         vehicleId={vehicle.id}
       />
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <VehicleImageCarousel
           images={vehicle.imagens}
           marcaModelo={vehicle.marca_modelo}
         />
-
         <motion.div variants={fadeIn} className="space-y-6">
           <VehiclePriceDisplay
             evaluationValue={evaluationValue}
             loading={vehicleCurrentStatusById.isLoading}
           />
-
-          <VehicleInfoCards
-            year={vehicle.ano}
-            color={vehicle.cor}
-            leilaoName={vehicle.leilao.nome}
-            leilaoState={vehicle.leilao.estado}
-            leilaoData={listLastMoves}
-            isLoadingLeilaoData={isLoadingListLastMoves}
+          {/* NOVO POSICIONAMENTO: Botão de Avaliação inteligente antes das outras ações */}
+          <VehicleActions
+            vehicleData={{
+              ano: vehicle.ano,
+              avaliacao: evaluationValue,
+              imagens: vehicle.imagens,
+              marca_modelo: vehicle.marca_modelo,
+              lote_id: Number(vehicle.lote),
+              vehicleId: vehicle.id,
+              is_favorite: favoriteItemids?.includes(vehicle.id),
+            }}
+            currentLink={vehicle.link_lance_atual}
           />
+
+          {/* MOVEMOS os benefícios para perto do botão de avaliação */}
           <div className="flex items-center gap-4 flex-col md:flex-row">
             <span className="text-primary text-sm">
               Benefícios da Avaliação inteligente:
@@ -183,17 +187,13 @@ function VehicleDetailsPage() {
               {benefits[currentBenefit]}
             </motion.div>
           </div>
-          <VehicleActions
-            vehicleData={{
-              ano: vehicle.ano,
-              avaliacao: evaluationValue,
-              imagens: vehicle.imagens,
-              marca_modelo: vehicle.marca_modelo,
-              lote_id: Number(vehicle.lote),
-              vehicleId: vehicle.id,
-              is_favorite: favoriteItemids?.includes(vehicle.id),
-            }}
-            currentLink={vehicle.link_lance_atual}
+          <VehicleInfoCards
+            year={vehicle.ano}
+            color={vehicle.cor}
+            leilaoName={vehicle.leilao.nome}
+            leilaoState={vehicle.leilao.estado}
+            leilaoData={listLastMoves}
+            isLoadingLeilaoData={isLoadingListLastMoves}
           />
         </motion.div>
       </div>
