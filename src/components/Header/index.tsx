@@ -10,7 +10,7 @@ import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { motion } from 'framer-motion'
 import { useToast } from '@/hooks/use-toast'
 import logo from '../../../public/genio_icon.png'
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { CoinAction } from './coin-action'
 import { FavoritesDrawer } from './favorites-drawer'
 import { useDebounce } from '@/hooks/use-debounce'
@@ -29,6 +29,7 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
   const { userProfile } = useUserStore()
   const [openFavorites, setOpenFavorites] = useState(false)
   const listFavorite = useListFavorite()
+  const navigate = useNavigate()
   const { toast } = useToast()
   const { setVehicleFiltersState, vehicleFiltersState } = useVehicleFilters()
   const user = userProfile
@@ -151,6 +152,11 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
 
                 <div className="relative flex gap-4 items-center w-full ">
                   {showFilters && <VehicleFilters />}
+                  {userProfile && (
+                    <Button onClick={() => navigate({ to: '/auction-alert' })}>
+                      Criar Alerta
+                    </Button>
+                  )}
 
                   {userProfile && <CoinAction />}
                 </div>
