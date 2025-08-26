@@ -93,8 +93,7 @@ function MyAccount() {
         />
       </div>
 
-      {/* Seção de detalhes do plano atual */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
@@ -138,13 +137,8 @@ function MyAccount() {
           )}
         </div>
 
-        {/* Seção de planos disponíveis */}
-        {/* {subscriptionPlans &&
-          subscriptionPlans?.pacotes_disponiveis.length !== 0 && (
-            <PlansSection plans={subscriptionPlans} />
-          )} */}
 
-        {/* Botões responsivos */}
+
         <div className="mt-4 md:mt-6 flex flex-col sm:flex-row gap-2 md:gap-4">
           <Button variant="outline" size="sm" className="text-xs md:text-sm">
             Atualizar Dados
@@ -157,7 +151,7 @@ function MyAccount() {
             Cancelar Assinatura
           </Button>
         </div>
-      </motion.div>
+      </motion.div> */}
 
       {/* Botão para apagar conta */}
       <Dialog>
