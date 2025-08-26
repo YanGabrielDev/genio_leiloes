@@ -91,7 +91,7 @@ export function VehicleAnalysisDialog({
               >
                 <Sparkles className="h-4 w-4 text-purple-500" />
               </motion.span>
-              Analisar com IA
+              Avaliação inteligente
               <span className="ml-2 flex items-center gap-1">
                 <Coins className="h-4 w-4 text-yellow-500" />
                 <span className="text-sm font-bold">10</span>
