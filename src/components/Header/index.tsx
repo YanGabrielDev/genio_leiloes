@@ -153,7 +153,10 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                 <div className="relative flex gap-4 items-center w-full ">
                   {showFilters && <VehicleFilters />}
                   {showFilters && userProfile && (
-                    <Button onClick={() => navigate({ to: '/auction-alert' })}>
+                    <Button
+                      variant="destructive"
+                      onClick={() => navigate({ to: '/auction-alert' })}
+                    >
                       Criar Alerta
                     </Button>
                   )}
