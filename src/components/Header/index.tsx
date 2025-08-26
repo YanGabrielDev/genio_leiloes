@@ -152,7 +152,7 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
 
                 <div className="relative flex gap-4 items-center w-full ">
                   {showFilters && <VehicleFilters />}
-                  {userProfile && (
+                  {showFilters && userProfile && (
                     <Button onClick={() => navigate({ to: '/auction-alert' })}>
                       Criar Alerta
                     </Button>
