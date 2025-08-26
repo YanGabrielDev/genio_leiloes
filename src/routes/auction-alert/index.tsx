@@ -19,7 +19,7 @@ function RouteComponent() {
   return (
     <Template toGo="/">
       {/* Header com título e botão de ação */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
             Meus Alertas
@@ -32,9 +32,8 @@ function RouteComponent() {
           </Link>
         </div>
         <h2 className="text-sx font-normal text-gray-600 dark:text-white">
-          ⏰ Configure alertas personalizados e seja o primeiro a saber quando o
-          carro dos seus sonhos aparecer em leilão. Você só será notificado
-          sobre veículos que combinam exatamente com o que você procura.
+          Configure alertas personalizados e seja o primeiro a saber quando o
+          carro dos seus sonhos aparecer em leilão.
         </h2>
       </div>
 
