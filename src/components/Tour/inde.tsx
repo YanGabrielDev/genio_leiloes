@@ -29,25 +29,24 @@ export function AppTour() {
       steps={[
         {
           target: '#tour-card',
-          content:
-            'Clique em "Ver detalhes" para explorar mais sobre o veículo e acessar a avaliação inteligente.',
+          content: 'Clique em "Ver detalhes" do veículo.',
           disableBeacon: true,
           placement: 'top', // Adicione esta linha
         },
         {
           target: '#tour-analise-ia',
           content:
-            'Este é o botão de "Avaliação inteligente". Ao clicar aqui, nossa IA vai analisar o veículo para você!',
+            'Descubra a Avaliação inteligente e veja se o lance vale apena.',
           disableBeacon: true,
           placement: 'top', // Adicione esta linha
         },
-        {
-          target: '#tour-modal-analise',
-          content:
-            'Aqui você verá a análise completa da nossa IA, com informações sobre o estado do veículo e se vale a pena a compra.',
-          disableBeacon: true,
-          placement: 'top', // Adicione esta linha
-        },
+        // {
+        //   target: '#tour-modal-analise',
+        //   content:
+        //     'Aqui você verá a análise completa da nossa IA, com informações sobre o estado do veículo e se vale a pena a compra.',
+        //   disableBeacon: true,
+        //   placement: 'top', // Adicione esta linha
+        // },
       ]}
       run={runTour}
       continuous
@@ -58,15 +57,25 @@ export function AppTour() {
         options: {
           zIndex: 10000,
         },
-        tooltip: {
-          // Ajusta a posição do balão de texto do tour
-          marginTop: '20px', // O balão aparecerá 20px acima do elemento
+        buttonNext: {
+          // Estiliza o botão "Next"
+          backgroundColor: 'rgb(0, 81, 124)',
+          color: '#fff', // Para garantir que o texto seja visível
         },
-        // Adiciona uma sombra para destaque do elemento, se necessário
+        // Removemos o marginTop do tooltip já que o placement está sendo usado nos steps.
+        // tooltip: {
+        //   marginTop: '20px',
+        // },
         spotlight: {
           borderRadius: '5px',
           boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)',
         },
+      }}
+      locale={{
+        next: 'Próximo', // Altera o texto do botão "Next"
+        back: 'Voltar', // Opcional: para consistência, se tiver um botão "Back"
+        skip: 'Pular', // Opcional: para consistência
+        last: 'Finalizar', // Opcional: para consistência
       }}
     />
   )

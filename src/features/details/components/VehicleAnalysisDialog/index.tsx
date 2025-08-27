@@ -107,10 +107,7 @@ export function VehicleAnalysisDialog({
 
       {/* Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent
-          id="tour-modal-analise"
-          className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl p-6 max-h-[80vh] overflow-auto"
-        >
+        <DialogContent className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl p-6 max-h-[80vh] overflow-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={analysisIsPending ? 'loading' : 'result'}
