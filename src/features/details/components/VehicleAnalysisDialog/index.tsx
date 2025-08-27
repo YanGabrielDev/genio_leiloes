@@ -51,7 +51,7 @@ export function VehicleAnalysisDialog({
     if ((plan?.saldo_moedas || 0) < 10) {
       toast({
         title: 'Moedas insuficientes',
-        description: 'Você precisa de 30 moedas para usar esta análise',
+        description: 'Você precisa de 10 moedas para usar esta análise',
         variant: 'destructive',
       })
       return
