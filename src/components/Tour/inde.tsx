@@ -8,10 +8,10 @@ export function AppTour() {
   useEffect(() => {
     // Inicia o tour automaticamente quando o componente é montado.
     // Você pode adicionar uma condição, como verificar se o usuário já viu o tour.
-    // const hasSeenTour = localStorage.getItem('hasSeenTour')
-    // if (!hasSeenTour) {
-    setRunTour(true)
-    // }
+    const hasSeenTour = localStorage.getItem('hasSeenTour')
+    if (!hasSeenTour) {
+      setRunTour(true)
+    }
   }, [])
 
   const handleJoyrideCallback = (data: any) => {
