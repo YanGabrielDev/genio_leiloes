@@ -16,6 +16,7 @@ import { Vehicles } from '@/interfaces/vehicle.interface'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { toast } from '@/hooks/use-toast'
 import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
+import { AppTour } from '@/components/Tour/inde'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -132,9 +133,10 @@ function AppPage() {
           {listAuction.isLoading ? (
             <SkeletonLoaderGrid count={24} />
           ) : (
-            vehicleList?.map((item) => (
+            vehicleList?.map((item, index) => (
               <AuctionCard
                 key={item.id}
+                id={'tour-card'}
                 vehicle={item as Vehicles}
                 onToggleFavorite={handleFavorite}
                 isFavorite={favoriteItemids?.includes(item.id)}
@@ -151,6 +153,7 @@ function AppPage() {
           />
         </div>
       </Template>
+      {!listAuction.isLoading && <AppTour />}
     </>
   )
 }

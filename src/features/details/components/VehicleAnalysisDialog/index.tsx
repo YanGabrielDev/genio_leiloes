@@ -73,7 +73,11 @@ export function VehicleAnalysisDialog({
   return (
     <>
       {/* Botão com animação pulsante */}
-      <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+      <motion.div
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
+        id="tour-analise-ia"
+      >
         <Button
           size="lg"
           className="w-full ml-auto flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all"
@@ -103,7 +107,10 @@ export function VehicleAnalysisDialog({
 
       {/* Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl p-6 max-h-[80vh] overflow-auto">
+        <DialogContent
+          id="tour-modal-analise"
+          className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl p-6 max-h-[80vh] overflow-auto"
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={analysisIsPending ? 'loading' : 'result'}

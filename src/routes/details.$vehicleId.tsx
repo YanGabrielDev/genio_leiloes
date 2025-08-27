@@ -14,6 +14,7 @@ import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { useListLastMoves } from '@/features/details/hooks/use-list-last-moves'
 import { useEffect, useState } from 'react'
+import { AppTour } from '@/components/Tour/inde'
 
 export const Route = createFileRoute('/details/$vehicleId')({
   component: VehicleDetailsPage,
@@ -152,7 +153,11 @@ function VehicleDetailsPage() {
           images={vehicle.imagens}
           marcaModelo={vehicle.marca_modelo}
         />
-        <motion.div variants={fadeIn} className="space-y-6">
+        <motion.div
+          id="tour-detalhes-veiculo"
+          variants={fadeIn}
+          className="space-y-6"
+        >
           <VehiclePriceDisplay
             evaluationValue={evaluationValue}
             loading={vehicleCurrentStatusById.isLoading}
@@ -197,6 +202,7 @@ function VehicleDetailsPage() {
           />
         </motion.div>
       </div>
+      <AppTour />
     </Template>
   )
 }

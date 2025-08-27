@@ -13,6 +13,7 @@ interface AuctionCardProps {
   onToggleFavorite: (id: number) => void // Ajustado para aceitar number
   currentVehicleLoading: boolean // Mantido para o indicador de loading
   isFavorite?: boolean
+  id: string | undefined
 }
 
 export function AuctionCard({
@@ -20,6 +21,7 @@ export function AuctionCard({
   onToggleFavorite,
   currentVehicleLoading,
   isFavorite,
+  id,
 }: AuctionCardProps) {
   const navigate = useNavigate()
 
@@ -51,7 +53,7 @@ export function AuctionCard({
   })
 
   return (
-    <div className="col-span-12 sm:col-span-6 lg:col-span-4">
+    <div className="col-span-12 sm:col-span-6 lg:col-span-4" id={id}>
       {' '}
       {/* Adicionado as classes de grid aqui */}
       <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -131,7 +133,11 @@ export function AuctionCard({
             </div> */}
 
             {/* Action Button */}
-            <Button className="w-full" onClick={() => handleClick()}>
+            <Button
+              className="w-full"
+              onClick={() => handleClick()}
+              id="tour-ver-detalhes"
+            >
               <Eye className="w-4 h-4 mr-2" />
               Ver detalhes
             </Button>
