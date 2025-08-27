@@ -2,27 +2,6 @@
 import { useEffect, useState } from 'react'
 import Joyride, { STATUS } from 'react-joyride'
 
-const tourSteps = [
-  {
-    target: '#tour-card',
-    content:
-      'Clique em "Ver detalhes" para explorar mais sobre o veículo e acessar a avaliação inteligente.',
-    disableBeacon: true,
-  },
-  {
-    target: '#tour-analise-ia',
-    content:
-      'Este é o botão de "Avaliação inteligente". Ao clicar aqui, nossa IA vai analisar o veículo para você!',
-    disableBeacon: true,
-  },
-  {
-    target: '#tour-modal-analise',
-    content:
-      'Aqui você verá a análise completa da nossa IA, com informações sobre o estado do veículo e se vale a pena a compra.',
-    disableBeacon: true,
-  },
-]
-
 export function AppTour() {
   const [runTour, setRunTour] = useState(false)
 
@@ -47,7 +26,29 @@ export function AppTour() {
 
   return (
     <Joyride
-      steps={tourSteps}
+      steps={[
+        {
+          target: '#tour-card',
+          content:
+            'Clique em "Ver detalhes" para explorar mais sobre o veículo e acessar a avaliação inteligente.',
+          disableBeacon: true,
+          placement: 'top', // Adicione esta linha
+        },
+        {
+          target: '#tour-analise-ia',
+          content:
+            'Este é o botão de "Avaliação inteligente". Ao clicar aqui, nossa IA vai analisar o veículo para você!',
+          disableBeacon: true,
+          placement: 'top', // Adicione esta linha
+        },
+        {
+          target: '#tour-modal-analise',
+          content:
+            'Aqui você verá a análise completa da nossa IA, com informações sobre o estado do veículo e se vale a pena a compra.',
+          disableBeacon: true,
+          placement: 'top', // Adicione esta linha
+        },
+      ]}
       run={runTour}
       continuous
       showSkipButton
