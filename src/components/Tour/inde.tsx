@@ -48,20 +48,23 @@ export function AppTour() {
   return (
     <Joyride
       steps={tourSteps}
-      run={true}
+      run={runTour}
       continuous
       showSkipButton
       showProgress
       callback={handleJoyrideCallback}
-      locale={{
-        next: 'Próximo',
-        back: 'Voltar',
-        last: 'Finalizar',
-        skip: 'Pular',
-      }}
       styles={{
         options: {
           zIndex: 10000,
+        },
+        tooltip: {
+          // Ajusta a posição do balão de texto do tour
+          marginTop: '20px', // O balão aparecerá 20px acima do elemento
+        },
+        // Adiciona uma sombra para destaque do elemento, se necessário
+        spotlight: {
+          borderRadius: '5px',
+          boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)',
         },
       }}
     />
