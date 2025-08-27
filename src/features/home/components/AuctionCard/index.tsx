@@ -13,7 +13,7 @@ interface AuctionCardProps {
   onToggleFavorite: (id: number) => void // Ajustado para aceitar number
   currentVehicleLoading: boolean // Mantido para o indicador de loading
   isFavorite?: boolean
-  id: string | undefined
+  id?: string | undefined
 }
 
 export function AuctionCard({
