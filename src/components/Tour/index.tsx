@@ -1,4 +1,3 @@
-// src/components/Tour.tsx
 import { useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import Joyride, { STATUS, EVENTS, CallBackProps } from 'react-joyride'
@@ -19,7 +18,7 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
   }, [])
 
   const handleJoyrideCallback = (data: CallBackProps) => {
-    const { status, action, index } = data
+    const { status, type, index } = data
     const finishedStatuses: CallBackProps['status'][] = [
       STATUS.FINISHED,
       STATUS.SKIPPED,
@@ -29,13 +28,14 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
       setRunTour(false)
       localStorage.setItem('hasSeenTour', 'true')
     }
-    if (action === 'update') {
+
+    // Ação de redirect movida para o evento STEP_AFTER
+    if (type === EVENTS.STEP_AFTER) {
       if (index === 0 && firstVehicleId) {
         navigate({
           to: '/details/$vehicleId',
-          params: { vehicleId: firstVehicleId?.toString() },
+          params: { vehicleId: firstVehicleId.toString() },
         })
-        setRunTour(false)
       }
     }
   }
@@ -53,13 +53,12 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
             back: 'Voltar',
             skip: 'Pular',
             last: 'Finalizar',
-            nextLabelWithProgress: 'Finalizar',
           },
         },
         {
           target: '#tour-analise-ia',
           content:
-            'Descubra a Avaliação inteligente e veja se o lance vale apena.',
+            'Descubra a Avaliação inteligente e veja se o lance vale a pena.',
           disableBeacon: true,
           placement: 'top',
           locale: {
