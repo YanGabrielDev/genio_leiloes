@@ -23,7 +23,7 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
       STATUS.FINISHED,
       STATUS.SKIPPED,
     ]
-    console.log(status)
+    console.log(type)
     // if (finishedStatuses.includes(status)) {
     //   setRunTour(false)
     //   localStorage.setItem('hasSeenTour', 'true')
