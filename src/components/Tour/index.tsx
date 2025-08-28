@@ -58,18 +58,13 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { status, type, action, index } = data
 
-    console.log('Tour callback:', { action, type, status, index })
-
-    // Atualiza o índice do passo atual
     if (type === EVENTS.STEP_AFTER) {
       setCurrentStepIndex(index + 1)
     } else if (type === EVENTS.STEP_BEFORE && action === 'prev') {
       setCurrentStepIndex(index - 1)
     }
 
-    // Lógica de navegação específica
     switch (true) {
-      // NEXT no primeiro passo - navega para detalhes
       case type === EVENTS.STEP_AFTER && index === 0:
         if (firstVehicleId) {
           navigate({
@@ -79,20 +74,22 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
         }
         break
 
-      // BACK no segundo passo (último) - volta para home
-      case type === EVENTS.STEP_BEFORE && index === 1 && action === 'prev':
-        navigate({ to: '/' })
-        break
-
-      // FINALIZAR no último passo - termina o tour
       case type === EVENTS.STEP_AFTER && index === 1 && action === 'next':
-      case type === EVENTS.TOUR_END && status === STATUS.FINISHED:
+      case type === EVENTS.TOUR_END &&
+        status === STATUS.FINISHED &&
+        action !== 'update':
         setRunTour(false)
         localStorage.setItem('hasSeenTour', 'true')
         break
 
-      // SKIP ou fechamento forçado
-      case ([STATUS.SKIPPED, STATUS.FINISHED] as Status[]).includes(status):
+      case action === 'prev' &&
+        type === 'step:after' &&
+        status === 'running' &&
+        index === 1:
+        navigate({ to: '/' })
+
+        break
+      case action === 'stop' && type === 'tour:status' && status === 'paused':
         setRunTour(false)
         localStorage.setItem('hasSeenTour', 'true')
         break
@@ -100,11 +97,6 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
       default:
         break
     }
-  }
-
-  const handleCloseTour = () => {
-    setRunTour(false)
-    localStorage.setItem('hasSeenTour', 'true')
   }
 
   return (
@@ -147,8 +139,11 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
           zIndex: 10000,
         },
         buttonNext: {
-          backgroundColor: '#fa9805',
+          backgroundColor: 'rgb(0, 90, 137)',
           color: '#fff',
+        },
+        buttonBack: {
+          color: 'rgb(0, 90, 137)',
         },
         spotlight: {
           borderRadius: '5px',
