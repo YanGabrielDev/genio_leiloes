@@ -24,10 +24,10 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
       STATUS.SKIPPED,
     ]
     console.log(status)
-    if (finishedStatuses.includes(status)) {
-      setRunTour(false)
-      localStorage.setItem('hasSeenTour', 'true')
-    }
+    // if (finishedStatuses.includes(status)) {
+    //   setRunTour(false)
+    //   localStorage.setItem('hasSeenTour', 'true')
+    // }
 
     // Ação de redirect movida para o evento STEP_AFTER
     if (type === EVENTS.STEP_AFTER) {
