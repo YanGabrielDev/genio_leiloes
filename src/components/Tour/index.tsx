@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Joyride, { STATUS, EVENTS } from 'react-joyride'
 
 interface AppTourProps {
-  firstVehicleId: number
+  firstVehicleId?: number
 }
 
 export function AppTour({ firstVehicleId }: AppTourProps) {
@@ -28,10 +28,10 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
     }
 
     if (action === EVENTS.STEP_AFTER) {
-      if (index === 0) {
+      if (index === 0 && firstVehicleId) {
         navigate({
           to: '/details/$vehicleId',
-          params: { vehicleId: firstVehicleId.toString() },
+          params: { vehicleId: firstVehicleId?.toString() },
         })
         setRunTour(false)
       }
