@@ -29,8 +29,7 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
       setRunTour(false)
       localStorage.setItem('hasSeenTour', 'true')
     }
-    console.log(action)
-    if ((action as any) === EVENTS.STEP_AFTER) {
+    if (action === 'update') {
       if (index === 0 && firstVehicleId) {
         navigate({
           to: '/details/$vehicleId',
