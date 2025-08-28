@@ -65,7 +65,7 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
           zIndex: 10000,
         },
         buttonNext: {
-          backgroundColor: 'rgb(0, 81, 124)',
+          backgroundColor: '#fa9805',
           color: '#fff',
         },
         spotlight: {
