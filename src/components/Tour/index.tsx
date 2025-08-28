@@ -20,11 +20,11 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { status, type, action, index } = data
 
-    if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
-      setRunTour(false)
-      localStorage.setItem('hasSeenTour', 'true')
-      return
-    }
+    // if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
+    //   setRunTour(false)
+    //   localStorage.setItem('hasSeenTour', 'true')
+    //   return
+    // }
 
     if (type === EVENTS.STEP_AFTER) {
       if (index === 0 && firstVehicleId) {
@@ -34,8 +34,11 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
         })
       }
     }
-    console.log(action, type)
-
+    console.log({ action, type, status })
+    if (index === 1 && type === 'tour:end' && status === 'finished') {
+      setRunTour(false)
+      localStorage.setItem('hasSeenTour', 'true')
+    }
     if (index === 1 && action === ('prev' as Actions)) {
       navigate({
         to: '/',
