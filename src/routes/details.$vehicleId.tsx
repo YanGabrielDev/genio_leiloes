@@ -14,7 +14,7 @@ import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { useListLastMoves } from '@/features/details/hooks/use-list-last-moves'
 import { useEffect, useState } from 'react'
-import { AppTour } from '@/components/Tour/inde'
+import { AppTour } from '@/components/Tour'
 
 export const Route = createFileRoute('/details/$vehicleId')({
   component: VehicleDetailsPage,

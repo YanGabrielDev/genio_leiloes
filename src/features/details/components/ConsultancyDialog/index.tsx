@@ -39,7 +39,7 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default" size="lg" className="w-full sm:w-auto gap-2">
+        <Button variant="default" className="w-full sm:w-auto gap-2">
           <MessageCircleMore className="h-4 w-4" />
           Solicitar consultoria
         </Button>

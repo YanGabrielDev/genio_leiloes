@@ -38,7 +38,7 @@ export function VehicleActions({
       <VehicleAnalysisDialog vehicleData={vehicleData} />
       {/* Outros botões em seguida */}
       <a href={vehicleLink} target="_blank">
-        <Button variant="outline" size="lg" className="w-full sm:w-auto">
+        <Button variant="outline" className="w-full sm:w-auto">
           {' '}
           Ir para o leilão {auctionHammer}
         </Button>

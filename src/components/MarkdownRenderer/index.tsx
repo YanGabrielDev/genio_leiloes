@@ -22,7 +22,29 @@ const iconMap: Record<string, React.ReactNode> = {
   '🔮 Potencial de Revenda': <TrendingUp className="h-6 w-6 text-blue-500" />,
 }
 
+// Função para 'limpar' a string de Markdown antes da renderização
+const sanitizeMarkdown = (markdownString: string) => {
+  if (!markdownString) return ''
+
+  // Remove caracteres de formatação incompletos no final da string
+  // Ex: `**`, `*`, `_`
+  let sanitizedContent = markdownString.trim()
+  if (sanitizedContent.endsWith('**')) {
+    sanitizedContent = sanitizedContent.slice(0, -2).trim()
+  }
+  if (sanitizedContent.endsWith('*')) {
+    sanitizedContent = sanitizedContent.slice(0, -1).trim()
+  }
+  if (sanitizedContent.endsWith('_')) {
+    sanitizedContent = sanitizedContent.slice(0, -1).trim()
+  }
+
+  return sanitizedContent
+}
+
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
+  const sanitizedContent = sanitizeMarkdown(content)
+
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
@@ -51,7 +73,6 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           </li>
         ),
         p: ({ children }) => {
-          // Detectar o bloco de 'Comentário Final' e estilizar
           if (
             (children as React.ReactNode[]).some(
               (child) =>
@@ -73,7 +94,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         },
       }}
     >
-      {content}
+      {sanitizedContent}
     </ReactMarkdown>
   )
 }

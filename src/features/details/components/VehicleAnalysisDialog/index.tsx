@@ -79,7 +79,6 @@ export function VehicleAnalysisDialog({
         id="tour-analise-ia"
       >
         <Button
-          size="lg"
           className="w-full ml-auto flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all"
           variant="outline"
           onClick={handleAnalysis}

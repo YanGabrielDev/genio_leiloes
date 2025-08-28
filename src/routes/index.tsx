@@ -1,3 +1,4 @@
+// src/pages/AppPage.tsx
 import { AuctionCard } from '@/features/home/components/AuctionCard'
 import { PaginationSection } from '@/components/PaginationSection'
 import { SkeletonLoaderGrid } from '@/components/SkeletonLoaderGrid'
@@ -16,7 +17,7 @@ import { Vehicles } from '@/interfaces/vehicle.interface'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { toast } from '@/hooks/use-toast'
 import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
-import { AppTour } from '@/components/Tour/inde'
+import { AppTour } from '@/components/Tour'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -92,6 +93,9 @@ function AppPage() {
     if (subscriptionPlans) setUserPlan(subscriptionPlans)
   }, [isLoadingSubscriptionPlans, subscriptionPlans])
 
+  // Lógica para pegar o ID do primeiro veículo e passar para o Tour
+  const firstVehicleId = vehicleList?.[0]?.id
+
   return (
     <>
       <Helmet>
@@ -136,7 +140,8 @@ function AppPage() {
             vehicleList?.map((item, index) => (
               <AuctionCard
                 key={item.id}
-                id={'tour-card'}
+                // Aplica o ID apenas no primeiro card para o tour
+                id={index === 0 ? 'tour-card' : undefined}
                 vehicle={item as Vehicles}
                 onToggleFavorite={handleFavorite}
                 isFavorite={favoriteItemids?.includes(item.id)}
@@ -153,7 +158,10 @@ function AppPage() {
           />
         </div>
       </Template>
-      {!listAuction.isLoading && <AppTour />}
+      {/* Passe o ID do veículo para o AppTour */}
+      {!listAuction.isLoading && firstVehicleId && (
+        <AppTour firstVehicleId={firstVehicleId} />
+      )}
     </>
   )
 }
