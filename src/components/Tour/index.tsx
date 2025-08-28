@@ -1,6 +1,6 @@
 import { useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
-import Joyride, { STATUS, EVENTS, CallBackProps } from 'react-joyride'
+import Joyride, { STATUS, EVENTS, CallBackProps, Actions } from 'react-joyride'
 
 interface AppTourProps {
   firstVehicleId?: number
@@ -18,18 +18,14 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
   }, [])
 
   const handleJoyrideCallback = (data: CallBackProps) => {
-    const { status, type, index } = data
-    const finishedStatuses: CallBackProps['status'][] = [
-      STATUS.FINISHED,
-      STATUS.SKIPPED,
-    ]
-    console.log(type)
-    // if (finishedStatuses.includes(status)) {
-    //   setRunTour(false)
-    //   localStorage.setItem('hasSeenTour', 'true')
-    // }
+    const { status, type, action, index } = data
 
-    // Ação de redirect movida para o evento STEP_AFTER
+    if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
+      setRunTour(false)
+      localStorage.setItem('hasSeenTour', 'true')
+      return
+    }
+
     if (type === EVENTS.STEP_AFTER) {
       if (index === 0 && firstVehicleId) {
         navigate({
@@ -38,16 +34,12 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
         })
       }
     }
-    if (index === 1) {
-      if (type === EVENTS.TOUR_END) {
-        setRunTour(false)
-        localStorage.setItem('hasSeenTour', 'true')
-      }
-      if (type === EVENTS.BEACON) {
-        navigate({
-          to: '/',
-        })
-      }
+    console.log(action, type)
+
+    if (index === 1 && action === ('prev' as Actions)) {
+      navigate({
+        to: '/',
+      })
     }
   }
 
