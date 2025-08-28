@@ -53,6 +53,7 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
             back: 'Voltar',
             skip: 'Pular',
             last: 'Finalizar',
+            nextLabelWithProgress: 'Finalizar',
           },
         },
         {
