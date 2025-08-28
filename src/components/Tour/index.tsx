@@ -38,6 +38,12 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
         })
       }
     }
+    if (type === EVENTS.TOUR_END) {
+      if (index === 1) {
+        setRunTour(false)
+        localStorage.setItem('hasSeenTour', 'true')
+      }
+    }
   }
 
   return (
