@@ -1,7 +1,7 @@
 // src/components/Tour.tsx
 import { useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
-import Joyride, { STATUS, EVENTS } from 'react-joyride'
+import Joyride, { STATUS, EVENTS, Callback, CallBackProps } from 'react-joyride'
 
 interface AppTourProps {
   firstVehicleId?: number
@@ -18,23 +18,24 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
     }
   }, [])
 
-  const handleJoyrideCallback = (data: any) => {
-    const { status, action, index } = data
-    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
+  const handleJoyrideCallback = (data: CallBackProps) => {
+    const { status, index } = data
+    const finishedStatuses: CallBackProps['status'][] = [
+      STATUS.FINISHED,
+      STATUS.SKIPPED,
+    ]
 
     if (finishedStatuses.includes(status)) {
       setRunTour(false)
       localStorage.setItem('hasSeenTour', 'true')
     }
 
-    if (action === EVENTS.STEP_AFTER) {
-      if (index === 0 && firstVehicleId) {
-        navigate({
-          to: '/details/$vehicleId',
-          params: { vehicleId: firstVehicleId?.toString() },
-        })
-        setRunTour(false)
-      }
+    if (index === 0 && firstVehicleId) {
+      navigate({
+        to: '/details/$vehicleId',
+        params: { vehicleId: firstVehicleId?.toString() },
+      })
+      setRunTour(false)
     }
   }
 
@@ -46,6 +47,12 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
           content: 'Clique em "Ver detalhes" do veículo.',
           disableBeacon: true,
           placement: 'top',
+          locale: {
+            next: 'Próximo',
+            back: 'Voltar',
+            skip: 'Pular',
+            last: 'Finalizar',
+          },
         },
         {
           target: '#tour-analise-ia',
@@ -53,6 +60,12 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
             'Descubra a Avaliação inteligente e veja se o lance vale apena.',
           disableBeacon: true,
           placement: 'top',
+          locale: {
+            next: 'Próximo',
+            back: 'Voltar',
+            skip: 'Pular',
+            last: 'Finalizar',
+          },
         },
       ]}
       run={runTour}
@@ -73,12 +86,12 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
           boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)',
         },
       }}
-      locale={{
-        next: 'Próximo',
-        back: 'Voltar',
-        skip: 'Pular',
-        last: 'Finalizar',
-      }}
+      // locale={{
+      //   next: 'Próximo',
+      //   back: 'Voltar',
+      //   skip: 'Pular',
+      //   last: 'Finalizar',
+      // }}
     />
   )
 }
