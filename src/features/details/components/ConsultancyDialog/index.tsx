@@ -13,6 +13,7 @@ import { whatsappIcon } from '@/assets/icons'
 
 export function ConsultancyDialog({
   vehicleData,
+  ...props
 }: {
   vehicleData?: {
     ano: string | number
@@ -23,6 +24,7 @@ export function ConsultancyDialog({
     vehicleId: number
     is_favorite?: boolean
   }
+  [key: string]: any
 }) {
   const defaultMessage = `Olá, gostaria de solicitar uma consultoria especializada para o veículo:
 
@@ -38,7 +40,7 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild {...props}>
         <Button variant="default" className="w-full sm:w-auto gap-2">
           <MessageCircleMore className="h-4 w-4" />
           Solicitar consultoria

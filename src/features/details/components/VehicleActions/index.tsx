@@ -37,13 +37,13 @@ export function VehicleActions({
       {/* NOVO POSICIONAMENTO: Avaliação Inteligente agora é o primeiro botão */}
       <VehicleAnalysisDialog vehicleData={vehicleData} />
       {/* Outros botões em seguida */}
-      <a href={vehicleLink} target="_blank">
+      <a href={vehicleLink} target="_blank" id="tour-go-to-auction">
         <Button variant="outline" className="w-full sm:w-auto">
           {' '}
           Ir para o leilão {auctionHammer}
         </Button>
       </a>
-      <ConsultancyDialog vehicleData={vehicleData} />
+      <ConsultancyDialog vehicleData={vehicleData} id="tour-consultancy" />
     </motion.div>
   )
 }
