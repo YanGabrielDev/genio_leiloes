@@ -11,14 +11,22 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { useVehicleFilters } from '@/context/vehicle-filter.context'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command'
+import { Check, ChevronsUpDown } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface VehicleFiltersProps {
   cityFilterOptions?: {
@@ -30,6 +38,7 @@ interface VehicleFiltersProps {
 export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
   const { vehicleFiltersState, setVehicleFiltersState } = useVehicleFilters()
   const [open, setOpen] = useState(false)
+  const [cityPopoverOpen, setCityPopoverOpen] = useState(false)
 
   // Estados locais
   const [localMinPrice, setLocalMinPrice] = useState<number>(
@@ -213,24 +222,68 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
               >
                 Cidade
               </Label>
-              <Select
-                value={localCity || 'all'}
-                onValueChange={(value) =>
-                  setLocalCity(value === 'all' ? undefined : value)
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione uma cidade" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todas as cidades</SelectItem>
-                  {cityFilterOptions?.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Popover open={cityPopoverOpen} onOpenChange={setCityPopoverOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={cityPopoverOpen}
+                    className="w-full justify-between"
+                  >
+                    {localCity
+                      ? cityFilterOptions.find(
+                          (option) => option.value === localCity
+                        )?.label
+                      : 'Selecione uma cidade'}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+                  <Command>
+                    <CommandInput placeholder="Buscar cidade..." />
+                    <CommandList>
+                      <CommandEmpty>Nenhuma cidade encontrada.</CommandEmpty>
+                      <CommandGroup>
+                        <CommandItem
+                          value="Todas as cidades"
+                          onSelect={() => {
+                            setLocalCity(undefined)
+                            setCityPopoverOpen(false)
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              'mr-2 h-4 w-4',
+                              !localCity ? 'opacity-100' : 'opacity-0'
+                            )}
+                          />
+                          Todas as cidades
+                        </CommandItem>
+                        {cityFilterOptions.map((option) => (
+                          <CommandItem
+                            key={option.value}
+                            value={option.label}
+                            onSelect={() => {
+                              setLocalCity(option.value)
+                              setCityPopoverOpen(false)
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                'mr-2 h-4 w-4',
+                                localCity === option.value
+                                  ? 'opacity-100'
+                                  : 'opacity-0'
+                              )}
+                            />
+                            {option.label}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
           )}
         </div>
