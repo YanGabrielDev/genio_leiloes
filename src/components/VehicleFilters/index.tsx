@@ -214,16 +214,16 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
                 Cidade
               </Label>
               <Select
-                value={localCity || ''}
+                value={localCity || 'all'}
                 onValueChange={(value) =>
-                  setLocalCity(value === '' ? undefined : value)
+                  setLocalCity(value === 'all' ? undefined : value)
                 }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione uma cidade" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Todas as cidades</SelectItem>
+                  <SelectItem value="all">Todas as cidades</SelectItem>
                   {cityFilterOptions?.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
                       {option.label}
