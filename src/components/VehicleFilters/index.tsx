@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -25,8 +25,9 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command'
-import { Check, ChevronsUpDown } from 'lucide-react'
+import { Check, ChevronsUpDown, MapPin, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
 
 interface VehicleFiltersProps {
   cityFilterOptions?: {
@@ -39,6 +40,7 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
   const { vehicleFiltersState, setVehicleFiltersState } = useVehicleFilters()
   const [open, setOpen] = useState(false)
   const [cityPopoverOpen, setCityPopoverOpen] = useState(false)
+  const [citySearchTerm, setCitySearchTerm] = useState('')
 
   // Estados locais
   const [localMinPrice, setLocalMinPrice] = useState<number>(
@@ -60,6 +62,17 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
     vehicleFiltersState.city
   )
 
+  // Filtrar cidades baseado no termo de busca
+  const filteredCities = useMemo(() => {
+    if (!cityFilterOptions) return []
+
+    return cityFilterOptions.filter(
+      (city) =>
+        city.label.toLowerCase().includes(citySearchTerm.toLowerCase()) ||
+        city.value.toLowerCase().includes(citySearchTerm.toLowerCase())
+    )
+  }, [cityFilterOptions, citySearchTerm])
+
   // Sincroniza estados locais com o estado global ao abrir o popup
   useEffect(() => {
     if (open) {
@@ -69,6 +82,7 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
       setLocalYear(vehicleFiltersState.year?.toString() || '')
       setLocalCondition(vehicleFiltersState.condition)
       setLocalCity(vehicleFiltersState.city)
+      setCitySearchTerm('')
     }
   }, [vehicleFiltersState, open])
 
@@ -94,6 +108,11 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
     setLocalYear(event.target.value)
   }
 
+  const handleClearCity = () => {
+    setLocalCity(undefined)
+    setCitySearchTerm('')
+  }
+
   const handleApplyFilters = () => {
     setVehicleFiltersState({
       priceRange: [localMinPrice, localMaxPrice],
@@ -110,7 +129,7 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
       <Button variant="outline" onClick={() => setOpen(true)}>
         Filtros
       </Button>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Filtrar Leilões</DialogTitle>
           <DialogDescription>
@@ -213,15 +232,34 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
             </RadioGroup>
           </div>
 
-          {/* Filtro de Cidade */}
+          {/* Filtro de Cidade - Melhorado */}
           {cityFilterOptions && (
             <div className="space-y-2">
-              <Label
-                htmlFor="city"
-                className="text-sm font-medium leading-none"
-              >
-                Cidade
-              </Label>
+              <Label className="text-sm font-medium leading-none">Cidade</Label>
+
+              {/* Badge mostrando a cidade selecionada */}
+              {localCity && (
+                <div className="flex items-center gap-2 mb-2">
+                  <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1"
+                  >
+                    <MapPin className="h-3 w-3" />
+                    {
+                      cityFilterOptions.find(
+                        (option) => option.value === localCity
+                      )?.label
+                    }
+                    <button
+                      onClick={handleClearCity}
+                      className="ml-1 hover:text-destructive"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </Badge>
+                </div>
+              )}
+
               <Popover open={cityPopoverOpen} onOpenChange={setCityPopoverOpen}>
                 <PopoverTrigger asChild>
                   <Button
@@ -230,53 +268,80 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
                     aria-expanded={cityPopoverOpen}
                     className="w-full justify-between"
                   >
-                    {localCity
-                      ? cityFilterOptions.find(
-                          (option) => option.value === localCity
-                        )?.label
-                      : 'Selecione uma cidade'}
+                    <span className="truncate">
+                      {localCity
+                        ? cityFilterOptions.find(
+                            (option) => option.value === localCity
+                          )?.label
+                        : 'Selecione uma cidade'}
+                    </span>
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
-                  <Command>
-                    <CommandInput placeholder="Buscar cidade..." />
-                    <CommandList>
-                      <CommandEmpty>Nenhuma cidade encontrada.</CommandEmpty>
+                <PopoverContent
+                  className="w-[--radix-popover-trigger-width] p-0 max-h-[300px]"
+                  align="start"
+                >
+                  <Command
+                    filter={(value, search) => {
+                      if (value.toLowerCase().includes(search.toLowerCase()))
+                        return 1
+                      return 0
+                    }}
+                  >
+                    <CommandInput
+                      placeholder="Buscar cidade..."
+                      value={citySearchTerm}
+                      onValueChange={setCitySearchTerm}
+                      className="h-9"
+                    />
+                    <CommandList className="max-h-[250px]">
+                      <CommandEmpty className="py-6 text-center text-sm">
+                        Nenhuma cidade encontrada.
+                        {citySearchTerm && (
+                          <div className="text-xs text-muted-foreground mt-1">
+                            Tente buscar com termos diferentes
+                          </div>
+                        )}
+                      </CommandEmpty>
                       <CommandGroup>
                         <CommandItem
-                          value="Todas as cidades"
+                          value="todas-as-cidades"
                           onSelect={() => {
                             setLocalCity(undefined)
                             setCityPopoverOpen(false)
+                            setCitySearchTerm('')
                           }}
+                          className="flex items-center gap-2"
                         >
                           <Check
                             className={cn(
-                              'mr-2 h-4 w-4',
+                              'h-4 w-4',
                               !localCity ? 'opacity-100' : 'opacity-0'
                             )}
                           />
-                          Todas as cidades
+                          <span>Todas as cidades</span>
                         </CommandItem>
-                        {cityFilterOptions.map((option) => (
+                        {filteredCities.map((option) => (
                           <CommandItem
                             key={option.value}
                             value={option.label}
                             onSelect={() => {
                               setLocalCity(option.value)
                               setCityPopoverOpen(false)
+                              setCitySearchTerm('')
                             }}
+                            className="flex items-center gap-2"
                           >
                             <Check
                               className={cn(
-                                'mr-2 h-4 w-4',
+                                'h-4 w-4',
                                 localCity === option.value
                                   ? 'opacity-100'
                                   : 'opacity-0'
                               )}
                             />
-                            {option.label}
+                            <span className="truncate">{option.label}</span>
                           </CommandItem>
                         ))}
                       </CommandGroup>
@@ -284,11 +349,25 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
                   </Command>
                 </PopoverContent>
               </Popover>
+
+              {/* Dica para mobile */}
+              <p className="text-xs text-muted-foreground">
+                Digite o nome da cidade para buscar rapidamente
+              </p>
             </div>
           )}
         </div>
-        <DialogFooter>
-          <Button onClick={handleApplyFilters}>Aplicar Filtros</Button>
+        <DialogFooter className="flex flex-col sm:flex-row gap-2">
+          <Button
+            variant="outline"
+            onClick={() => setOpen(false)}
+            className="flex-1"
+          >
+            Cancelar
+          </Button>
+          <Button onClick={handleApplyFilters} className="flex-1">
+            Aplicar Filtros
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
