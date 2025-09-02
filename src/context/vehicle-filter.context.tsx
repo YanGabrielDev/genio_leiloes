@@ -5,6 +5,8 @@ export interface VehicleFiltersState {
   priceRange: [number, number]
   brandModelSearch: string
   year?: number
+  condition?: 'conservado' | 'sucata'
+  city?: string
   // Outros filtros de veículo futuros seriam adicionados aqui, por exemplo:
   // vehicleType: string | null; // ex: 'carro', 'moto', 'caminhão'
   // vehicleBrand: string[];    // ex: ['Ford', 'Chevrolet']
@@ -24,6 +26,8 @@ const initialVehicleFiltersState: VehicleFiltersState = {
   priceRange: [0, 100000],
   brandModelSearch: '',
   year: undefined,
+  condition: undefined,
+  city: undefined,
 }
 
 const initialVehicleFilterContext: VehicleFilterContextType = {

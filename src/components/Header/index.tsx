@@ -25,7 +25,12 @@ interface HeaderProps {
   onLogout?: () => void
 }
 
-export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
+export const Header = ({
+  showFilters,
+  onLogin,
+  onLogout,
+  cityFilterOptions,
+}: HeaderProps) => {
   const { userProfile } = useUserStore()
   const [openFavorites, setOpenFavorites] = useState(false)
   const listFavorite = useListFavorite()
@@ -151,7 +156,9 @@ export const Header = ({ showFilters, onLogin, onLogout }: HeaderProps) => {
                 )}
 
                 <div className="relative flex gap-4 items-center w-full ">
-                  {showFilters && <VehicleFilters />}
+                  {showFilters && (
+                    <VehicleFilters cityFilterOptions={cityFilterOptions} />
+                  )}
                   {showFilters && userProfile && (
                     <Button onClick={() => navigate({ to: '/auction-alert' })}>
                       <Bell className="mr-2 h-4 w-4" />

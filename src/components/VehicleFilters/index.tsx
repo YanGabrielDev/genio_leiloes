@@ -9,9 +9,25 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { useVehicleFilters } from '@/context/vehicle-filter.context'
 
-export function VehicleFilters() {
+interface VehicleFiltersProps {
+  cityFilterOptions?: {
+    value: string
+    label: string
+  }[]
+}
+
+export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
   const { vehicleFiltersState, setVehicleFiltersState } = useVehicleFilters()
   const [open, setOpen] = useState(false)
 
@@ -28,6 +44,12 @@ export function VehicleFilters() {
   const [localYear, setLocalYear] = useState<string>(
     vehicleFiltersState.year?.toString() || ''
   )
+  const [localCondition, setLocalCondition] = useState<
+    'conservado' | 'sucata' | undefined
+  >(vehicleFiltersState.condition)
+  const [localCity, setLocalCity] = useState<string | undefined>(
+    vehicleFiltersState.city
+  )
 
   // Sincroniza estados locais com o estado global ao abrir o popup
   useEffect(() => {
@@ -36,6 +58,8 @@ export function VehicleFilters() {
       setLocalMaxPrice(vehicleFiltersState.priceRange[1])
       setLocalBrandModelSearch(vehicleFiltersState.brandModelSearch || '')
       setLocalYear(vehicleFiltersState.year?.toString() || '')
+      setLocalCondition(vehicleFiltersState.condition)
+      setLocalCity(vehicleFiltersState.city)
     }
   }, [vehicleFiltersState, open])
 
@@ -66,6 +90,8 @@ export function VehicleFilters() {
       priceRange: [localMinPrice, localMaxPrice],
       brandModelSearch: localBrandModelSearch,
       year: localYear ? parseInt(localYear) : undefined,
+      condition: localCondition,
+      city: localCity,
     })
     setOpen(false)
   }
@@ -85,12 +111,12 @@ export function VehicleFilters() {
         <div className="grid gap-4 py-4">
           {/* Campo de busca por Marca/Modelo */}
           <div className="space-y-2">
-            <label
+            <Label
               htmlFor="brand-model-search"
               className="text-sm font-medium leading-none"
             >
               Marca/Modelo
-            </label>
+            </Label>
             <Input
               id="brand-model-search"
               type="text"
@@ -103,12 +129,12 @@ export function VehicleFilters() {
 
           {/* Faixa de Preço */}
           <div className="space-y-2">
-            <label
+            <Label
               htmlFor="price-range"
               className="text-sm font-medium leading-none"
             >
               Faixa de Preço (R$)
-            </label>
+            </Label>
             <div className="flex gap-2 items-center">
               <div className="flex-1 space-y-1">
                 <Input
@@ -136,9 +162,9 @@ export function VehicleFilters() {
 
           {/* Campo de Ano Único */}
           <div className="space-y-2">
-            <label htmlFor="year" className="text-sm font-medium leading-none">
+            <Label htmlFor="year" className="text-sm font-medium leading-none">
               Ano do Veículo
-            </label>
+            </Label>
             <Input
               id="year"
               type="number"
@@ -148,6 +174,65 @@ export function VehicleFilters() {
               className="w-full"
             />
           </div>
+
+          {/* Filtro de Condição */}
+          <div className="space-y-2">
+            <Label className="text-sm font-medium leading-none">Condição</Label>
+            <RadioGroup
+              value={localCondition || 'todos'}
+              onValueChange={(value) =>
+                setLocalCondition(
+                  value === 'todos'
+                    ? undefined
+                    : (value as 'conservado' | 'sucata')
+                )
+              }
+              className="flex gap-4"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="todos" id="todos" />
+                <Label htmlFor="todos">Todos</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="conservado" id="conservado" />
+                <Label htmlFor="conservado">Conservado</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="sucata" id="sucata" />
+                <Label htmlFor="sucata">Sucata</Label>
+              </div>
+            </RadioGroup>
+          </div>
+
+          {/* Filtro de Cidade */}
+          {cityFilterOptions && (
+            <div className="space-y-2">
+              <Label
+                htmlFor="city"
+                className="text-sm font-medium leading-none"
+              >
+                Cidade
+              </Label>
+              <Select
+                value={localCity || ''}
+                onValueChange={(value) =>
+                  setLocalCity(value === '' ? undefined : value)
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione uma cidade" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">Todas as cidades</SelectItem>
+                  {cityFilterOptions?.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
         </div>
         <DialogFooter>
           <Button onClick={handleApplyFilters}>Aplicar Filtros</Button>
