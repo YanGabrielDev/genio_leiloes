@@ -70,8 +70,8 @@ function AppPage() {
   const cityFilterOptions = useMemo(
     () =>
       auctionMock.map((auction) => ({
-        value: auction.cidade,
-        label: auction.cidade,
+        value: auction,
+        label: auction,
       })),
     []
   )
