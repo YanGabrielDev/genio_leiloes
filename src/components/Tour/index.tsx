@@ -15,6 +15,7 @@ interface AppTourProps {
 export function AppTour({ firstVehicleId }: AppTourProps) {
   const [runTour, setRunTour] = useState(false)
   const navigate = useNavigate()
+  const hasSeenTour = localStorage.getItem('hasSeenTour')
 
   useEffect(() => {
     const hasSeenTour = localStorage.getItem('hasSeenTour')
@@ -35,7 +36,7 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
       localStorage.setItem('hasSeenTour', 'true')
       return
     }
-
+    if (hasSeenTour) return
     // Lógica de navegação entre as páginas
     switch (true) {
       // Após o primeiro passo (na página de listagem), navega para os detalhes.
