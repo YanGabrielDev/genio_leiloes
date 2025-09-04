@@ -13,6 +13,7 @@ interface TemplateProps {
   cityFilterOptions?: {
     value: string
     label: string
+    id: string
   }[]
   toGo?: string
   showFilters?: boolean
