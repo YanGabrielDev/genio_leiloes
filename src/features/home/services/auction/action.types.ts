@@ -4,6 +4,8 @@ export interface ListAuctionParams {
   priceMin: number
   modelBrand: string
   year?: number
+  city?: string
+  condition?: 'conservado' | 'sucata' | undefined
 }
 
 export interface FindVehicleById {

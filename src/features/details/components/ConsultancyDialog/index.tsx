@@ -1,6 +1,6 @@
 'use client'
 
-import { MessageCircleMore } from 'lucide-react'
+import { Coins, MessageCircleMore } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -10,6 +10,9 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { whatsappIcon } from '@/assets/icons'
+import { useUserStore } from '@/store/user.store'
+import { toast } from '@/hooks/use-toast'
+import { useNavigate } from '@tanstack/react-router'
 
 export function ConsultancyDialog({
   vehicleData,
@@ -26,6 +29,8 @@ export function ConsultancyDialog({
   }
   [key: string]: any
 }) {
+  const { userProfile, plan } = useUserStore()
+  const navigate = useNavigate()
   const defaultMessage = `Olá, gostaria de solicitar uma consultoria especializada para o veículo:
 
 *Detalhes do Veículo:*
@@ -37,6 +42,30 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
 
   const encodedMessage = encodeURIComponent(defaultMessage)
   const whatsappUrl = `https://wa.me/553183165687?text=${encodedMessage}`
+
+  const handleConsultancy = () => {
+    if (!userProfile) {
+      toast({
+        description:
+          'Acesse a sua conta para usar a consultoria especializada.',
+        variant: 'info',
+      })
+      setTimeout(() => {
+        navigate({ to: '/login' })
+      }, 2000)
+      return
+    }
+
+    if ((plan?.saldo_moedas || 0) < 50) {
+      toast({
+        title: 'Moedas insuficientes',
+        description: 'Você precisa de 50 moedas para usar esta análise',
+        variant: 'destructive',
+      })
+      return
+    }
+    window.open(whatsappUrl, '_blank')
+  }
 
   return (
     <Dialog>
@@ -98,8 +127,15 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
             rel="noopener noreferrer"
             className="block w-full"
           >
-            <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
-              Falar com um Especialista Agora {whatsappIcon}
+            <Button
+              onClick={handleConsultancy}
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
+            >
+              Falar com um Especialista Agora{' '}
+              <span className="ml-2 flex items-center gap-1">
+                <Coins className="h-4 w-4 text-yellow-500" />
+                <span className="text-sm font-bold">50</span>
+              </span>
             </Button>
           </a>
         </div>

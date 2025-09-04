@@ -17,6 +17,8 @@ const listAuction = async ({
   priceMin,
   modelBrand,
   year,
+  condition,
+  city,
 }: ListAuctionParams): Promise<Auction> => {
   const response = await api.get(`${apiUrl}/leiloes/`, {
     params: {
@@ -25,6 +27,8 @@ const listAuction = async ({
       gasto_maximo: priceMax,
       marca_modelo: modelBrand,
       ano: year ?? null,
+      is_sucata: condition ? condition === 'sucata' : undefined,
+      cidade: city,
     },
   })
   return response.data

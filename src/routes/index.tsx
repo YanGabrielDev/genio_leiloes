@@ -37,6 +37,8 @@ function AppPage() {
     priceRange: [priceMin, priceMax],
     brandModelSearch,
     year,
+    condition,
+    city,
   } = vehicleFiltersState
 
   const listAuction = useListAuction({
@@ -45,6 +47,8 @@ function AppPage() {
     priceMin,
     modelBrand: brandModelSearch,
     year,
+    condition,
+    city,
   })
   const vehicles = listAuction.data?.results
 
@@ -72,6 +76,7 @@ function AppPage() {
       auctionMock.map((auction) => ({
         value: auction,
         label: auction,
+        id: crypto.randomUUID(),
       })),
     []
   )

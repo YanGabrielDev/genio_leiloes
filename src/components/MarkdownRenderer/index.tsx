@@ -15,11 +15,11 @@ interface MarkdownRendererProps {
 }
 
 const iconMap: Record<string, React.ReactNode> = {
-  '🚗 Estado Geral': <Car className="h-6 w-6 text-indigo-500" />,
-  '⚠️ Problemas Crônicos': <ShieldAlert className="h-6 w-6 text-red-500" />,
-  '💰 Custos de Manutenção': <Coins className="h-6 w-6 text-yellow-500" />,
-  '📊 Comparação com FIPE': <Scale className="h-6 w-6 text-green-500" />,
-  '🔮 Potencial de Revenda': <TrendingUp className="h-6 w-6 text-blue-500" />,
+  'Estado Geral': <Car className="h-6 w-6 text-indigo-500" />,
+  'Problemas Crônicos': <ShieldAlert className="h-6 w-6 text-red-500" />,
+  'Custos de Manutenção': <Coins className="h-6 w-6 text-yellow-500" />,
+  'Comparação com FIPE': <Scale className="h-6 w-6 text-green-500" />,
+  'Potencial de Revenda': <TrendingUp className="h-6 w-6 text-blue-500" />,
 }
 
 // Função para 'limpar' a string de Markdown antes da renderização
