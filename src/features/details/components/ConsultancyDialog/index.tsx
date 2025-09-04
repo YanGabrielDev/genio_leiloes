@@ -127,10 +127,7 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
             rel="noopener noreferrer"
             className="block w-full"
           >
-            <Button
-              onClick={handleConsultancy}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
-            >
+            <Button onClick={handleConsultancy} className="w-full  ">
               Falar com um Especialista Agora{' '}
               <span className="ml-2 flex items-center gap-1">
                 <Coins className="h-4 w-4 text-yellow-500" />
