@@ -80,8 +80,8 @@ export function VehicleAnalysisDialog({
       >
         <Button
           className="w-full ml-auto flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all"
-          variant="outline"
           onClick={handleAnalysis}
+          id="vehicle-analysis-trigger"
           disabled={analysisIsPending}
         >
           {analysisIsPending ? (
@@ -94,7 +94,7 @@ export function VehicleAnalysisDialog({
               >
                 <Sparkles className="h-4 w-4 text-purple-500" />
               </motion.span>
-              Avaliação inteligente
+              Analisa veículo agora
               <span className="ml-2 flex items-center gap-1">
                 <Coins className="h-4 w-4 text-yellow-500" />
                 <span className="text-sm font-bold">10</span>

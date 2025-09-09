@@ -1,10 +1,20 @@
-// VehicleActions.tsx
-
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { VehicleAnalysisDialog } from '../VehicleAnalysisDialog'
-import { auctionHammer } from '@/assets/icons'
 import { ConsultancyDialog } from '../ConsultancyDialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { useState } from 'react'
+import { AlertTriangle, ExternalLink, Sparkles } from 'lucide-react'
+import { auctionHammer } from '@/assets/icons'
+import { SendOffer } from '../SendOffer'
 
 interface VehicleActionsProps {
   vehicleData: {
@@ -24,8 +34,6 @@ export function VehicleActions({
   currentLink,
 }: VehicleActionsProps) {
   const params = new URLSearchParams(currentLink)
-  const vehicleId = params.get('data')
-  const vehicleLink = `https://leilao.detran.mg.gov.br/lotes/detalhes/${vehicleId}`
 
   return (
     <motion.div
@@ -34,16 +42,11 @@ export function VehicleActions({
       transition={{ delay: 0.5 }}
       className="flex flex-col sm:flex-row gap-4 pt-4"
     >
-      {/* NOVO POSICIONAMENTO: Avaliação Inteligente agora é o primeiro botão */}
       <VehicleAnalysisDialog vehicleData={vehicleData} />
-      {/* Outros botões em seguida */}
-      <a href={vehicleLink} target="_blank" id="tour-go-to-auction">
-        <Button variant="outline" className="w-full sm:w-auto">
-          {' '}
-          Ir para o leilão {auctionHammer}
-        </Button>
-      </a>
+
       <ConsultancyDialog vehicleData={vehicleData} id="tour-consultancy" />
+
+      <SendOffer vehicleId={vehicleData.vehicleId} />
     </motion.div>
   )
 }

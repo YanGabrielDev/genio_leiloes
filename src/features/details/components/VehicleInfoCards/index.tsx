@@ -46,7 +46,7 @@ export function VehicleInfoCards({
   return (
     <motion.div variants={fadeIn}>
       <Card className="rounded-lg shadow-sm border border-gray-100 dark:border-gray-800">
-        <Tabs defaultValue="leilao">
+        <Tabs defaultValue="especificacoes">
           <CardHeader className="pb-0 border-b-0">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger

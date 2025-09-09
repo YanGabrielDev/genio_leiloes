@@ -74,14 +74,14 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
       placement: 'top',
     },
     {
-      target: '#tour-go-to-auction',
-      content: 'Acesse o site oficial do leilão para dar seu lance.',
+      target: '#tour-consultancy',
+      content: 'Precisa de ajuda? Fale com um de nossos especialistas.',
       disableBeacon: true,
       placement: 'top',
     },
     {
-      target: '#tour-consultancy',
-      content: 'Precisa de ajuda? Fale com um de nossos especialistas.',
+      target: '#tour-go-to-auction',
+      content: 'Acesse o site oficial do leilão para dar seu lance.',
       disableBeacon: true,
       placement: 'top',
     },

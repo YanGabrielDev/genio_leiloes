@@ -13,6 +13,7 @@ import { whatsappIcon } from '@/assets/icons'
 import { useUserStore } from '@/store/user.store'
 import { toast } from '@/hooks/use-toast'
 import { useNavigate } from '@tanstack/react-router'
+import { useDecreaseCoins } from '@/hooks/use-decrease-coins'
 
 export function ConsultancyDialog({
   vehicleData,
@@ -31,6 +32,7 @@ export function ConsultancyDialog({
 }) {
   const { userProfile, plan } = useUserStore()
   const navigate = useNavigate()
+  const { mutate: decreaseCoins } = useDecreaseCoins()
   const defaultMessage = `Olá, gostaria de solicitar uma consultoria especializada para o veículo:
 
 *Detalhes do Veículo:*
@@ -64,15 +66,16 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
       })
       return
     }
+    decreaseCoins({ value: 50, descricao: 'Consultoria' })
     window.open(whatsappUrl, '_blank')
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild {...props}>
-        <Button variant="default" className="w-full sm:w-auto gap-2">
+        <Button variant="secondary" className="w-full sm:w-auto gap-2">
           <MessageCircleMore className="h-4 w-4" />
-          Solicitar consultoria
+          Falar com consultor
         </Button>
       </DialogTrigger>
       <DialogContent className="w-[90%] max-w-[480px] rounded-xl overflow-auto max-h-[90vh]">
@@ -128,7 +131,7 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
             className="block w-full"
           >
             <Button onClick={handleConsultancy} className="w-full  ">
-              Falar com um Especialista Agora{' '}
+              Falar com um consultor agora{' '}
               <span className="ml-2 flex items-center gap-1">
                 <Coins className="h-4 w-4 text-yellow-500" />
                 <span className="text-sm font-bold">50</span>

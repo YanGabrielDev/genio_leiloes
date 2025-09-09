@@ -162,7 +162,6 @@ function VehicleDetailsPage() {
             evaluationValue={evaluationValue}
             loading={vehicleCurrentStatusById.isLoading}
           />
-          {/* NOVO POSICIONAMENTO: Botão de Avaliação inteligente antes das outras ações */}
           <VehicleActions
             vehicleData={{
               ano: vehicle.ano,
@@ -176,7 +175,6 @@ function VehicleDetailsPage() {
             currentLink={vehicle.link_lance_atual}
           />
 
-          {/* MOVEMOS os benefícios para perto do botão de avaliação */}
           <div className="flex items-center gap-4 flex-col md:flex-row">
             <span className="text-primary text-sm">
               Benefícios da Avaliação inteligente:
