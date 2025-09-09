@@ -14,7 +14,7 @@ const cookies = Cookies
 const decreaseCoins = async (data: DecreaseCoinsBody) => {
   const token = cookies.get('accessToken')
 
-  const response = await api.post(`${apiUrl}/users/descontar-moedas/`, data, {
+  const response = await api.post(`${apiUrl}/users/desconta-moedas/`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
