@@ -52,20 +52,19 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
           'Acesse a sua conta para usar a consultoria especializada.',
         variant: 'info',
       })
-      setTimeout(() => {
-        navigate({ to: '/login' })
-      }, 2000)
+      setTimeout(() => navigate({ to: '/login' }), 2000)
       return
     }
 
-    if ((plan?.saldo_moedas || 0) < 50) {
+    if ((plan?.saldo_moedas ?? 0) < 50) {
       toast({
         title: 'Moedas insuficientes',
-        description: 'Você precisa de 50 moedas para usar esta análise',
+        description: 'Você precisa de 50 moedas para usar esta análise.',
         variant: 'destructive',
       })
       return
     }
+
     decreaseCoins({ value: 50, descricao: 'Consultoria' })
     window.open(whatsappUrl, '_blank')
   }
