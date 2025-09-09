@@ -65,11 +65,11 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
       return
     }
     if (coins >= 50) {
+      console.log(coins)
       decreaseCoins({ value: 50, descricao: 'Consultoria' })
       window.open(whatsappUrl, '_blank')
     }
   }
-  console.log(plan, userProfile)
 
   return (
     <Dialog>
