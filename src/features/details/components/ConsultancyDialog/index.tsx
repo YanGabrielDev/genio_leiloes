@@ -33,6 +33,7 @@ export function ConsultancyDialog({
   const { userProfile, plan } = useUserStore()
   const navigate = useNavigate()
   const { mutate: decreaseCoins } = useDecreaseCoins()
+  const coins = plan?.saldo_moedas ?? 0
   const defaultMessage = `Olá, gostaria de solicitar uma consultoria especializada para o veículo:
 
 *Detalhes do Veículo:*
@@ -55,7 +56,7 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
       setTimeout(() => navigate({ to: '/login' }), 2000)
       return
     }
-    if ((plan?.saldo_moedas ?? 0) < 50) {
+    if (coins < 50) {
       toast({
         title: 'Moedas insuficientes',
         description: 'Você precisa de 50 moedas para usar esta análise.',
@@ -63,10 +64,12 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
       })
       return
     }
-
-    decreaseCoins({ value: 50, descricao: 'Consultoria' })
-    window.open(whatsappUrl, '_blank')
+    if (coins >= 50) {
+      decreaseCoins({ value: 50, descricao: 'Consultoria' })
+      window.open(whatsappUrl, '_blank')
+    }
   }
+  console.log(plan, userProfile)
 
   return (
     <Dialog>
