@@ -64,11 +64,8 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
       })
       return
     }
-    if (coins >= 50) {
-      console.log(coins)
-      decreaseCoins({ value: 50, descricao: 'Consultoria' })
-      window.open(whatsappUrl, '_blank')
-    }
+    decreaseCoins({ value: 50, descricao: 'Consultoria' })
+    window.open(whatsappUrl, '_blank')
   }
 
   return (
@@ -125,20 +122,13 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
             negocie com segurança e garanta uma ótima compra.
           </div>
 
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block w-full"
-          >
-            <Button onClick={handleConsultancy} className="w-full  ">
-              Falar com um consultor agora{' '}
-              <span className="ml-2 flex items-center gap-1">
-                <Coins className="h-4 w-4 text-yellow-500" />
-                <span className="text-sm font-bold">50</span>
-              </span>
-            </Button>
-          </a>
+          <Button onClick={handleConsultancy} className="w-full  ">
+            Falar com um consultor agora{' '}
+            <span className="ml-2 flex items-center gap-1">
+              <Coins className="h-4 w-4 text-yellow-500" />
+              <span className="text-sm font-bold">50</span>
+            </span>
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
