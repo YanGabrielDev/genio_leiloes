@@ -46,7 +46,7 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
   const whatsappUrl = `https://wa.me/553183165687?text=${encodedMessage}`
 
   const handleConsultancy = () => {
-    if (!userProfile) {
+    if (!userProfile && !plan) {
       toast({
         description:
           'Acesse a sua conta para usar a consultoria especializada.',
@@ -55,7 +55,6 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
       setTimeout(() => navigate({ to: '/login' }), 2000)
       return
     }
-
     if ((plan?.saldo_moedas ?? 0) < 50) {
       toast({
         title: 'Moedas insuficientes',
