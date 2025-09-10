@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import { staggerContainer } from '@/styles/animations'
 import { ArrowLeft } from 'lucide-react'
 import { useUserStore } from '@/store/user.store'
+import { Footer } from '../Footer'
 
 interface TemplateProps {
   children: React.ReactNode
@@ -70,6 +71,7 @@ export const Template = ({
           {children}
         </motion.div>
       </motion.div>
+      <Footer />
     </main>
   )
 }
