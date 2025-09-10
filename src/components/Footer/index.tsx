@@ -1,4 +1,4 @@
-import { Instagram, Facebook, Twitter } from 'lucide-react'
+import { Instagram } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 
 const instagramUrl =
@@ -9,7 +9,6 @@ export function Footer() {
     <footer className="bg-primary text-white">
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          {/* Seção da Marca */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2">
               <img
@@ -27,7 +26,6 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Links Rápidos */}
           <div>
             <h4 className="font-semibold text-gray-200">Navegação</h4>
             <ul className="mt-4 space-y-2 text-sm">
@@ -58,7 +56,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
             <h4 className="font-semibold text-gray-200">Legal</h4>
             <ul className="mt-4 space-y-2 text-sm">
@@ -81,7 +78,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Mídia Social */}
           <div>
             <h4 className="font-semibold text-gray-200">Siga-nos</h4>
             <div className="mt-4 flex space-x-4">
