@@ -16,7 +16,7 @@ export function Footer() {
                 alt="Gênio Leilão Logo"
                 className="h-10 w-10 rounded-lg"
               />
-              <h3 className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-2xl font-bold text-transparent">
+              <h3 className="bg-gradient-to-r font-bold  from-purple-600 to-blue-600 bg-clip-text text-transparent  text-2xl ">
                 Gênio Leilão
               </h3>
             </div>
