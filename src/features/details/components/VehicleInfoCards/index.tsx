@@ -14,7 +14,7 @@ interface VehicleInfoCardsProps {
     statusLeilao: string
     valorIncremento: string
     valor: string
-    tempo: number
+    tempo_restante: string
     ultimosLances: Array<{
       pre_arrematante: string
       valor: string
@@ -37,10 +37,12 @@ export function VehicleInfoCards({
   isLoadingLeilaoData,
 }: VehicleInfoCardsProps) {
   // Função para formatar o tempo em segundos para minutos:segundos
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+  const formatTime = (temp: string) => {
+    if (!temp) return
+    const data = new Date(temp)
+
+    const dataLocal = data.toLocaleString()
+    return dataLocal
   }
 
   return (
@@ -164,9 +166,9 @@ export function VehicleInfoCards({
                       <p className="text-sm font-medium text-muted-foreground">
                         Tempo Restante
                       </p>
-                      {leilaoData?.tempo && (
+                      {leilaoData?.tempo_restante && (
                         <p className="text-lg font-semibold">
-                          {formatTime(leilaoData?.tempo)}
+                          {formatTime(leilaoData?.tempo_restante)}
                         </p>
                       )}
                     </div>
