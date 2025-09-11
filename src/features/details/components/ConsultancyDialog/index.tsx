@@ -73,7 +73,11 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
       <DialogTrigger asChild {...props}>
         <Button variant="secondary" className="w-full sm:w-auto gap-2">
           <MessageCircleMore className="h-4 w-4" />
-          Falar com consultor
+          Falar com consultor{' '}
+          <span className="ml-2 flex items-center gap-1">
+            <Coins className="h-4 w-4 text-yellow-500" />
+            <span className="text-sm font-bold">50</span>
+          </span>
         </Button>
       </DialogTrigger>
       <DialogContent className="w-[90%] max-w-[480px] rounded-xl overflow-auto max-h-[90vh]">
