@@ -82,7 +82,7 @@ export function AuctionCard({
 
           {/* Condition Badge */}
           <Badge
-            className={`absolute bottom-2 left-2 ${getCondicaoColor(vehicle?.condicao)}`}
+            className={`absolute top-3 left-2 ${getCondicaoColor(vehicle?.condicao)}`}
           >
             {vehicle?.condicao}
           </Badge>
