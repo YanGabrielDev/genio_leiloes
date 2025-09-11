@@ -15,7 +15,6 @@ interface AppTourProps {
 export function AppTour({ firstVehicleId }: AppTourProps) {
   const [runTour, setRunTour] = useState(false)
   const navigate = useNavigate()
-  const hasSeenTour = localStorage.getItem('hasSeenTour')
 
   useEffect(() => {
     const hasSeenTour = localStorage.getItem('hasSeenTour')
@@ -30,13 +29,12 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
 
     const finishedStatuses: Status[] = [STATUS.FINISHED, STATUS.SKIPPED]
 
-    // Finaliza o tour se o usuário clicar em "Finalizar", "Pular" ou no botão de fechar.
-    if (finishedStatuses.includes(status) && action === 'next' && index === 3) {
+    // Finaliza o tour se o usuário clicar em "Finalizar", "Pular" ou no botão de fechar
+    if (finishedStatuses.includes(status)) {
       setRunTour(false)
       localStorage.setItem('hasSeenTour', 'true')
       return
     }
-    if (hasSeenTour) return
     // Lógica de navegação entre as páginas
     switch (true) {
       // Após o primeiro passo (na página de listagem), navega para os detalhes.
@@ -119,7 +117,6 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
         back: 'Voltar',
         skip: 'Pular',
         last: 'Finalizar',
-        nextLabelWithProgress: 'Próximo',
       }}
     />
   )
