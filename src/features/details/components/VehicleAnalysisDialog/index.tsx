@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { UpgradePlanModal } from '../UpgradePlanModal'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
 import { MarkdownRenderer } from '@/components/MarkdownRenderer'
+import { SafeMarkdownRenderer } from '@/components/SafeMarkdownRenderer'
 
 interface VehicleAnalysisDialogProps {
   vehicleData: {
@@ -130,7 +131,7 @@ export function VehicleAnalysisDialog({
                   className="text-gray-700 text-sm leading-relaxed space-y-4"
                 >
                   {analysis ? (
-                    <MarkdownRenderer content={analysis} />
+                    <SafeMarkdownRenderer content={analysis} />
                   ) : (
                     'Nenhuma análise disponível.'
                   )}
