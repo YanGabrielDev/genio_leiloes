@@ -25,7 +25,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command'
-import { Check, ChevronsUpDown, MapPin, X } from 'lucide-react'
+import { Check, ChevronsUpDown, MapPin, Search, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { DropdownFilter } from '../DropdownFilter'
@@ -128,7 +128,7 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <Button variant="outline" onClick={() => setOpen(true)}>
-        Filtros
+        <Search /> Filtros
       </Button>
       <DialogContent
         className="sm:max-w-[425px] max-h-[90vh] "
