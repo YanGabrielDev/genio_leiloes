@@ -35,7 +35,7 @@ export interface ListLastMoves {
   statusLeilao: string
   valorIncremento: string
   valor: string
-  tempo: number
+  tempo_restante: string
   ultimosLances: Array<{
     pre_arrematante: string
     valor: string

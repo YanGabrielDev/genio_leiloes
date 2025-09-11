@@ -46,7 +46,7 @@ export function VehicleActions({
 
       <ConsultancyDialog vehicleData={vehicleData} id="tour-consultancy" />
 
-      <SendOffer vehicleId={vehicleData.vehicleId} />
+      <SendOffer vehicleId={vehicleData.lote_id} />
     </motion.div>
   )
 }
