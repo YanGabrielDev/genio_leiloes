@@ -192,7 +192,7 @@ function AppPage() {
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
       <Template showFilters cityFilterOptions={cityFilterOptions}>
-        {!isAnyFilterActive && <LandingPage />}
+        {/* {!isAnyFilterActive && <LandingPage />} */}
         <div id="vehicle-list" className={!isAnyFilterActive ? 'pt-16' : ''}>
           <h2 className="text-2xl font-bold mb-4">Veículos Disponíveis:</h2>
           <div className="grid grid-cols-12 gap-4">
