@@ -91,7 +91,7 @@ export function LandingPage() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
-              <span className="text-5xl md:text-6xl mr-2">🚀</span>
+              {/* <span className="text-5xl md:text-6xl mr-2">🚀</span> */}
               Gênio Leilões: tecnologia e inteligência para você arrematar no{' '}
               <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                 preço certo
