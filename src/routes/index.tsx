@@ -193,7 +193,7 @@ function AppPage() {
       </Helmet>
       <Template showFilters cityFilterOptions={cityFilterOptions}>
         {/* {!isAnyFilterActive && <LandingPage />} */}
-        <div id="vehicle-list" className={!isAnyFilterActive ? 'pt-16' : ''}>
+        <div id="vehicle-list" className={!isAnyFilterActive ? 'pt-10' : ''}>
           <h2 className="text-2xl font-bold mb-4">Veículos Disponíveis:</h2>
           <div className="grid grid-cols-12 gap-4">
             {listAuction.isLoading ? (

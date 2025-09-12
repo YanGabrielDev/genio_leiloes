@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { MarkdownRenderer } from '../MarkdownRenderer'
+import ErrorBoundary from '../ErrorBoundary'
 
 interface SafeMarkdownRendererProps {
   content: string
 }
 
 export function SafeMarkdownRenderer({ content }: SafeMarkdownRendererProps) {
-  const [hasError, setHasError] = useState(false)
+  // A UI de fallback que será exibida em caso de erro.
+  const fallbackUI = (
+    <div className="p-4 bg-gray-100 rounded-lg border border-gray-300">
+      <pre className="mt-2 p-2 bg-gray-200 rounded text-sm whitespace-pre-wrap">
+        {content}
+      </pre>
+    </div>
+  )
 
-  useEffect(() => {
-    setHasError(false)
-  }, [content])
-
-  try {
-    if (hasError) {
-      return <p className="text-gray-700 whitespace-pre-wrap">{content}</p>
-    }
-    return <MarkdownRenderer content={content} />
-  } catch (error) {
-    console.error('Erro na renderização do Markdown:', error)
-    setHasError(true)
-    return <p className="text-gray-700 whitespace-pre-wrap">{content}</p>
-  }
+  return (
+    <ErrorBoundary fallback={fallbackUI}>
+      <MarkdownRenderer content={content} />
+    </ErrorBoundary>
+  )
 }
