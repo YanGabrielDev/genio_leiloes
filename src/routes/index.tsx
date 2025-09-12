@@ -18,6 +18,7 @@ import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { toast } from '@/hooks/use-toast'
 import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
 import { AppTour } from '@/components/Tour'
+import { LandingPage } from '@/features/home/components/LandingPage'
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -40,6 +41,15 @@ function AppPage() {
     condition,
     city,
   } = vehicleFiltersState
+
+  // Check if any filter is active
+  const isAnyFilterActive =
+    priceMin > 0 ||
+    priceMax < 100000 ||
+    brandModelSearch !== '' ||
+    year !== undefined ||
+    condition !== undefined ||
+    city !== undefined
 
   const listAuction = useListAuction({
     page,
@@ -137,23 +147,26 @@ function AppPage() {
         <link rel="canonical" href="https://genio-leiloes.vercel.app" />
       </Helmet>
       <Template showFilters cityFilterOptions={cityFilterOptions}>
-        <h2 className="text-2xl font-bold mb-4">Veículos Disponíveis:</h2>
-        <div className="grid grid-cols-12 gap-4">
-          {listAuction.isLoading ? (
-            <SkeletonLoaderGrid count={24} />
-          ) : (
-            vehicleList?.map((item, index) => (
-              <AuctionCard
-                key={item.id}
-                // Aplica o ID apenas no primeiro card para o tour
-                id={index === 0 ? 'tour-card' : undefined}
-                vehicle={item as Vehicles}
-                onToggleFavorite={handleFavorite}
-                isFavorite={favoriteItemids?.includes(item.id)}
-                currentVehicleLoading={currentVehicleStatus.isLoading}
-              />
-            ))
-          )}
+        {!isAnyFilterActive && <LandingPage />}
+        <div id="vehicle-list" className={!isAnyFilterActive ? 'pt-16' : ''}>
+          <h2 className="text-2xl font-bold mb-4">Veículos Disponíveis:</h2>
+          <div className="grid grid-cols-12 gap-4">
+            {listAuction.isLoading ? (
+              <SkeletonLoaderGrid count={24} />
+            ) : (
+              vehicleList?.map((item, index) => (
+                <AuctionCard
+                  key={item.id}
+                  // Aplica o ID apenas no primeiro card para o tour
+                  id={index === 0 ? 'tour-card' : undefined}
+                  vehicle={item as Vehicles}
+                  onToggleFavorite={handleFavorite}
+                  isFavorite={favoriteItemids?.includes(item.id)}
+                  currentVehicleLoading={currentVehicleStatus.isLoading}
+                />
+              ))
+            )}
+          </div>
         </div>
         <div className="w-full flex items-center justify-center mb-8 mt-8">
           <PaginationSection
