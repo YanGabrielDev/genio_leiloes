@@ -58,6 +58,11 @@ function VehicleDetailsPage() {
 
     return () => clearInterval(interval)
   }, [])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   if (isLoading) {
     return (
       <Template>
