@@ -20,6 +20,47 @@ import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
 import { AppTour } from '@/components/Tour'
 import { LandingPage } from '@/features/home/components/LandingPage'
 
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Gênio Leilões',
+  url: 'https://genio-leiloes.vercel.app',
+  logo: 'https://genio-leiloes.vercel.app/imagens/genio_icon.png',
+  description:
+    'Plataforma de leilões de veículos com avaliação inteligente por IA para ajudar compradores a fazerem os melhores lances.',
+}
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Como funcionam as análises com Inteligência Artificial?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Nossa IA avalia o veículo, estima custos e aponta possíveis problemas com base em dados reais do mercado, histórico e estado do carro.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Como funciona a criação de alertas?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Cadastre seus critérios (modelo, ano, preço, local) e receba alertas sempre que um carro com o seu perfil entrar em leilão.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Quais os benefícios de usar o Gênio Leilões?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Com o Gênio Leilões você economiza horas pesquisando, evita comprar carros-problema, aumenta suas chances de lucro com dados confiáveis e tem confiança para dar o lance certo.',
+      },
+    },
+  ],
+}
+
 export const Route = createFileRoute('/')({
   component: AppPage,
 })
@@ -145,6 +186,10 @@ function AppPage() {
 
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://genio-leiloes.vercel.app" />
+        <script type="application/ld+json">
+          {JSON.stringify(organizationSchema)}
+        </script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
       <Template showFilters cityFilterOptions={cityFilterOptions}>
         {!isAnyFilterActive && <LandingPage />}
