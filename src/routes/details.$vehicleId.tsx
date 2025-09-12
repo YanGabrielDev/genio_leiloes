@@ -139,7 +139,6 @@ function VehicleDetailsPage() {
 
   const evaluationValue =
     vehicleCurrentStatusById.data?.valor ?? vehicle.avaliacao
-
   return (
     <Template toGo="/">
       <VehicleDetailsHeader
@@ -194,8 +193,9 @@ function VehicleDetailsPage() {
             year={vehicle.ano}
             color={vehicle.cor}
             leilaoName={vehicle.leilao.nome}
-            leilaoState={vehicle.leilao.estado}
+            leilaoState={vehicle.leilao.cidade}
             leilaoData={listLastMoves}
+            restTime={vehicle?.tempo_restante}
             isLoadingLeilaoData={isLoadingListLastMoves}
           />
         </motion.div>

@@ -8,6 +8,7 @@ interface VehicleInfoCardsProps {
   color: string
   leilaoName: string
   leilaoState: string
+  restTime: string
   isLoadingLeilaoData: boolean
   leilaoData?: {
     arrematante: string
@@ -34,8 +35,10 @@ export function VehicleInfoCards({
   leilaoName,
   leilaoState,
   leilaoData,
+  restTime,
   isLoadingLeilaoData,
 }: VehicleInfoCardsProps) {
+  console.log(restTime)
   // Função para formatar o tempo em segundos para minutos:segundos
   const formatTime = (temp: string) => {
     if (!temp) return
@@ -94,7 +97,7 @@ export function VehicleInfoCards({
 
                 <div className="space-y-1">
                   <p className="text-sm font-medium text-muted-foreground">
-                    Localização
+                    Cidade
                   </p>
                   <p className="text-base font-semibold">
                     {leilaoState || 'Não informada'}
@@ -146,15 +149,6 @@ export function VehicleInfoCards({
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
                       <p className="text-sm font-medium text-muted-foreground">
-                        Valor Atual
-                      </p>
-                      <p className="text-xl font-bold text-primary">
-                        R$ {leilaoData?.valor}
-                      </p>
-                    </div>
-
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium text-muted-foreground">
                         Incremento Mínimo
                       </p>
                       <p className="text-lg font-semibold">
@@ -166,9 +160,9 @@ export function VehicleInfoCards({
                       <p className="text-sm font-medium text-muted-foreground">
                         Tempo Restante
                       </p>
-                      {leilaoData?.tempo_restante && (
+                      {restTime && (
                         <p className="text-lg font-semibold">
-                          {formatTime(leilaoData?.tempo_restante)}
+                          {formatTime(restTime)}
                         </p>
                       )}
                     </div>

@@ -7,6 +7,7 @@ export interface Vehicles {
   marca_modelo: string
   avaliacao_atualizada: string
   motor: string
+  tempo_restante: string
   cor: string
   imagens: string[]
   link_lance_atual: string
