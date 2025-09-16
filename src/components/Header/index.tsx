@@ -19,7 +19,7 @@ interface HeaderProps {
   cityFilterOptions?: {
     value: string
     label: string
-    id: string
+    id: number
   }[]
   showFilters?: boolean
   onLogin?: () => void

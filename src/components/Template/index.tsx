@@ -14,7 +14,7 @@ interface TemplateProps {
   cityFilterOptions?: {
     value: string
     label: string
-    id: string
+    id: number
   }[]
   toGo?: string
   showFilters?: boolean
@@ -28,17 +28,20 @@ export const Template = ({
 }: TemplateProps) => {
   const navigate = useNavigate()
   const { setUserProfile } = useUserStore()
+
   const onLogin = () => {
     navigate({ to: '/login' })
     Cookies.remove('accessToken')
     setUserProfile(null)
   }
+
   const onLogout = () => {
     Cookies.remove('accessToken')
     localStorage.clear()
     window.location.href = '/'
     setUserProfile(null)
   }
+
   return (
     <main className="bg-gray-100 flex flex-col min-h-screen">
       <Header

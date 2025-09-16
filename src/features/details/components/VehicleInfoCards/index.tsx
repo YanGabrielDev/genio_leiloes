@@ -38,7 +38,6 @@ export function VehicleInfoCards({
   restTime,
   isLoadingLeilaoData,
 }: VehicleInfoCardsProps) {
-  console.log(restTime)
   // Função para formatar o tempo em segundos para minutos:segundos
   const formatTime = (temp: string) => {
     if (!temp) return

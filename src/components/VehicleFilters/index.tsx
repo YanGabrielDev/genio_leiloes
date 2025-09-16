@@ -34,7 +34,7 @@ interface VehicleFiltersProps {
   cityFilterOptions?: {
     value: string
     label: string
-    id: string
+    id: number
   }[]
 }
 
@@ -124,7 +124,7 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
     })
     setOpen(false)
   }
-  console.log(localCity)
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <Button variant="outline" onClick={() => setOpen(true)}>

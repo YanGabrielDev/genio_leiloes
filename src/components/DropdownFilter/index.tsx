@@ -3,7 +3,7 @@ import { List } from 'react-window'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface Option {
-  id: string
+  id: number
   label: string
   value: string
 }

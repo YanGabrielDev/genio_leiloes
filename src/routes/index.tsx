@@ -18,7 +18,7 @@ import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { toast } from '@/hooks/use-toast'
 import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
 import { AppTour } from '@/components/Tour'
-import { LandingPage } from '@/features/home/components/LandingPage'
+import { useListAuctionCities } from '@/features/home/hooks/use-list-auction-cities'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -73,6 +73,7 @@ function AppPage() {
     useListSubscriptionsPlans()
   const { setUserPlan, userProfile } = useUserStore()
   const { mutate: toggleFavorite } = useFavoriteVehicle()
+  const { data: listAuctionCities } = useListAuctionCities()
   const favoriteItemids = favoriteItems?.map((item) => item.id)
 
   const {
@@ -83,7 +84,6 @@ function AppPage() {
     city,
   } = vehicleFiltersState
 
-  // Check if any filter is active
   const isAnyFilterActive =
     priceMin > 0 ||
     priceMax < 100000 ||
@@ -124,10 +124,10 @@ function AppPage() {
   })
   const cityFilterOptions = useMemo(
     () =>
-      auctionMock.map((auction) => ({
-        value: auction,
-        label: auction,
-        id: crypto.randomUUID(),
+      listAuctionCities?.map((auction) => ({
+        value: auction.cidade,
+        label: auction.cidade,
+        id: auction.id,
       })),
     []
   )
@@ -202,7 +202,6 @@ function AppPage() {
               vehicleList?.map((item, index) => (
                 <AuctionCard
                   key={item.id}
-                  // Aplica o ID apenas no primeiro card para o tour
                   id={index === 0 ? 'tour-card' : undefined}
                   vehicle={item as Vehicles}
                   onToggleFavorite={handleFavorite}

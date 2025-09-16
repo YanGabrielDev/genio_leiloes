@@ -1,4 +1,4 @@
-import { Auction } from '@/interfaces/auction.interface'
+import { Auction, Cities } from '@/interfaces/auction.interface'
 import { api } from '@/lib/api'
 import {
   FindVehicleById,
@@ -52,6 +52,12 @@ const analysis = async (data: Analysis): Promise<any> => {
   return response?.data?.avaliacao_visual
 }
 
+const listAuctionCities = async (): Promise<Cities[]> => {
+  const response = await api.get(`${apiUrl}/leiloes/geral/`)
+
+  return response?.data
+}
+
 const favoriteVehicle = async (veiculoId: number): Promise<any> => {
   const token = cookies.get('accessToken')
   const response = await api.post(
@@ -99,4 +105,5 @@ export default {
   favoriteVehicle,
   listFavorite,
   listLastMoves,
+  listAuctionCities,
 }
