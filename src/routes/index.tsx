@@ -73,7 +73,8 @@ function AppPage() {
     useListSubscriptionsPlans()
   const { setUserPlan, userProfile } = useUserStore()
   const { mutate: toggleFavorite } = useFavoriteVehicle()
-  const { data: listAuctionCities } = useListAuctionCities()
+  const { data: listAuctionCities, isLoading: isLoadingListAuctionCities } =
+    useListAuctionCities()
   const favoriteItemids = favoriteItems?.map((item) => item.id)
 
   const {
@@ -129,7 +130,7 @@ function AppPage() {
         label: auction.cidade,
         id: auction.id,
       })),
-    [listAuctionCities]
+    [listAuctionCities, isLoadingListAuctionCities]
   )
   const handleFavorite = (vehicleId: number) => {
     if (!userProfile) {
