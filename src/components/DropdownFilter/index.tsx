@@ -108,32 +108,39 @@ export function DropdownFilter({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute z-[80] w-full mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg overflow-hidden"
+            className="fixed top-0 left-0 z-[100] h-full w-full bg-background/80 backdrop-blur-sm md:absolute md:top-auto md:left-auto md:z-[80] md:h-auto md:w-full md:bg-white md:dark:bg-gray-800 md:backdrop-blur-none md:border md:border-gray-300 md:dark:border-gray-600 md:rounded-lg md:shadow-lg"
           >
-            <div className="p-2">
-              <input
-                type="text"
-                className="w-full p-2 border rounded-md outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:border-blue-500"
-                placeholder="Buscar..."
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
-                autoFocus
-              />
-            </div>
-
-            {filteredOptions.length > 0 ? (
-              <List
-                className="no-scrollbar"
-                rowCount={filteredOptions.length}
-                rowHeight={itemHeight}
-                rowComponent={Row}
-                rowProps={{}}
-              />
-            ) : (
-              <div className="p-4 text-center text-gray-500 dark:text-gray-400">
-                Nenhum resultado encontrado.
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="w-full bg-white dark:bg-gray-800 md:rounded-lg shadow-lg max-h-[60vh] md:max-h-80 flex flex-col"
+            >
+              <div className="p-2 border-b border-gray-200 dark:border-gray-700">
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-md outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:border-blue-500"
+                  placeholder="Buscar..."
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  autoFocus
+                />
               </div>
-            )}
+
+              {filteredOptions.length > 0 ? (
+                <List
+                  className="no-scrollbar"
+                  rowCount={filteredOptions.length}
+                  rowHeight={itemHeight}
+                  rowComponent={Row}
+                  rowProps={{}}
+                />
+              ) : (
+                <div className="p-4 text-center text-gray-500 dark:text-gray-400">
+                  Nenhum resultado encontrado.
+                </div>
+              )}
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
