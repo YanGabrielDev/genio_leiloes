@@ -129,7 +129,7 @@ function AppPage() {
         label: auction.cidade,
         id: auction.id,
       })),
-    []
+    [listAuctionCities]
   )
   const handleFavorite = (vehicleId: number) => {
     if (!userProfile) {
