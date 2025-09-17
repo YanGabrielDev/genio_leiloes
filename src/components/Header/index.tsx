@@ -14,6 +14,7 @@ import { Link, useNavigate } from '@tanstack/react-router'
 import { CoinAction } from './coin-action'
 import { FavoritesDrawer } from './favorites-drawer'
 import { useDebounce } from '@/hooks/use-debounce'
+import { DropdownFilter } from '../DropdownFilter'
 
 interface HeaderProps {
   cityFilterOptions?: {
@@ -157,8 +158,18 @@ export const Header = ({
                 )}
 
                 <div className="relative flex gap-4 items-center w-full ">
-                  {showFilters && (
-                    <VehicleFilters cityFilterOptions={cityFilterOptions} />
+                  {showFilters && <VehicleFilters />}
+                  {showFilters && cityFilterOptions && (
+                    <DropdownFilter
+                      options={cityFilterOptions}
+                      placeholder="Filtrar por cidade"
+                      onSelectValue={(value) =>
+                        setVehicleFiltersState((prevState) => ({
+                          ...prevState,
+                          city: value.value,
+                        }))
+                      }
+                    />
                   )}
                   {showFilters && userProfile && (
                     <Button onClick={() => navigate({ to: '/auction-alert' })}>

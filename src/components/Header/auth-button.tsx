@@ -7,6 +7,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../ui/tooltip'
 import { useNavigate } from '@tanstack/react-router'
 
 interface AuthButtonProps {
@@ -42,17 +48,21 @@ export const AuthButton = ({ user, onLogin, onLogout }: AuthButtonProps) => {
     >
       {user ? (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="flex items-center gap-2 hover:bg-gray-100 rounded-full px-4 py-2 transition-all"
-            >
-              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                {user?.name.charAt(0).toUpperCase()}
-              </div>
-              <span className="font-medium text-gray-700">{user?.name}</span>
-            </Button>
-          </DropdownMenuTrigger>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="rounded-full">
+                    <User className="h-5 w-5 text-gray-700" />
+                  </Button>
+                </DropdownMenuTrigger>
+              </TooltipTrigger>
+              <TooltipContent>
+                <span>{user.name}</span>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
           <DropdownMenuContent className="w-56" align="end">
             <DropdownMenuItem
               className="cursor-pointer"

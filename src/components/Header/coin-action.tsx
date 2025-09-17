@@ -23,7 +23,7 @@ export const CoinAction = () => {
         >
           <Coins className="h-5 w-5 text-yellow-500" />
           <span className="font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            {plan?.saldo_moedas || 0}
+            {plan?.saldo_moedas || 0} moedas
           </span>
         </motion.div>
       </DialogTrigger>
