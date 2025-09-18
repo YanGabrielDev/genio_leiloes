@@ -166,6 +166,7 @@ export const Header = ({
                     {showFilters && userProfile && (
                       <Button
                         onClick={() => navigate({ to: '/auction-alert' })}
+                        size="sm"
                       >
                         <Bell className="mr-2 h-4 w-4" />
                         Criar Alerta

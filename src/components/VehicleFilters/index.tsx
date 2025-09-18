@@ -127,7 +127,7 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button variant="outline" onClick={() => setOpen(true)}>
+      <Button variant="outline" onClick={() => setOpen(true)} size="sm">
         <Search /> Filtros
       </Button>
       <DialogContent
