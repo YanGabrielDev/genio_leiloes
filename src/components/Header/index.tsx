@@ -158,19 +158,10 @@ export const Header = ({
                 )}
 
                 <div className="relative flex gap-4 items-center w-full ">
-                  {showFilters && <VehicleFilters />}
-                  {showFilters && cityFilterOptions && (
-                    <DropdownFilter
-                      options={cityFilterOptions}
-                      placeholder="Filtrar por cidade"
-                      onSelectValue={(value) =>
-                        setVehicleFiltersState((prevState) => ({
-                          ...prevState,
-                          city: value.value,
-                        }))
-                      }
-                    />
+                  {showFilters && (
+                    <VehicleFilters cityFilterOptions={cityFilterOptions} />
                   )}
+
                   {showFilters && userProfile && (
                     <Button onClick={() => navigate({ to: '/auction-alert' })}>
                       <Bell className="mr-2 h-4 w-4" />
