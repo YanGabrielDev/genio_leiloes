@@ -157,17 +157,21 @@ export const Header = ({
                   </div>
                 )}
 
-                <div className="relative flex gap-4 items-center w-full ">
-                  {showFilters && (
-                    <VehicleFilters cityFilterOptions={cityFilterOptions} />
-                  )}
+                <div className="relative flex gap-4 items-center w-full flex-col sm:flex-row">
+                  <div className=" flex gap-4 items-center">
+                    {showFilters && (
+                      <VehicleFilters cityFilterOptions={cityFilterOptions} />
+                    )}
 
-                  {showFilters && userProfile && (
-                    <Button onClick={() => navigate({ to: '/auction-alert' })}>
-                      <Bell className="mr-2 h-4 w-4" />
-                      Criar Alerta
-                    </Button>
-                  )}
+                    {showFilters && userProfile && (
+                      <Button
+                        onClick={() => navigate({ to: '/auction-alert' })}
+                      >
+                        <Bell className="mr-2 h-4 w-4" />
+                        Criar Alerta
+                      </Button>
+                    )}
+                  </div>
 
                   {userProfile && <CoinAction />}
                 </div>

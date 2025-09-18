@@ -194,25 +194,25 @@ function AppPage() {
       </Helmet>
       <Template showFilters cityFilterOptions={cityFilterOptions}>
         {/* {!isAnyFilterActive && <LandingPage />} */}
-        <div id="vehicle-list" className={!isAnyFilterActive ? 'pt-10' : ''}>
-          <h2 className="text-2xl font-bold mb-4">Veículos Disponíveis:</h2>
-          <div className="grid grid-cols-12 gap-4">
-            {listAuction.isLoading ? (
-              <SkeletonLoaderGrid count={24} />
-            ) : (
-              vehicleList?.map((item, index) => (
-                <AuctionCard
-                  key={item.id}
-                  id={index === 0 ? 'tour-card' : undefined}
-                  vehicle={item as Vehicles}
-                  onToggleFavorite={handleFavorite}
-                  isFavorite={favoriteItemids?.includes(item.id)}
-                  currentVehicleLoading={currentVehicleStatus.isLoading}
-                />
-              ))
-            )}
-          </div>
+        {/* <div id="vehicle-list" className={!isAnyFilterActive ? 'pt-10' : ''}> */}
+        <h2 className="text-2xl font-bold mb-4">Veículos Disponíveis:</h2>
+        <div className="grid grid-cols-12 gap-4">
+          {listAuction.isLoading ? (
+            <SkeletonLoaderGrid count={24} />
+          ) : (
+            vehicleList?.map((item, index) => (
+              <AuctionCard
+                key={item.id}
+                id={index === 0 ? 'tour-card' : undefined}
+                vehicle={item as Vehicles}
+                onToggleFavorite={handleFavorite}
+                isFavorite={favoriteItemids?.includes(item.id)}
+                currentVehicleLoading={currentVehicleStatus.isLoading}
+              />
+            ))
+          )}
         </div>
+        {/* </div> */}
         <div className="w-full flex items-center justify-center mb-8 mt-8">
           <PaginationSection
             page={page}
