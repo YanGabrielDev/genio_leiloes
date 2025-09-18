@@ -58,7 +58,7 @@ export const AuthButton = ({ user, onLogin, onLogout }: AuthButtonProps) => {
                 </DropdownMenuTrigger>
               </TooltipTrigger>
               <TooltipContent>
-                <span>{user.name}</span>
+                <span className="text-white">{user.name}</span>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
