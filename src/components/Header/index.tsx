@@ -187,7 +187,7 @@ export const Header = ({
                         onClick={() => navigate({ to: '/auction-alert' })}
                         size="sm"
                       >
-                        <Bell className="mr-2 h-4 w-4" />
+                        <Bell className="sm:mr-2 h-4 w-4" />
                         <span className="hidden sm:flex">Criar Alerta</span>
                       </Button>
                     )}
