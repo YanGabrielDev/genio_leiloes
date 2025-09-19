@@ -11,7 +11,9 @@ interface Option {
 interface SelectSearchProps {
   options: Option[]
   placeholder?: string
-  onSelectValue: (option: Option) => void
+  onSelectValue: (option: Option | null) => void
+  fullWidth?: boolean
+  showSearch?: boolean
 }
 
 const itemHeight = 40
@@ -20,6 +22,8 @@ export function DropdownFilter({
   options,
   placeholder = 'Selecione...',
   onSelectValue,
+  fullWidth,
+  showSearch,
 }: SelectSearchProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [searchValue, setSearchValue] = useState('')
@@ -54,9 +58,7 @@ export function DropdownFilter({
   }, [])
 
   useEffect(() => {
-    if (selectedOption) {
-      onSelectValue(selectedOption)
-    }
+    onSelectValue(selectedOption)
   }, [selectedOption, onSelectValue])
 
   const Row: React.FC<{ index: number; style: React.CSSProperties }> = ({
@@ -77,14 +79,48 @@ export function DropdownFilter({
   }
 
   return (
-    <div ref={selectRef} className="relative w-full font-sans ">
+    <div
+      ref={selectRef}
+      className={`relative font-sans ${fullWidth ? 'w-full' : 'w-auto'}`}
+    >
       <div
-        className={`flex h-9 text-gray-500 rounded-md border border-gray-500 bg-gray-50 px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none outline-gray-700 focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-70 md:text-sm border-s w-full`}
+        className={`flex h-9 w-full cursor-pointer items-center rounded-md border border-gray-500 bg-gray-50 px-3 py-1 text-base text-gray-500 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-70 outline-gray-700 md:text-sm border-s`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex-1">
+        <div className="mr-2 text-gray-400">
+          {isOpen ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m18 15-6-6-6 6" />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          )}
+        </div>
+        <div className="flex-1 truncate">
           {selectedOption ? (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between">
               <span>{selectedOption.label}</span>
               <button
                 onClick={(e) => {
@@ -93,7 +129,23 @@ export function DropdownFilter({
                   setSearchValue('')
                 }}
                 aria-label="Limpar seleção"
-              ></button>
+                className="ml-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
             </div>
           ) : (
             <span>{placeholder}</span>
@@ -116,16 +168,18 @@ export function DropdownFilter({
               exit={{ opacity: 0, y: -20 }}
               className="w-full bg-white dark:bg-gray-800 md:rounded-lg shadow-lg max-h-[60vh] md:max-h-80 flex flex-col"
             >
-              <div className="p-2 border-b border-gray-200 dark:border-gray-700">
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded-md outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:border-blue-500"
-                  placeholder="Buscar..."
-                  value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  autoFocus
-                />
-              </div>
+              {showSearch && (
+                <div className="p-2 border-b border-gray-200 dark:border-gray-700">
+                  <input
+                    type="text"
+                    className="w-full p-2 border rounded-md outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:border-blue-500"
+                    placeholder="Buscar..."
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    autoFocus
+                  />
+                </div>
+              )}
 
               {filteredOptions.length > 0 ? (
                 <List
