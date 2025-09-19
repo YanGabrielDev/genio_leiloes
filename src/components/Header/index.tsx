@@ -188,7 +188,7 @@ export const Header = ({
                         size="sm"
                       >
                         <Bell className="mr-2 h-4 w-4" />
-                        Criar Alerta
+                        <span className="hidden sm:flex">Criar Alerta</span>
                       </Button>
                     )}
                   </div>
