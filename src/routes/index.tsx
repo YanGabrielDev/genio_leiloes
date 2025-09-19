@@ -19,6 +19,7 @@ import { toast } from '@/hooks/use-toast'
 import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
 import { AppTour } from '@/components/Tour'
 import { useListAuctionCities } from '@/features/home/hooks/use-list-auction-cities'
+import { DropdownFilter } from '@/components/DropdownFilter'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -61,13 +62,18 @@ const faqSchema = {
   ],
 }
 
+const auctionStatusOptions = [
+  { id: 1, value: 'Em andamento', label: 'Em andamento' },
+  { id: 2, value: 'Publicado', label: 'Publicado' },
+]
+
 export const Route = createFileRoute('/')({
   component: AppPage,
 })
 
 function AppPage() {
   const [page, setPage] = useState<number>(1)
-  const { vehicleFiltersState } = useVehicleFilters()
+  const { vehicleFiltersState, setVehicleFiltersState } = useVehicleFilters()
   const { data: favoriteItems } = useListFavorite()
   const { data: subscriptionPlans, isLoading: isLoadingSubscriptionPlans } =
     useListSubscriptionsPlans()
@@ -187,9 +193,26 @@ function AppPage() {
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
       <Template showFilters cityFilterOptions={cityFilterOptions}>
-        {/* {!isAnyFilterActive && <LandingPage />} */}
-        {/* <div id="vehicle-list" className={!isAnyFilterActive ? 'pt-10' : ''}> */}
-        <h2 className="text-2xl font-bold mb-4">Veículos Disponíveis:</h2>
+        <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
+          <h2 className="text-2xl font-bold hidden md:block">
+            Veículos Disponíveis:
+          </h2>
+          <div className="bg-white p-2 md:p-4 rounded-lg shadow-sm w-full md:w-auto flex items-center gap-4 border">
+            <DropdownFilter
+              options={auctionStatusOptions}
+              placeholder="Status do leilão"
+              onSelectValue={(option) =>
+                setVehicleFiltersState((prevState) => ({
+                  ...prevState,
+                  auctionStatus: option
+                    ? (option.value as 'Em andamento' | 'Publicado')
+                    : undefined,
+                }))
+              }
+              showSearch={false}
+            />
+          </div>
+        </div>
         <div className="grid grid-cols-12 gap-4">
           {listAuction.isLoading ? (
             <SkeletonLoaderGrid count={24} />

@@ -48,11 +48,6 @@ export const Header = ({
   )
   const debouncedSearchTerm = useDebounce(localSearchTerm, 1000)
 
-  const auctionStatusOptions = [
-    { id: 1, value: 'Em andamento', label: 'Em andamento' },
-    { id: 2, value: 'Publicado', label: 'Publicado' },
-  ]
-
   useEffect(() => {
     setVehicleFiltersState((prevState) => ({
       ...prevState,
@@ -166,21 +161,6 @@ export const Header = ({
                   <div className=" flex gap-4 items-start">
                     {showFilters && (
                       <VehicleFilters cityFilterOptions={cityFilterOptions} />
-                    )}
-                    {showFilters && (
-                      <DropdownFilter
-                        options={auctionStatusOptions}
-                        placeholder="Status do leilão"
-                        onSelectValue={(option) =>
-                          setVehicleFiltersState((prevState) => ({
-                            ...prevState,
-                            auctionStatus: option
-                              ? (option.value as 'Em andamento' | 'Publicado')
-                              : undefined,
-                          }))
-                        }
-                        showSearch={false}
-                      />
                     )}
                     {showFilters && userProfile && (
                       <Button

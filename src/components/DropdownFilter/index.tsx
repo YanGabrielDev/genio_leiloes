@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect } from 'react'
+import { useState, useMemo, useRef, useEffect, useLayoutEffect } from 'react'
 import { List } from 'react-window'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -28,6 +28,7 @@ export function DropdownFilter({
   const [isOpen, setIsOpen] = useState(false)
   const [searchValue, setSearchValue] = useState('')
   const [selectedOption, setSelectedOption] = useState<Option | null>(null)
+  const [isAbove, setIsAbove] = useState(false)
   const selectRef = useRef<HTMLDivElement>(null)
 
   const filteredOptions = useMemo(() => {
@@ -57,6 +58,22 @@ export function DropdownFilter({
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
+
+  useLayoutEffect(() => {
+    if (isOpen && selectRef.current) {
+      const triggerRect = selectRef.current.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
+      const menuMaxHeight = 320 // Corresponde a md:max-h-80
+
+      const spaceBelow = viewportHeight - triggerRect.bottom
+
+      if (spaceBelow < menuMaxHeight && triggerRect.top > spaceBelow) {
+        setIsAbove(true)
+      } else {
+        setIsAbove(false)
+      }
+    }
+  }, [isOpen])
 
   const Row: React.FC<{ index: number; style: React.CSSProperties }> = ({
     index,
@@ -154,18 +171,15 @@ export function DropdownFilter({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-0 left-0 z-[100] h-full w-full bg-background/80 backdrop-blur-sm md:absolute md:top-auto md:left-auto md:z-[80] md:h-auto md:w-full md:bg-white md:dark:bg-gray-800 md:backdrop-blur-none md:border md:border-gray-300 md:dark:border-gray-600 md:rounded-lg md:shadow-lg"
+            initial={{ scale: 0.95, y: isAbove ? 10 : -10 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.95, y: isAbove ? 10 : -10 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+            className={` top-0 left-0 z-[100] h-full w-full bg-background/80 backdrop-blur-sm md:absolute md:left-0 md:z-[80] md:h-auto md:w-auto md:min-w-full md:bg-white md:dark:bg-gray-800 md:backdrop-blur-none md:border md:border-gray-300 md:dark:border-gray-600 md:rounded-lg md:shadow-lg ${
+              isAbove ? 'md:bottom-full md:mb-1' : 'md:top-full md:mt-1'
+            }`}
           >
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="w-full bg-white dark:bg-gray-800 md:rounded-lg shadow-lg max-h-[60vh] md:max-h-80 flex flex-col"
-            >
+            <div className="w-full bg-white dark:bg-gray-800 md:rounded-lg shadow-lg max-h-[60vh] md:max-h-80 flex flex-col">
               {showSearch && (
                 <div className="p-2 border-b border-gray-200 dark:border-gray-700">
                   <input
@@ -192,7 +206,7 @@ export function DropdownFilter({
                   Nenhum resultado encontrado.
                 </div>
               )}
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
