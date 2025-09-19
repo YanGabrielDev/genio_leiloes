@@ -42,6 +42,7 @@ export function DropdownFilter({
     setSelectedOption(option)
     setSearchValue('')
     setIsOpen(false)
+    onSelectValue(option)
   }
 
   useEffect(() => {
@@ -56,10 +57,6 @@ export function DropdownFilter({
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
-
-  useEffect(() => {
-    onSelectValue(selectedOption)
-  }, [selectedOption, onSelectValue])
 
   const Row: React.FC<{ index: number; style: React.CSSProperties }> = ({
     index,
@@ -127,6 +124,7 @@ export function DropdownFilter({
                   e.stopPropagation()
                   setSelectedOption(null)
                   setSearchValue('')
+                  onSelectValue(null)
                 }}
                 aria-label="Limpar seleção"
                 className="ml-2"
