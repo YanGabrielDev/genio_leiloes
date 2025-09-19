@@ -83,15 +83,8 @@ function AppPage() {
     year,
     condition,
     city,
+    auctionStatus,
   } = vehicleFiltersState
-
-  const isAnyFilterActive =
-    priceMin > 0 ||
-    priceMax < 100000 ||
-    brandModelSearch !== '' ||
-    year !== undefined ||
-    condition !== undefined ||
-    city !== undefined
 
   const listAuction = useListAuction({
     page,
@@ -101,6 +94,7 @@ function AppPage() {
     year,
     condition,
     city,
+    auctionStatus,
   })
   const vehicles = listAuction.data?.results
 

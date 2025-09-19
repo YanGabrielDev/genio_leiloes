@@ -1,3 +1,5 @@
+import { VehicleFiltersState } from '@/context/vehicle-filter.context'
+
 export interface ListAuctionParams {
   page?: number
   priceMax: number
@@ -6,6 +8,7 @@ export interface ListAuctionParams {
   year?: number
   city?: string
   condition?: 'conservado' | 'sucata' | undefined
+  auctionStatus?: VehicleFiltersState['auctionStatus']
 }
 
 export interface FindVehicleById {

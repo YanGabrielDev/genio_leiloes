@@ -1,3 +1,4 @@
+import { VehicleFiltersState } from '@/context/vehicle-filter.context'
 import auctionService from '@/features/home/services/auction/auction.service'
 import { useQuery } from '@tanstack/react-query'
 
@@ -9,6 +10,7 @@ export interface UseListAuctionParams {
   year?: number
   city?: string
   condition?: 'conservado' | 'sucata' | undefined
+  auctionStatus?: VehicleFiltersState['auctionStatus']
 }
 
 export const useListAuction = ({
@@ -19,6 +21,7 @@ export const useListAuction = ({
   year,
   condition,
   city,
+  auctionStatus,
 }: UseListAuctionParams) => {
   return useQuery({
     queryKey: [
@@ -30,6 +33,7 @@ export const useListAuction = ({
       year,
       condition,
       city,
+      auctionStatus,
     ],
     queryFn: () =>
       auctionService.listAuction({
@@ -40,6 +44,7 @@ export const useListAuction = ({
         year,
         condition,
         city,
+        auctionStatus,
       }),
     staleTime: 1000 * 60 * 5, // Dados serão considerados 'stale' após 5 minutos
     // cacheTime: 1000 * 60 * 10,

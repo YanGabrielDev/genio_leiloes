@@ -242,9 +242,11 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
               <Label className="text-sm font-medium leading-none">Cidade</Label>
 
               <DropdownFilter
+                fullWidth
+                showSearch
                 options={cityFilterOptions}
                 placeholder="Selecione uma cidade"
-                onSelectValue={(value) => setLocalCity(value.value)}
+                onSelectValue={(value) => setLocalCity(value?.value)}
               />
               {/* Dica para mobile */}
               <p className="text-xs text-muted-foreground">
