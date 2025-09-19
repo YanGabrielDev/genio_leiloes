@@ -157,7 +157,7 @@ export const Header = ({
                   </div>
                 )}
 
-                <div className="relative flex gap-4 items-center w-full flex-col sm:flex-row">
+                <div className="relative flex gap-4 sm:items-center w-full flex-col sm:flex-row">
                   <div className=" flex gap-4 items-start">
                     {showFilters && (
                       <VehicleFilters cityFilterOptions={cityFilterOptions} />
