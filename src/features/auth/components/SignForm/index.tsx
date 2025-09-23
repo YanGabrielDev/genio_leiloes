@@ -103,7 +103,7 @@ export const SignForm = ({ openSignUpForm }: SignFormProps) => {
             />
             <span className="font-normal">Entrar com Google</span>
           </Button>
-          {/* <div className="flex w-full justify-between items-center absolute bottom-10 max-w-80">
+          <div className="flex w-full justify-between items-center absolute bottom-10 max-w-80">
             <span className="text-primary text-base opacity-70 font-normal">
               Não possui conta?
             </span>
@@ -116,7 +116,7 @@ export const SignForm = ({ openSignUpForm }: SignFormProps) => {
             >
               <span className="font-normal">Criar conta</span>
             </Button>
-          </div> */}
+          </div>
         </div>
       </form>
     </Form>
