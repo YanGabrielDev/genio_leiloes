@@ -209,9 +209,24 @@ function AppPage() {
               }
             >
               <TabsList>
-                <TabsTrigger value="todos">Todos</TabsTrigger>
-                <TabsTrigger value="Em andamento">Em andamento</TabsTrigger>
-                <TabsTrigger value="Publicado">Publicado</TabsTrigger>
+                <TabsTrigger
+                  value="todos"
+                  className="data-[state=active]:bg-primary data-[state=active]:text-white"
+                >
+                  Todos
+                </TabsTrigger>
+                <TabsTrigger
+                  value="Em andamento"
+                  className="data-[state=active]:bg-primary data-[state=active]:text-white"
+                >
+                  Em andamento
+                </TabsTrigger>
+                <TabsTrigger
+                  value="Publicado"
+                  className="data-[state=active]:bg-primary data-[state=active]:text-white"
+                >
+                  Publicado
+                </TabsTrigger>
               </TabsList>
             </Tabs>
           </div>

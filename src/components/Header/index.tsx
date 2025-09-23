@@ -158,7 +158,7 @@ export const Header = ({
                 )}
 
                 <div className="relative flex gap-4 sm:items-center w-full flex-col sm:flex-row">
-                  <div className=" flex gap-4 items-start">
+                  <div className=" flex gap-4 ">
                     {showFilters && (
                       <VehicleFilters cityFilterOptions={cityFilterOptions} />
                     )}
@@ -171,9 +171,10 @@ export const Header = ({
                         <span className="hidden sm:flex">Criar Alerta</span>
                       </Button>
                     )}
+                    <div className="ml-auto">
+                      {userProfile && <CoinAction />}
+                    </div>
                   </div>
-
-                  {userProfile && <CoinAction />}
                 </div>
               </div>
             </div>
