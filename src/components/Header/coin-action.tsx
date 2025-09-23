@@ -19,6 +19,7 @@ export const CoinAction = () => {
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          id="tour-coins"
           className="flex items-center gap-1 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent ml-auto cursor-pointer"
         >
           <Coins className="h-5 w-5 text-yellow-500" />
