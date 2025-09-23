@@ -1,3 +1,4 @@
+import { useUserStore } from '@/store/user.store'
 import { useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import Joyride, {
@@ -15,6 +16,7 @@ interface AppTourProps {
 export function AppTour({ firstVehicleId }: AppTourProps) {
   const [runTour, setRunTour] = useState(false)
   const navigate = useNavigate()
+  const { userProfile } = useUserStore()
 
   useEffect(() => {
     const hasSeenTour = localStorage.getItem('hasSeenTour')
@@ -84,7 +86,15 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
       placement: 'top',
     },
   ]
-
+  if (userProfile) {
+    tourSteps.unshift({
+      target: '#tour-coins',
+      content:
+        'Aqui você pode ver suas moedas. Use-as para obter análises de IA sobre os veículos!',
+      disableBeacon: true,
+      placement: 'bottom',
+    })
+  }
   return (
     <Joyride
       steps={tourSteps}
