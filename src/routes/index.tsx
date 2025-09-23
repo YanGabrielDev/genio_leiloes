@@ -20,6 +20,7 @@ import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
 import { AppTour } from '@/components/Tour'
 import { useListAuctionCities } from '@/features/home/hooks/use-list-auction-cities'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { CoinsTour } from '@/components/Tour/coins-tour'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -260,6 +261,7 @@ function AppPage() {
       {!listAuction.isLoading && firstVehicleId && (
         <AppTour firstVehicleId={firstVehicleId} />
       )}
+      {!listAuction.isLoading && firstVehicleId && userProfile && <CoinsTour />}
     </>
   )
 }

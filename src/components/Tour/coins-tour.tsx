@@ -9,11 +9,7 @@ import Joyride, {
   Step,
 } from 'react-joyride'
 
-interface AppTourProps {
-  firstVehicleId?: number
-}
-
-export function AppTour({ firstVehicleId }: AppTourProps) {
+export function CoinsTour() {
   const [runTour, setRunTour] = useState(false)
   const navigate = useNavigate()
 
@@ -30,25 +26,12 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
 
     const finishedStatuses: Status[] = [STATUS.FINISHED, STATUS.SKIPPED]
 
-    // Finaliza o tour se o usuário clicar em "Finalizar", "Pular" ou no botão de fechar
     if (finishedStatuses.includes(status)) {
       setRunTour(false)
       localStorage.setItem('hasSeenTour', 'true')
       return
     }
-    // Lógica de navegação entre as páginas
     switch (true) {
-      // Após o primeiro passo (na página de listagem), navega para os detalhes.
-      case type === EVENTS.STEP_AFTER && index === 0 && action === 'next':
-        if (firstVehicleId) {
-          navigate({
-            to: '/details/$vehicleId',
-            params: { vehicleId: firstVehicleId.toString() },
-          })
-        }
-        break
-
-      // No primeiro passo da página de detalhes (índice 1), ao clicar em "Voltar".
       case type === EVENTS.STEP_BEFORE && index === 1 && action === 'prev':
         navigate({ to: '/' })
         break
@@ -60,29 +43,11 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
 
   const tourSteps: Step[] = [
     {
-      target: '#tour-card',
-      content: 'Clique em "Ver detalhes" do veículo.',
-      disableBeacon: true,
-      placement: 'top',
-    },
-    {
-      target: '#tour-analise-ia',
+      target: '#tour-coins',
       content:
-        'Descubra a Avaliação inteligente e veja se o lance vale a pena.',
+        'Aqui você pode ver suas moedas. Use-as para obter análises de IA sobre os veículos!',
       disableBeacon: true,
-      placement: 'top',
-    },
-    {
-      target: '#tour-consultancy',
-      content: 'Precisa de ajuda? Fale com um de nossos especialistas.',
-      disableBeacon: true,
-      placement: 'top',
-    },
-    {
-      target: '#tour-go-to-auction',
-      content: 'Acesse o site oficial do leilão para dar seu lance.',
-      disableBeacon: true,
-      placement: 'top',
+      placement: 'bottom',
     },
   ]
 
