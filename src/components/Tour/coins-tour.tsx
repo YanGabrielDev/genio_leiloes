@@ -14,7 +14,7 @@ export function CoinsTour() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const hasSeenTour = localStorage.getItem('hasSeenTour')
+    const hasSeenTour = localStorage.getItem('hasSeenCoinsTour')
     if (!hasSeenTour) {
       const timer = setTimeout(() => setRunTour(true), 500)
       return () => clearTimeout(timer)
@@ -28,7 +28,7 @@ export function CoinsTour() {
 
     if (finishedStatuses.includes(status)) {
       setRunTour(false)
-      localStorage.setItem('hasSeenTour', 'true')
+      localStorage.setItem('hasSeenCoinsTour', 'true')
       return
     }
     switch (true) {
