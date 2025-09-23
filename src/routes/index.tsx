@@ -19,7 +19,7 @@ import { toast } from '@/hooks/use-toast'
 import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
 import { AppTour } from '@/components/Tour'
 import { useListAuctionCities } from '@/features/home/hooks/use-list-auction-cities'
-import { DropdownFilter } from '@/components/DropdownFilter'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -61,11 +61,6 @@ const faqSchema = {
     },
   ],
 }
-
-const auctionStatusOptions = [
-  { id: 1, value: 'Em andamento', label: 'Em andamento' },
-  { id: 2, value: 'Publicado', label: 'Publicado' },
-]
 
 export const Route = createFileRoute('/')({
   component: AppPage,
@@ -197,20 +192,28 @@ function AppPage() {
           <h2 className="text-2xl font-bold hidden md:block">
             Veículos Disponíveis:
           </h2>
-          <div className="bg-white p-2 md:p-4 rounded-lg shadow-sm w-full md:w-auto flex items-center gap-4 border">
-            <DropdownFilter
-              options={auctionStatusOptions}
-              placeholder="Status do leilão"
-              onSelectValue={(option) =>
+          <div className="bg-white p-2 md:p-4 rounded-lg shadow-sm w-full md:w-auto flex flex-col items-start gap-2 md:flex-row md:items-center md:gap-4 border">
+            <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">
+              Status do leilão:
+            </span>
+            <Tabs
+              value={auctionStatus || 'todos'}
+              onValueChange={(value) =>
                 setVehicleFiltersState((prevState) => ({
                   ...prevState,
-                  auctionStatus: option
-                    ? (option.value as 'Em andamento' | 'Publicado')
-                    : undefined,
+                  auctionStatus:
+                    value === 'todos'
+                      ? undefined
+                      : (value as 'Em andamento' | 'Publicado'),
                 }))
               }
-              showSearch={false}
-            />
+            >
+              <TabsList>
+                <TabsTrigger value="todos">Todos</TabsTrigger>
+                <TabsTrigger value="Em andamento">Em andamento</TabsTrigger>
+                <TabsTrigger value="Publicado">Publicado</TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
         </div>
         <div className="grid grid-cols-12 gap-4">
