@@ -78,7 +78,7 @@ export function VehicleImageCarousel({
 
       {/* Thumbnail Gallery */}
       {images.length > 1 && (
-        <div className="flex justify-center gap-2 mt-2">
+        <div className="hidden sm:flex justify-center gap-2 mt-2">
           {images.map((img, index) => (
             <motion.div
               key={index}
