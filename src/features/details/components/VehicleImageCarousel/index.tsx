@@ -46,14 +46,15 @@ export function VehicleImageCarousel({
   return (
     <motion.div variants={fadeIn} className="flex flex-col gap-4">
       <Card className="overflow-hidden">
-        <Carousel className="w-full" setApi={setApi}>
+        {/* Adicione a propriedade opts para habilitar o "arrastar" */}
+        <Carousel className="w-full" setApi={setApi} opts={{ dragFree: true }}>
           <CarouselContent>
             {images.map((img, index) => (
               <CarouselItem key={index}>
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.1 }} // Adjust delay for smoother transitions
+                  transition={{ delay: 0.1 }}
                   className="relative aspect-video overflow-hidden"
                 >
                   <img
@@ -77,7 +78,7 @@ export function VehicleImageCarousel({
 
       {/* Thumbnail Gallery */}
       {images.length > 1 && (
-        <div className="flex justify-center gap-2 mt-2">
+        <div className="hidden sm:flex justify-center gap-2 mt-2">
           {images.map((img, index) => (
             <motion.div
               key={index}

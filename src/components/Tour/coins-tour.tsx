@@ -14,8 +14,10 @@ export function CoinsTour() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const hasSeenTour = localStorage.getItem('hasSeenCoinsTour')
-    if (!hasSeenTour) {
+        const hasSeenTour = localStorage.getItem('hasSeenTour')
+
+    const hasSeenCoinsTour = localStorage.getItem('hasSeenCoinsTour')
+    if (!hasSeenCoinsTour && hasSeenTour) {
       const timer = setTimeout(() => setRunTour(true), 500)
       return () => clearTimeout(timer)
     }
