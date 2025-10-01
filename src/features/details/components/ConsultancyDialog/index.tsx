@@ -71,7 +71,7 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
   return (
     <Dialog>
       <DialogTrigger asChild {...props}>
-        <Button variant="secondary" className="w-full sm:w-auto gap-2">
+        <Button variant="secondary" className="w-full gap-2 sm:w-auto">
           <MessageCircleMore className="h-4 w-4" />
           Falar com consultor{' '}
           <span className="ml-2 flex items-center gap-1">

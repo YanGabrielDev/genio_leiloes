@@ -152,7 +152,7 @@ function VehicleDetailsPage() {
         veihcleYear={vehicle.ano}
         vehicleId={vehicle.id}
       />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-40 sm:pb-0">
         <VehicleImageCarousel
           images={vehicle.imagens}
           marcaModelo={vehicle.marca_modelo}

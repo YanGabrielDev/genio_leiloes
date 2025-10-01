@@ -40,7 +40,7 @@ export function VehicleActions({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5 }}
-      className="flex flex-col sm:flex-row gap-4 pt-4"
+      className="fixed bottom-0 left-0 right-0 z-20 bg-white p-4 border-t shadow-[0_-2px_10px_rgba(0,0,0,0.05)] grid grid-cols-1 gap-3 sm:relative sm:bg-transparent sm:p-0 sm:border-0 sm:shadow-none sm:flex sm:flex-row sm:gap-4 sm:pt-4"
     >
       <VehicleAnalysisDialog vehicleData={vehicleData} />
 

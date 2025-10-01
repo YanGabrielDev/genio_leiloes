@@ -55,7 +55,7 @@ export const Template = ({
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
-        className="container mx-auto p-4 space-y-6"
+        className="container mx-auto p-4 "
       >
         {!!toGo && (
           <Link
