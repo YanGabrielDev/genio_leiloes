@@ -15,6 +15,7 @@ import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { useListLastMoves } from '@/features/details/hooks/use-list-last-moves'
 import { useEffect, useState } from 'react'
 import { AppTour } from '@/components/Tour'
+import { RelatedVehicles } from '@/features/details/components/RelatedVehicles'
 
 export const Route = createFileRoute('/details/$vehicleId')({
   component: VehicleDetailsPage,
@@ -152,7 +153,7 @@ function VehicleDetailsPage() {
         veihcleYear={vehicle.ano}
         vehicleId={vehicle.id}
       />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-40 sm:pb-0">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 ">
         <VehicleImageCarousel
           images={vehicle.imagens}
           marcaModelo={vehicle.marca_modelo}
@@ -205,6 +206,10 @@ function VehicleDetailsPage() {
           />
         </motion.div>
       </div>
+      <RelatedVehicles
+        brand={vehicle.marca_modelo.split(' ')[0]} // Passa a marca do veículo
+        currentVehicleId={vehicle.id}
+      />
       <AppTour />
     </Template>
   )

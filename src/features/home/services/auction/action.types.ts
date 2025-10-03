@@ -2,9 +2,9 @@ import { VehicleFiltersState } from '@/context/vehicle-filter.context'
 
 export interface ListAuctionParams {
   page?: number
-  priceMax: number
-  priceMin: number
-  modelBrand: string
+  priceMax?: number
+  priceMin?: number
+  modelBrand?: string
   year?: number
   city?: string
   condition?: 'conservado' | 'sucata' | undefined

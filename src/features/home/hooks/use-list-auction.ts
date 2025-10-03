@@ -3,10 +3,10 @@ import auctionService from '@/features/home/services/auction/auction.service'
 import { useQuery } from '@tanstack/react-query'
 
 export interface UseListAuctionParams {
-  page: number
-  priceMax: number
-  priceMin: number
-  modelBrand: string
+  page?: number
+  priceMax?: number
+  priceMin?: number
+  modelBrand?: string
   year?: number
   city?: string
   condition?: 'conservado' | 'sucata' | undefined
