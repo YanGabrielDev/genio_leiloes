@@ -44,7 +44,7 @@ export function ConsultancyDialog({
 Por favor, me envie mais informações sobre a consultoria. Obrigado!`
 
   const encodedMessage = encodeURIComponent(defaultMessage)
-  const whatsappUrl = `https://wa.me/553183165687?text=${encodedMessage}`
+  const whatsappUrl = `https://wa.me/553193634612?text=${encodedMessage}`
 
   const handleConsultancy = () => {
     if (!userProfile && !plan) {
