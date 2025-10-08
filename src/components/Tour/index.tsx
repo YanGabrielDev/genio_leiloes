@@ -9,34 +9,24 @@ import Joyride, {
 } from 'react-joyride'
 
 interface AppTourProps {
+  run: boolean
+  setRun: (run: boolean) => void
   firstVehicleId?: number
 }
 
-export function AppTour({ firstVehicleId }: AppTourProps) {
-  const [runTour, setRunTour] = useState(false)
+export function AppTour({ run, setRun, firstVehicleId }: AppTourProps) {
   const navigate = useNavigate()
-  const hasSeenTour = localStorage.getItem('hasSeenTour')
-
-  useEffect(() => {
-    const hasSeenTour = localStorage.getItem('hasSeenTour')
-    if (!hasSeenTour) {
-      const timer = setTimeout(() => setRunTour(true), 500)
-      return () => clearTimeout(timer)
-    }
-  }, [])
 
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { status, type, action, index } = data
 
     const finishedStatuses: Status[] = [STATUS.FINISHED, STATUS.SKIPPED]
 
-    // Finaliza o tour se o usuário clicar em "Finalizar", "Pular" ou no botão de fechar.
     if (finishedStatuses.includes(status) && action === 'next' && index === 3) {
-      setRunTour(false)
-      localStorage.setItem('hasSeenTour', 'true')
+      setRun(false)
       return
     }
-    if (hasSeenTour) return
+
     // Lógica de navegação entre as páginas
     switch (true) {
       // Após o primeiro passo (na página de listagem), navega para os detalhes.
@@ -48,7 +38,9 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
           })
         }
         break
-
+      case action === 'skip':
+        setRun(false)
+        break
       // No primeiro passo da página de detalhes (índice 1), ao clicar em "Voltar".
       case type === EVENTS.STEP_BEFORE && index === 1 && action === 'prev':
         navigate({ to: '/' })
@@ -90,7 +82,7 @@ export function AppTour({ firstVehicleId }: AppTourProps) {
   return (
     <Joyride
       steps={tourSteps}
-      run={runTour}
+      run={run}
       continuous
       showSkipButton
       showProgress

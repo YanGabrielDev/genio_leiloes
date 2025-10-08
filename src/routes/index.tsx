@@ -1,6 +1,5 @@
 // src/pages/AppPage.tsx
 import { AuctionCard } from '@/features/home/components/AuctionCard'
-import { PaginationSection } from '@/components/PaginationSection'
 import { SkeletonLoaderGrid } from '@/components/SkeletonLoaderGrid'
 import { Template } from '@/components/Template'
 import { useVehicleFilters } from '@/context/vehicle-filter.context'
@@ -20,7 +19,10 @@ import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
 import { AppTour } from '@/components/Tour'
 import { useListAuctionCities } from '@/features/home/hooks/use-list-auction-cities'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { CoinsTour } from '@/components/Tour/coins-tour'
+import { Button } from '@/components/ui/button'
+import { HelpCircle } from 'lucide-react'
+import { PaginationSection } from '@/components/PaginationSection'
+import { useTour } from '@/context/tour.context'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -69,6 +71,7 @@ export const Route = createFileRoute('/')({
 
 function AppPage() {
   const [page, setPage] = useState<number>(1)
+  const { run: runTour, setRun: setRunTour } = useTour()
   const { vehicleFiltersState, setVehicleFiltersState } = useVehicleFilters()
   const { data: favoriteItems } = useListFavorite()
   const { data: subscriptionPlans, isLoading: isLoadingSubscriptionPlans } =
@@ -258,10 +261,20 @@ function AppPage() {
         </div>
       </Template>
       {/* Passe o ID do veículo para o AppTour */}
-      {!listAuction.isLoading && firstVehicleId && (
-        <AppTour firstVehicleId={firstVehicleId} />
+      {!listAuction.isLoading && (
+        <AppTour
+          run={runTour}
+          setRun={setRunTour}
+          firstVehicleId={firstVehicleId} // Passa o ID do primeiro veículo
+        />
       )}
-      {!listAuction.isLoading && firstVehicleId && userProfile && <CoinsTour />}
+      <Button
+        onClick={() => setRunTour(true)}
+        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg z-40"
+        aria-label="Iniciar tour"
+      >
+        <HelpCircle className="h-7 w-7" />
+      </Button>
     </>
   )
 }

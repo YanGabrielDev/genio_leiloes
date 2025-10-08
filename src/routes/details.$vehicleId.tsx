@@ -16,6 +16,7 @@ import { useListLastMoves } from '@/features/details/hooks/use-list-last-moves'
 import { useEffect, useState } from 'react'
 import { AppTour } from '@/components/Tour'
 import { RelatedVehicles } from '@/features/details/components/RelatedVehicles'
+import { useTour } from '@/context/tour.context'
 
 export const Route = createFileRoute('/details/$vehicleId')({
   component: VehicleDetailsPage,
@@ -44,6 +45,7 @@ function VehicleDetailsPage() {
     useListLastMoves({
       vehicleId: Number(vehicle?.lote),
     })
+  const { run, setRun } = useTour()
   const { data: favoriteItems } = useListFavorite()
 
   const favoriteItemids = favoriteItems?.map((item) => item.id)
@@ -210,7 +212,7 @@ function VehicleDetailsPage() {
         brand={vehicle.marca_modelo.split(' ')[0]} // Passa a marca do veículo
         currentVehicleId={vehicle.id}
       />
-      <AppTour />
+      <AppTour run={run} setRun={setRun} />
     </Template>
   )
 }

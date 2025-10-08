@@ -11,6 +11,7 @@ import { VehicleFilterProvider } from './context/vehicle-filter.context'
 import { Toaster } from './components/ui/toaster'
 import { stripePromise } from '@/stripe'
 import { HelmetProvider } from 'react-helmet-async'
+import { TourProvider } from './context/tour.context'
 
 // Create a new router instance
 const router = createRouter({ routeTree })
@@ -37,12 +38,14 @@ if (!rootElement.innerHTML) {
       <GoogleOAuthProvider clientId={googleClientId}>
         <QueryClientProvider client={queryClient}>
           <Elements stripe={stripePromise}>
-            <VehicleFilterProvider>
-              <Toaster />
-              <HelmetProvider>
-                <RouterProvider router={router} />
-              </HelmetProvider>
-            </VehicleFilterProvider>
+            <TourProvider>
+              <VehicleFilterProvider>
+                <Toaster />
+                <HelmetProvider>
+                  <RouterProvider router={router} />
+                </HelmetProvider>
+              </VehicleFilterProvider>
+            </TourProvider>
           </Elements>
         </QueryClientProvider>
       </GoogleOAuthProvider>
