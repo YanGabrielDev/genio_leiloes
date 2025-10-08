@@ -22,14 +22,12 @@ export function AppTour({ run, setRun, firstVehicleId }: AppTourProps) {
 
     const finishedStatuses: Status[] = [STATUS.FINISHED, STATUS.SKIPPED]
 
-    if (finishedStatuses.includes(status) && action === 'next' && index === 3) {
+    if (finishedStatuses.includes(status) || action === 'close') {
       setRun(false)
       return
     }
 
-    // Lógica de navegação entre as páginas
     switch (true) {
-      // Após o primeiro passo (na página de listagem), navega para os detalhes.
       case type === EVENTS.STEP_AFTER && index === 0 && action === 'next':
         if (firstVehicleId) {
           navigate({
@@ -41,7 +39,6 @@ export function AppTour({ run, setRun, firstVehicleId }: AppTourProps) {
       case action === 'skip':
         setRun(false)
         break
-      // No primeiro passo da página de detalhes (índice 1), ao clicar em "Voltar".
       case type === EVENTS.STEP_BEFORE && index === 1 && action === 'prev':
         navigate({ to: '/' })
         break
