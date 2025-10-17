@@ -1,4 +1,4 @@
-import { Heart, Search, Sparkles, Coins, Bell } from 'lucide-react'
+import { Heart, Search, Sparkles, Coins, Bell, History } from 'lucide-react'
 import { Input } from '../ui/input'
 import { AuthButton } from './auth-button'
 import { VehicleFilters } from '../VehicleFilters'
@@ -15,6 +15,8 @@ import { CoinAction } from './coin-action'
 import { FavoritesDrawer } from './favorites-drawer'
 import { useDebounce } from '@/hooks/use-debounce'
 import { DropdownFilter } from '../DropdownFilter'
+import { AnalysesDrawer } from '@/features/home/components/analyses-drawer'
+import { useListAnalysis } from '@/features/home/hooks/use-list-analysis'
 
 interface HeaderProps {
   cityFilterOptions?: {
@@ -35,7 +37,9 @@ export const Header = ({
 }: HeaderProps) => {
   const { userProfile } = useUserStore()
   const [openFavorites, setOpenFavorites] = useState(false)
+  const [openAnalyses, setOpenAnalyses] = useState(false)
   const listFavorite = useListFavorite()
+  const listAnalysis = useListAnalysis()
   const navigate = useNavigate()
   const { toast } = useToast()
   const { setVehicleFiltersState, vehicleFiltersState } = useVehicleFilters()
@@ -81,6 +85,21 @@ export const Header = ({
     setOpenFavorites(true)
   }
 
+  const handleOpenAnalyses = () => {
+    if (!userProfile) {
+      toast({
+        description: 'Faça login para ver suas análises.',
+        variant: 'info',
+      })
+      navigate({ to: '/login' })
+      return
+    }
+    if (listAnalysis.data?.length === 0) {
+      toast({ description: 'Você ainda não fez nenhuma análise.' })
+    }
+    setOpenAnalyses(true)
+  }
+  console.log(listAnalysis)
   return (
     <>
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -136,6 +155,21 @@ export const Header = ({
                   </Button>
                 </motion.div>
 
+                {userProfile && (
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={handleOpenAnalyses}
+                      aria-label="Minhas Análises"
+                    >
+                      <History className="h-5 w-5 text-gray-400 group-hover:text-primary" />
+                    </Button>
+                  </motion.div>
+                )}
                 <AuthButton user={user} onLogin={onLogin} onLogout={onLogout} />
               </div>
             </div>
@@ -187,6 +221,11 @@ export const Header = ({
         onOpenChange={setOpenFavorites}
         listFavorite={listFavorite}
       />
+      {/* <AnalysesDrawer
+        open={openAnalyses}
+        onOpenChange={setOpenAnalyses}
+        listAnalysis={listAnalysis}
+      /> */}
     </>
   )
 }

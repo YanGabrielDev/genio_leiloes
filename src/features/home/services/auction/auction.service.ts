@@ -99,6 +99,16 @@ const listLastMoves = async (vehicleId: number): Promise<ListLastMoves> => {
   return response?.data
 }
 
+const listAnalysis = async (): Promise<any[]> => {
+  const token = cookies.get('accessToken')
+  const response = await api.get(`${apiUrl}/leiloes/analises-veiculo/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  })
+  return response?.data
+}
 export default {
   listAuction,
   findVehicleById,
@@ -108,4 +118,5 @@ export default {
   listFavorite,
   listLastMoves,
   listAuctionCities,
+  listAnalysis,
 }
