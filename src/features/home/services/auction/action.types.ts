@@ -22,6 +22,13 @@ export interface Analysis {
   imagens: string[]
   lote_id: number
 }
+
+export interface AnalysisListItem {
+  id: number
+  lote: string
+  analise: string
+  criado_em: string
+}
 export interface CurrentVehicleStatusValues {
   arrematante: null | string
   status: string

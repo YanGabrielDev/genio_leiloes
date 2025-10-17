@@ -11,7 +11,7 @@ import { Toaster } from './components/ui/toaster'
 import { stripePromise } from '@/stripe'
 import { HelmetProvider } from 'react-helmet-async'
 import { TourProvider } from './context/tour.context'
-import { LoginIncentiveModal } from './routes/LoginIncentiveModal'
+import { LoginIncentiveModal } from './components/LoginIncentiveModal'
 
 const router = createRouter({ routeTree })
 const queryClient = new QueryClient()

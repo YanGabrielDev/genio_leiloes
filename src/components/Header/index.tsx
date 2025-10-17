@@ -39,7 +39,7 @@ export const Header = ({
   const [openFavorites, setOpenFavorites] = useState(false)
   const [openAnalyses, setOpenAnalyses] = useState(false)
   const listFavorite = useListFavorite()
-  const listAnalysis = useListAnalysis()
+  const { data: listAnalysis, isLoading: isLoadingAnalysis } = useListAnalysis()
   const navigate = useNavigate()
   const { toast } = useToast()
   const { setVehicleFiltersState, vehicleFiltersState } = useVehicleFilters()
@@ -94,7 +94,7 @@ export const Header = ({
       navigate({ to: '/login' })
       return
     }
-    if (listAnalysis.data?.length === 0) {
+    if (listAnalysis?.length === 0) {
       toast({ description: 'Você ainda não fez nenhuma análise.' })
     }
     setOpenAnalyses(true)
@@ -221,11 +221,12 @@ export const Header = ({
         onOpenChange={setOpenFavorites}
         listFavorite={listFavorite}
       />
-      {/* <AnalysesDrawer
+      <AnalysesDrawer
         open={openAnalyses}
         onOpenChange={setOpenAnalyses}
         listAnalysis={listAnalysis}
-      /> */}
+        isLoading={isLoadingAnalysis}
+      />
     </>
   )
 }

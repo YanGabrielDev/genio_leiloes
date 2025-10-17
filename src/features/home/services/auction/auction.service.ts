@@ -6,6 +6,7 @@ import {
   Analysis,
   CurrentVehicleStatus,
   ListLastMoves,
+  AnalysisListItem,
 } from './action.types'
 import { Vehicles } from '@/interfaces/vehicle.interface'
 import { apiUrl, auctionBaseUrl } from '@/constant/configs'
@@ -99,7 +100,7 @@ const listLastMoves = async (vehicleId: number): Promise<ListLastMoves> => {
   return response?.data
 }
 
-const listAnalysis = async (): Promise<any[]> => {
+const listAnalysis = async (): Promise<AnalysisListItem[]> => {
   const token = cookies.get('accessToken')
   const response = await api.get(`${apiUrl}/leiloes/analises-veiculo/`, {
     headers: {
