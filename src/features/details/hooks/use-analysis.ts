@@ -7,6 +7,8 @@ export const useAnalysis = () => {
   return useMutation({
     mutationFn: (data: Analysis) => auctionService.analysis(data),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['list-analysis'] })
+
       queryClient.invalidateQueries({ queryKey: ['list-plans'] })
     },
   })

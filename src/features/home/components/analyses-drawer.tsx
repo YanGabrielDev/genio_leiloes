@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import {
+  DrawerClose,
   Drawer,
   DrawerContent,
   DrawerDescription,
@@ -13,33 +14,43 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer'
 import { Skeleton } from '@/components/ui/skeleton'
+import { X } from 'lucide-react'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { AnalysisListItem } from '../services/auction/action.types'
 import { SafeMarkdownRenderer } from '@/components/SafeMarkdownRenderer'
 
+interface AnalysesDrawer {
+  open: boolean
+  isLoading: boolean
+  onOpenChange: (open: boolean) => void
+  listAnalysis?: AnalysisListItem[]
+}
 export function AnalysesDrawer({
   open,
   onOpenChange,
   listAnalysis,
   isLoading,
-}: {
-  open: boolean
-  isLoading: boolean
-  onOpenChange: (open: boolean) => void
-  listAnalysis?: AnalysisListItem[]
-}) {
+}: AnalysesDrawer) {
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent className="h-[90vh]">
         <div className="mx-auto w-full max-w-4xl px-4">
-          <DrawerHeader className="text-left">
-            <DrawerTitle className="text-2xl font-bold">
-              Minhas Análises
-            </DrawerTitle>
-            <DrawerDescription>
-              {listAnalysis?.length || 0} análises realizadas
-            </DrawerDescription>
+          <DrawerHeader className="text-left relative">
+            <div>
+              <DrawerTitle className="text-2xl font-bold">
+                Minhas Análises
+              </DrawerTitle>
+              <DrawerDescription>
+                {listAnalysis?.length || 0} análises realizadas
+              </DrawerDescription>
+            </div>
+            <DrawerClose asChild className="absolute top-4 right-4">
+              <Button variant="ghost" size="icon">
+                <X className="h-5 w-5" />
+                <span className="sr-only">Fechar</span>
+              </Button>
+            </DrawerClose>
           </DrawerHeader>
 
           <div className="pb-6 px-4 overflow-y-auto h-[calc(90vh-100px)]">
