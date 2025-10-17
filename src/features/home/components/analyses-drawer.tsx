@@ -19,7 +19,7 @@ export function AnalysesDrawer({
 }: {
   open: boolean
   onOpenChange: (open: boolean) => void
-  listAnalysis: UseQueryResult<AnalysisListItem[], Error>
+  listAnalysis: UseQueryResult<any[], Error>
 }) {
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
