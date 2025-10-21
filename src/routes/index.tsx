@@ -116,7 +116,6 @@ function AppPage() {
       ? currentVehicleStatus?.data?.[Number(vehicleId)]
       : null
     const currentValue = currentVehicle?.valor
-    console.log(currentVehicle)
     return {
       ...vehicle,
       avaliacao_atualizada: currentValue,
