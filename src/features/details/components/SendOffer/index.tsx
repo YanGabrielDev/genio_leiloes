@@ -14,9 +14,10 @@ import { useState } from 'react'
 
 interface SendOfferProps {
   vehicleId: number
+  disabled?: boolean
 }
 
-export const SendOffer = ({ vehicleId }: SendOfferProps) => {
+export const SendOffer = ({ vehicleId, disabled }: SendOfferProps) => {
   const [isConfirmationOpen, setConfirmationOpen] = useState(false)
   const vehicleLink = `https://leilao.detran.mg.gov.br/lotes/detalhes/${vehicleId}`
 
@@ -50,12 +51,16 @@ export const SendOffer = ({ vehicleId }: SendOfferProps) => {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex-col sm:flex-row sm:justify-between gap-2 pt-4">
-          <Button variant="secondary" onClick={handleAnalyzeClick}>
+          <Button
+            variant="secondary"
+            onClick={handleAnalyzeClick}
+            disabled={disabled}
+          >
             <Sparkles className="mr-2 h-4 w-4" />
             Ver Análise
           </Button>
           <a href={vehicleLink} target="_blank" rel="noopener noreferrer">
-            <Button className="w-full sm:w-auto">
+            <Button className="w-full sm:w-auto" disabled={disabled}>
               Ir para o Detran <ExternalLink className="ml-2 h-4 w-4" />
             </Button>
           </a>

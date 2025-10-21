@@ -116,10 +116,11 @@ function AppPage() {
       ? currentVehicleStatus?.data?.[Number(vehicleId)]
       : null
     const currentValue = currentVehicle?.valor
-
+    console.log(currentVehicle)
     return {
       ...vehicle,
       avaliacao_atualizada: currentValue,
+      encerrado: !!currentVehicle?.arrematante,
     }
   })
   const cityFilterOptions = useMemo(
@@ -243,7 +244,7 @@ function AppPage() {
               <AuctionCard
                 key={item.id}
                 id={index === 0 ? 'tour-card' : undefined}
-                vehicle={item as Vehicles}
+                vehicle={item}
                 onToggleFavorite={handleFavorite}
                 isFavorite={favoriteItemids?.includes(item.id)}
                 currentVehicleLoading={currentVehicleStatus.isLoading}

@@ -28,6 +28,7 @@ export function ConsultancyDialog({
     vehicleId: number
     is_favorite?: boolean
   }
+  disabled?: boolean
   [key: string]: any
 }) {
   const { userProfile, plan } = useUserStore()
@@ -71,7 +72,11 @@ Por favor, me envie mais informações sobre a consultoria. Obrigado!`
   return (
     <Dialog>
       <DialogTrigger asChild {...props}>
-        <Button variant="secondary" className="w-full gap-2 sm:w-auto">
+        <Button
+          variant="secondary"
+          className="w-full gap-2 sm:w-auto"
+          disabled={props.disabled}
+        >
           <MessageCircleMore className="h-4 w-4" />
           Falar com consultor{' '}
           <span className="ml-2 flex items-center gap-1">

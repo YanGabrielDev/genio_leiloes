@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Heart, Eye, Clock, TrendingUp, Sparkles } from 'lucide-react'
+import { Heart, Eye, Clock, TrendingUp, Sparkles, Gavel } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -65,6 +65,14 @@ export function AuctionCard({
               className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105`}
             />
           </div>
+          {vehicle.encerrado && (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-t-lg">
+              <Badge variant="destructive" className="text-sm gap-2">
+                <Gavel className="h-4 w-4" />
+                Encerrado
+              </Badge>
+            </div>
+          )}
 
           {/* Favorite Button (mantido para funcionalidade de exemplo) */}
           <Button

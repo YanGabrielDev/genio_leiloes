@@ -6,12 +6,14 @@ import { useUserStore } from '@/store/user.store'
 import { useNavigate } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
 import { Heart } from 'lucide-react'
+import { ReactNode } from 'react'
 
 interface VehicleDetailsHeaderProps {
   vehicleMarcaModelo: string
   leilaoNome: string
   veihcleYear: number
   vehicleId: number
+  extraInfo?: ReactNode
 }
 
 const fadeIn = {
@@ -24,6 +26,7 @@ export function VehicleDetailsHeader({
   leilaoNome,
   veihcleYear,
   vehicleId,
+  extraInfo,
 }: VehicleDetailsHeaderProps) {
   const { data: favoriteItems } = useListFavorite()
   const { mutate: favoriteVehicle } = useFavoriteVehicle()
@@ -53,7 +56,9 @@ export function VehicleDetailsHeader({
     >
       <div className="flex items-start text-sm   flex-col">
         <div>
-          <h2 className="text-2xl font-bold">{vehicleMarcaModelo}</h2>
+          <h2 className="text-2xl font-bold flex items-center">
+            {vehicleMarcaModelo} {extraInfo}
+          </h2>
           <p className="text-gray-600">{veihcleYear}</p>
         </div>
         <div className="flex ">

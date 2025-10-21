@@ -20,10 +20,12 @@ interface VehicleAnalysisDialogProps {
     marca_modelo: string
     lote_id: number
   }
+  disabled?: boolean
 }
 
 export function VehicleAnalysisDialog({
   vehicleData,
+  disabled,
 }: VehicleAnalysisDialogProps) {
   const {
     mutateAsync: postAnalysis,
@@ -83,7 +85,7 @@ export function VehicleAnalysisDialog({
           className="w-full ml-auto flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all"
           onClick={handleAnalysis}
           id="vehicle-analysis-trigger"
-          disabled={analysisIsPending}
+          disabled={analysisIsPending || disabled}
         >
           {analysisIsPending ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />

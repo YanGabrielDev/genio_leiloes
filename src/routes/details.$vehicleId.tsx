@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Template } from '@/components/Template'
 import { Skeleton } from '@/components/ui/skeleton'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useFindVehicleById } from '@/features/details/hooks/use-find-vehicle-by-id'
 import { VehicleActions } from '@/features/details/components/VehicleActions'
@@ -17,6 +17,8 @@ import { useEffect, useState } from 'react'
 import { AppTour } from '@/components/Tour'
 import { RelatedVehicles } from '@/features/details/components/RelatedVehicles'
 import { useTour } from '@/context/tour.context'
+import { Badge } from '@/components/ui/badge'
+import { Gavel } from 'lucide-react'
 
 export const Route = createFileRoute('/details/$vehicleId')({
   component: VehicleDetailsPage,
@@ -52,6 +54,7 @@ function VehicleDetailsPage() {
   const vehicleCurrentStatusById = useFindVehicleCurrentStatusById({
     vehicleId: getCurrentVehicleId(vehicle?.link_lance_atual ?? ''),
   })
+  const encerrado = !!vehicleCurrentStatusById.data?.arrematante
   const [currentBenefit, setCurrentBenefit] = useState(0)
 
   useEffect(() => {
@@ -154,6 +157,13 @@ function VehicleDetailsPage() {
         vehicleMarcaModelo={vehicle.marca_modelo}
         veihcleYear={vehicle.ano}
         vehicleId={vehicle.id}
+        extraInfo={
+          encerrado && (
+            <Badge variant="destructive" className="ml-2">
+              Encerrado
+            </Badge>
+          )
+        }
       />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 ">
         <VehicleImageCarousel
@@ -169,6 +179,30 @@ function VehicleDetailsPage() {
             evaluationValue={evaluationValue}
             loading={vehicleCurrentStatusById.isLoading}
           />
+          {encerrado && vehicleCurrentStatusById.data?.arrematante && (
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="bg-green-50 border-l-4 border-green-500 text-green-800 p-4 rounded-r-lg my-4"
+                role="alert"
+              >
+                <div className="flex items-center gap-3">
+                  <Gavel className="h-6 w-6" />
+                  <div>
+                    <p className="font-bold">Leilão Encerrado!</p>
+                    <p className="text-sm">
+                      Arrematado por:{' '}
+                      <span className="font-semibold">
+                        {vehicleCurrentStatusById.data.arrematante}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          )}
           <VehicleActions
             vehicleData={{
               ano: vehicle.ano,
@@ -178,6 +212,7 @@ function VehicleDetailsPage() {
               lote_id: Number(vehicle.lote),
               vehicleId: vehicle.id,
               is_favorite: favoriteItemids?.includes(vehicle.id),
+              encerrado,
             }}
             currentLink={vehicle.link_lance_atual}
           />

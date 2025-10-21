@@ -5,7 +5,8 @@ export interface Vehicles {
   chassi: string
   placa: string
   marca_modelo: string
-  avaliacao_atualizada: string
+  encerrado: boolean
+  avaliacao_atualizada?: string
   motor: string
   tempo_restante: string
   cor: string
