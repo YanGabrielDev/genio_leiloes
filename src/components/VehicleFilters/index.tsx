@@ -95,7 +95,7 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
 
   const handleMaxPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value)
-    const newMax = isNaN(value) ? 100000 : value
+    const newMax = isNaN(value) || event.target.value === '' ? 0 : value
     setLocalMaxPrice(newMax)
   }
 
@@ -184,7 +184,7 @@ export function VehicleFilters({ cityFilterOptions }: VehicleFiltersProps) {
                   id="max-price"
                   type="number"
                   placeholder="R$ Máx."
-                  value={localMaxPrice}
+                  value={localMaxPrice === 0 ? '' : localMaxPrice}
                   onChange={handleMaxPriceChange}
                   className="w-full"
                 />

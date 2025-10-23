@@ -22,18 +22,20 @@ const listAuction = async ({
   city,
   auctionStatus,
 }: ListAuctionParams): Promise<Auction> => {
-  const response = await api.get(`${apiUrl}/leiloes/`, {
-    params: {
-      page,
-      gasto_minino: priceMin,
-      gasto_maximo: priceMax,
-      marca_modelo: modelBrand,
-      status_leilao: auctionStatus,
-      ano: year ?? null,
-      is_sucata: condition ? condition === 'sucata' : undefined,
-      cidade: city,
-    },
-  })
+  const params: Record<string, any> = {
+    page,
+    gasto_minino: priceMin,
+    marca_modelo: modelBrand,
+    status_leilao: auctionStatus,
+    ano: year ?? null,
+    is_sucata: condition ? condition === 'sucata' : undefined,
+    cidade: city,
+  }
+
+  if (priceMax && priceMax > 0) {
+    params.gasto_maximo = priceMax
+  }
+  const response = await api.get(`${apiUrl}/leiloes/`, { params })
   return response.data
 }
 
