@@ -9,7 +9,7 @@ export default defineConfig({
 
   plugins: [
     react(),
-    Sitemap({ hostname: 'https://genio-leiloes.vercel.app' }),
+    Sitemap({ hostname: 'https://genio-leiloes.com' }),
     TanStackRouterVite({
       routesDirectory: path.resolve(__dirname, './src/routes'),
       generatedRouteTree: path.resolve(__dirname, './src/routeTree.gen.ts'),

@@ -28,8 +28,8 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Gênio Leilões',
-  url: 'https://genio-leiloes.vercel.app',
-  logo: 'https://genio-leiloes.vercel.app/imagens/genio_icon.png',
+  url: 'https://genio-leiloes.com',
+  logo: 'https://genio-leiloes.com/imagens/genio_icon.png',
   description:
     'Plataforma de leilões de veículos com avaliação inteligente por IA para ajudar compradores a fazerem os melhores lances.',
 }
@@ -174,18 +174,18 @@ function AppPage() {
           content="Acesse os leilões de veículos do Detran com avaliação feita por inteligência artificial. Segurança, precisão e ótimos preços em veículos usados."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://genio-leiloes.vercel.app" />
+        <meta property="og:url" content="https://genio-leiloes.com" />
         <meta
           name="google-site-verification"
           content="WFx8v4XixaF4MN5UbfYXw0Y_smLNfhITzP5BmE7wUyk"
         />
         <meta
           property="og:image"
-          content="https://genio-leiloes.vercel.app/imagens/genio_icon.png"
+          content="https://genio-leiloes.com/imagens/genio_icon.png"
         />
 
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://genio-leiloes.vercel.app" />
+        <link rel="canonical" href="https://genio-leiloes.com" />
         <script type="application/ld+json">
           {JSON.stringify(organizationSchema)}
         </script>
