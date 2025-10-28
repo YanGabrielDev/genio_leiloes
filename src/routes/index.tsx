@@ -1,11 +1,9 @@
-// src/pages/AppPage.tsx
 import { AuctionCard } from '@/features/home/components/AuctionCard'
 import { SkeletonLoaderGrid } from '@/components/SkeletonLoaderGrid'
 import { Template } from '@/components/Template'
 import { useVehicleFilters } from '@/context/vehicle-filter.context'
 import { useListAuction } from '@/features/home/hooks/use-list-auction'
-import { auctionMock } from '@/mock/auction.mock'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect, useMemo, useState } from 'react'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
 import { useUserStore } from '@/store/user.store'
@@ -66,11 +64,16 @@ const faqSchema = {
 }
 
 export const Route = createFileRoute('/')({
+  validateSearch: (search: Record<string, unknown>) => ({
+    city: search.city as string | undefined,
+  }),
   component: AppPage,
 })
 
 function AppPage() {
   const [page, setPage] = useState<number>(1)
+  const { city: cityParam } = Route.useSearch()
+  const navigate = useNavigate({ from: Route.id })
   const { run: runTour, setRun: setRunTour } = useTour()
   const { vehicleFiltersState, setVehicleFiltersState } = useVehicleFilters()
   const { data: favoriteItems } = useListFavorite()
@@ -149,7 +152,23 @@ function AppPage() {
     if (subscriptionPlans) setUserPlan(subscriptionPlans)
   }, [isLoadingSubscriptionPlans, subscriptionPlans])
 
-  // Lógica para pegar o ID do primeiro veículo e passar para o Tour
+  useEffect(() => {
+    if (cityParam) {
+      setVehicleFiltersState((prevState) => ({
+        ...prevState,
+        city: cityParam,
+      }))
+
+      navigate({
+        search: (prev) => {
+          const { city: _, ...rest } = prev
+          return { ...rest, city: undefined }
+        },
+        replace: true,
+      })
+    }
+  }, [cityParam, setVehicleFiltersState, navigate])
+
   const firstVehicleId = vehicleList?.[0]?.id
 
   return (
@@ -251,7 +270,6 @@ function AppPage() {
             ))
           )}
         </div>
-        {/* </div> */}
         <div className="w-full flex items-center justify-center mb-8 mt-8">
           <PaginationSection
             page={page}
@@ -260,12 +278,11 @@ function AppPage() {
           />
         </div>
       </Template>
-      {/* Passe o ID do veículo para o AppTour */}
       {!listAuction.isLoading && (
         <AppTour
           run={runTour}
           setRun={setRunTour}
-          firstVehicleId={firstVehicleId} // Passa o ID do primeiro veículo
+          firstVehicleId={firstVehicleId}
         />
       )}
       <Button
