@@ -161,8 +161,7 @@ function AppPage() {
 
       navigate({
         search: (prev) => {
-          const { city: _, ...rest } = prev
-          return { ...rest, city: undefined }
+          return { ...prev }
         },
         replace: true,
       })
