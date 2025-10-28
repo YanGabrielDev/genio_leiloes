@@ -52,7 +52,7 @@ export const useGoogleAuth = () => {
           title: 'Login realizado com sucesso!',
           variant: 'success',
         })
-        navigate({ to: '/' })
+        navigate({ to: '/', search: { city: undefined } })
       } catch (error) {
         console.error('Error fetching Google user info:', error)
         toast({

@@ -14,7 +14,7 @@ export function CoinsTour() {
   const navigate = useNavigate()
 
   useEffect(() => {
-        const hasSeenTour = localStorage.getItem('hasSeenTour')
+    const hasSeenTour = localStorage.getItem('hasSeenTour')
 
     const hasSeenCoinsTour = localStorage.getItem('hasSeenCoinsTour')
     if (!hasSeenCoinsTour && hasSeenTour) {
@@ -35,7 +35,7 @@ export function CoinsTour() {
     }
     switch (true) {
       case type === EVENTS.STEP_BEFORE && index === 1 && action === 'prev':
-        navigate({ to: '/' })
+        navigate({ to: '/', search: { city: undefined } })
         break
 
       default:

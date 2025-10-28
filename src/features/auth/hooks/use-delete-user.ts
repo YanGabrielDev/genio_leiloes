@@ -19,7 +19,7 @@ export const useDeleteUser = () => {
         variant: 'success',
       })
       setUserProfile(null)
-      navigate({ to: '/' })
+      navigate({ to: '/', search: { city: undefined } })
     },
   })
 }

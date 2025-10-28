@@ -56,7 +56,12 @@ function RouteComponent() {
               </CardDescription>
             </CardHeader>
             <CardFooter className="flex justify-center">
-              <Button variant="outline" onClick={() => navigate({ to: '/' })}>
+              <Button
+                variant="outline"
+                onClick={() =>
+                  navigate({ to: '/', search: { city: undefined } })
+                }
+              >
                 Voltar para a tela inicial
               </Button>
             </CardFooter>

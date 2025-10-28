@@ -40,7 +40,7 @@ export function AppTour({ run, setRun, firstVehicleId }: AppTourProps) {
         setRun(false)
         break
       case type === EVENTS.STEP_BEFORE && index === 1 && action === 'prev':
-        navigate({ to: '/' })
+        navigate({ to: '/', search: { city: undefined } })
         break
 
       default:
