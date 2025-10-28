@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react'
 import { AppTour } from '@/components/Tour'
 import { RelatedVehicles } from '@/features/details/components/RelatedVehicles'
 import { useTour } from '@/context/tour.context'
+import { Helmet } from 'react-helmet-async'
 import { Badge } from '@/components/ui/badge'
 import { Gavel } from 'lucide-react'
 
@@ -150,8 +151,29 @@ function VehicleDetailsPage() {
 
   const evaluationValue =
     vehicleCurrentStatusById.data?.valor ?? vehicle.avaliacao
+
+  const vehicleName = `${vehicle.marca_modelo} ${vehicle.ano}`
+  const description = `Participe do leilão para este ${vehicle.marca_modelo} ano ${vehicle.ano}, cor ${vehicle.cor}. Leilão: ${vehicle.leilao.nome}.`
+  const imageUrl = vehicle.imagens?.[0]
+  const productUrl = `https://genio-leiloes.com/details/${vehicle.id}`
+
   return (
     <Template toGo="/">
+      <Helmet>
+        <title>{`${vehicleName} | Gênio Leilões`}</title>
+        <meta name="description" content={description} />
+
+        <meta property="og:title" content={vehicleName} />
+        <meta property="og:description" content={description} />
+        {imageUrl && <meta property="og:image" content={imageUrl} />}
+        <meta property="og:url" content={productUrl} />
+        <meta property="og:type" content="product" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={vehicleName} />
+        <meta name="twitter:description" content={description} />
+        {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+      </Helmet>
       <VehicleDetailsHeader
         leilaoNome={vehicle.leilao.nome}
         vehicleMarcaModelo={vehicle.marca_modelo}
