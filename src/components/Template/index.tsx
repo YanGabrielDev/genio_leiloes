@@ -60,6 +60,7 @@ export const Template = ({
         {!!toGo && (
           <Link
             to="/"
+            search={{ city: undefined }}
             className="text-primary underline flex items-center gap-1"
           >
             <ArrowLeft size={18} className="text-primary text-sm" /> Voltar

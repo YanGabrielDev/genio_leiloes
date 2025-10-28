@@ -32,6 +32,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/"
+                  search={{ city: undefined }}
                   className="text-white transition-colors hover:text-white"
                 >
                   Início
