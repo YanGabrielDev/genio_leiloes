@@ -123,6 +123,7 @@ export const Header = ({
 
               <div className="flex items-center space-x-4">
                 <motion.div
+                  className="md:flex hidden"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >

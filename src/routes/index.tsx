@@ -286,7 +286,7 @@ function AppPage() {
       )}
       <Button
         onClick={() => setRunTour(true)}
-        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg z-40"
+        className="fixed md:bottom-8 bottom-20 right-6 h-14 w-14 rounded-full shadow-lg z-40"
         aria-label="Iniciar tour"
       >
         <HelpCircle className="h-7 w-7" />

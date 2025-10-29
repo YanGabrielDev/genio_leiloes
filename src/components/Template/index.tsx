@@ -8,6 +8,7 @@ import { staggerContainer } from '@/styles/animations'
 import { ArrowLeft } from 'lucide-react'
 import { useUserStore } from '@/store/user.store'
 import { Footer } from '../Footer'
+import { BottomBar } from '../BottomBar'
 
 interface TemplateProps {
   children: React.ReactNode
@@ -76,6 +77,7 @@ export const Template = ({
         </motion.div>
       </motion.div>
       <Footer />
+      <BottomBar />
     </main>
   )
 }
