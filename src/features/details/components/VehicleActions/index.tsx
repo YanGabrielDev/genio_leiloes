@@ -46,7 +46,7 @@ export function VehicleActions({
           Este leilão já foi encerrado.
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-row sm:gap-4 items-center">
+        <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-row sm:gap-4 items-center mb-14 sm:mb-0">
           <VehicleAnalysisDialog
             vehicleData={vehicleData}
             disabled={vehicleData.encerrado}
