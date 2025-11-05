@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as PaymentSuccessRouteImport } from './routes/payment-success'
 import { Route as PaymentErrorRouteImport } from './routes/payment-error'
 import { Route as PaymentRouteImport } from './routes/payment'
@@ -19,6 +20,11 @@ import { Route as AuctionAlertIndexRouteImport } from './routes/auction-alert/in
 import { Route as DetailsVehicleIdRouteImport } from './routes/details.$vehicleId'
 import { Route as AuctionAlertCreateAlertRouteImport } from './routes/auction-alert/create-alert'
 
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PaymentSuccessRoute = PaymentSuccessRouteImport.update({
   id: '/payment-success',
   path: '/payment-success',
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/payment': typeof PaymentRoute
   '/payment-error': typeof PaymentErrorRoute
   '/payment-success': typeof PaymentSuccessRoute
+  '/search': typeof SearchRoute
   '/auction-alert/create-alert': typeof AuctionAlertCreateAlertRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
   '/auction-alert': typeof AuctionAlertIndexRoute
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/payment': typeof PaymentRoute
   '/payment-error': typeof PaymentErrorRoute
   '/payment-success': typeof PaymentSuccessRoute
+  '/search': typeof SearchRoute
   '/auction-alert/create-alert': typeof AuctionAlertCreateAlertRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
   '/auction-alert': typeof AuctionAlertIndexRoute
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/payment': typeof PaymentRoute
   '/payment-error': typeof PaymentErrorRoute
   '/payment-success': typeof PaymentSuccessRoute
+  '/search': typeof SearchRoute
   '/auction-alert/create-alert': typeof AuctionAlertCreateAlertRoute
   '/details/$vehicleId': typeof DetailsVehicleIdRoute
   '/auction-alert/': typeof AuctionAlertIndexRoute
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/payment'
     | '/payment-error'
     | '/payment-success'
+    | '/search'
     | '/auction-alert/create-alert'
     | '/details/$vehicleId'
     | '/auction-alert'
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/payment'
     | '/payment-error'
     | '/payment-success'
+    | '/search'
     | '/auction-alert/create-alert'
     | '/details/$vehicleId'
     | '/auction-alert'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/payment'
     | '/payment-error'
     | '/payment-success'
+    | '/search'
     | '/auction-alert/create-alert'
     | '/details/$vehicleId'
     | '/auction-alert/'
@@ -142,6 +154,7 @@ export interface RootRouteChildren {
   PaymentRoute: typeof PaymentRoute
   PaymentErrorRoute: typeof PaymentErrorRoute
   PaymentSuccessRoute: typeof PaymentSuccessRoute
+  SearchRoute: typeof SearchRoute
   AuctionAlertCreateAlertRoute: typeof AuctionAlertCreateAlertRoute
   DetailsVehicleIdRoute: typeof DetailsVehicleIdRoute
   AuctionAlertIndexRoute: typeof AuctionAlertIndexRoute
@@ -149,6 +162,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/payment-success': {
       id: '/payment-success'
       path: '/payment-success'
@@ -222,6 +242,7 @@ const rootRouteChildren: RootRouteChildren = {
   PaymentRoute: PaymentRoute,
   PaymentErrorRoute: PaymentErrorRoute,
   PaymentSuccessRoute: PaymentSuccessRoute,
+  SearchRoute: SearchRoute,
   AuctionAlertCreateAlertRoute: AuctionAlertCreateAlertRoute,
   DetailsVehicleIdRoute: DetailsVehicleIdRoute,
   AuctionAlertIndexRoute: AuctionAlertIndexRoute,
