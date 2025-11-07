@@ -9,7 +9,7 @@ import {
   DrawerClose,
 } from '@/components/ui/drawer'
 import { Button } from '@/components/ui/button'
-import { Filter, Search } from 'lucide-react'
+import { Filter, Search, SlidersHorizontal } from 'lucide-react'
 import {
   VehicleFiltersContent,
   VehicleFiltersContentRef,
@@ -37,7 +37,7 @@ export function VehicleFiltersDrawer({
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <Button variant="outline" onClick={() => setOpen(true)} size="sm">
-        <Filter /> Filtros
+        <SlidersHorizontal /> Filtros
       </Button>
       <DrawerContent
         className="sm:max-w-[425px] max-h-[100vh] "
