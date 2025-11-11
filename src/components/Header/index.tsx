@@ -77,7 +77,7 @@ export const Header = ({
               <div className="flex gap-4 items-start w-full md:flex-row flex-col">
                 {showFilters && <SearchBar />}
 
-                <div className="relative flex gap-4 sm:items-center w-full flex-col sm:flex-row">
+                <div className="relative hidden sm:flex gap-4 sm:items-center w-full flex-col sm:flex-row">
                   <div className=" flex gap-4 ">
                     {showFilters && (
                       <VehicleFiltersDrawer
