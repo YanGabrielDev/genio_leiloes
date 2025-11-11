@@ -23,6 +23,7 @@ interface HeaderProps {
     id: number
   }[]
   showFilters?: boolean
+  showActionFilters: boolean
   onLogin?: () => void
   onLogout?: () => void
 }
@@ -31,6 +32,7 @@ export const Header = ({
   showFilters,
   onLogin,
   onLogout,
+  showActionFilters,
   cityFilterOptions,
 }: HeaderProps) => {
   const { userProfile } = useUserStore()
@@ -41,7 +43,8 @@ export const Header = ({
   const user = userProfile
     ? { name: userProfile.name, email: userProfile.email }
     : null
-
+  const showFiltersAction = showFilters && showActionFilters
+  const showAlertAction = showFilters && userProfile && showActionFilters
   const handleOpenAnalyses = () => {
     if (!userProfile) {
       toast({
@@ -77,14 +80,14 @@ export const Header = ({
               <div className="flex gap-4 items-start w-full md:flex-row flex-col">
                 {showFilters && <SearchBar />}
 
-                <div className="relative hidden sm:flex gap-4 sm:items-center w-full flex-col sm:flex-row">
+                <div className="relative flex gap-4 sm:items-center w-full flex-col sm:flex-row">
                   <div className=" flex gap-4 ">
-                    {showFilters && (
+                    {showFiltersAction && (
                       <VehicleFiltersDrawer
                         cityFilterOptions={cityFilterOptions}
                       />
                     )}
-                    {showFilters && userProfile && (
+                    {showAlertAction && (
                       <Button
                         onClick={() => navigate({ to: '/auction-alert' })}
                         size="sm"

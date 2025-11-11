@@ -19,6 +19,7 @@ interface TemplateProps {
   }[]
   toGo?: string
   showFilters?: boolean
+  showActionFilters?: boolean
 }
 
 export const Template = ({
@@ -26,6 +27,7 @@ export const Template = ({
   cityFilterOptions,
   toGo,
   showFilters,
+  showActionFilters = false,
 }: TemplateProps) => {
   const navigate = useNavigate()
   const { setUserProfile } = useUserStore()
@@ -50,6 +52,7 @@ export const Template = ({
         cityFilterOptions={cityFilterOptions}
         onLogin={onLogin}
         onLogout={onLogout}
+        showActionFilters={showActionFilters}
       />
 
       <motion.div

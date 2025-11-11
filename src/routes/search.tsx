@@ -91,9 +91,13 @@ function SearchPage() {
   }
 
   return (
-    <Template showFilters cityFilterOptions={cityFilterOptions}>
+    <Template
+      showFilters
+      showActionFilters
+      cityFilterOptions={cityFilterOptions}
+    >
       <div className="text-center my-8">
-        <h1 className="text-4xl font-bold">Explore Nossos Veículos</h1>
+        <h1 className="text-2xl font-bold">Explore Nossos Veículos</h1>
         <p className="text-lg text-gray-600">
           Encontre o carro dos seus sonhos
         </p>
