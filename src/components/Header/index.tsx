@@ -96,9 +96,11 @@ export const Header = ({
                         <span className="hidden sm:flex">Criar Alerta</span>
                       </Button>
                     )}
-                    <div className="ml-auto">
-                      {userProfile && <CoinAction />}
-                    </div>
+                    {showActionFilters && userProfile && (
+                      <div className="ml-auto">
+                        <CoinAction />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
