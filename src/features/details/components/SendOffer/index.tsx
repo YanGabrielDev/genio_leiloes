@@ -39,15 +39,15 @@ export const SendOffer = ({ vehicleId, disabled }: SendOfferProps) => {
           {auctionHammer} Dar lance
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[500px] max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <AlertTriangle className="text-yellow-500" />
             Tem certeza que deseja ir?
           </DialogTitle>
           <DialogDescription className="pt-2">
-            Conifrme se este é o veículo certo. Recomendamos ver a análise e o
-            histórico antes de dar seu lance no site oficial.
+            82% das pessoas que fazem análise antes de ir para o leilão, fazem
+            um bom negócio!
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex-col sm:flex-row sm:justify-between gap-2 pt-4">
