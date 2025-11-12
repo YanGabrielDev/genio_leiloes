@@ -9,7 +9,7 @@ import { toast } from '@/hooks/use-toast'
 import { useEffect, useState } from 'react'
 import { UpgradePlanModal } from '../UpgradePlanModal'
 import { useListSubscriptionsPlans } from '@/features/account/hooks/use-list-subscriptions-plans'
-import { MarkdownRenderer } from '@/components/MarkdownRenderer'
+
 import { SafeMarkdownRenderer } from '@/components/SafeMarkdownRenderer'
 
 interface VehicleAnalysisDialogProps {
@@ -97,7 +97,7 @@ export function VehicleAnalysisDialog({
               >
                 <Sparkles className="h-4 w-4 text-purple-500" />
               </motion.span>
-              Analisar veículo
+              Analise Completa
               <span className="ml-2 flex items-center gap-1">
                 <Coins className="h-4 w-4 text-yellow-500" />
                 <span className="text-sm font-bold">10</span>

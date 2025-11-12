@@ -36,17 +36,17 @@ export const SendOffer = ({ vehicleId, disabled }: SendOfferProps) => {
           className="w-full sm:w-auto"
           id="tour-go-to-auction"
         >
-          Dar lance no site do Detran {auctionHammer}
+          {auctionHammer} Dar lance
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <AlertTriangle className="text-yellow-500" />
-            Confirme antes de prosseguir
+            Tem certeza que deseja ir?
           </DialogTitle>
           <DialogDescription className="pt-2">
-            Confirme se este é o veículo certo. Recomendamos ver a análise e o
+            Conifrme se este é o veículo certo. Recomendamos ver a análise e o
             histórico antes de dar seu lance no site oficial.
           </DialogDescription>
         </DialogHeader>
@@ -56,12 +56,11 @@ export const SendOffer = ({ vehicleId, disabled }: SendOfferProps) => {
             onClick={handleAnalyzeClick}
             disabled={disabled}
           >
-            <Sparkles className="mr-2 h-4 w-4" />
-            Ver Análise
+            <Sparkles className="mr-2 h-4 w-4" /> Ver Análise Completa
           </Button>
           <a href={vehicleLink} target="_blank" rel="noopener noreferrer">
             <Button className="w-full sm:w-auto" disabled={disabled}>
-              Ir para o Detran <ExternalLink className="ml-2 h-4 w-4" />
+              <ExternalLink className="ml-2 h-4 w-4" /> Ir para o Detran
             </Button>
           </a>
         </DialogFooter>
