@@ -107,7 +107,7 @@ function AppPage() {
     priceMin,
     modelBrand: brandModelSearch,
     year,
-    condition: 'conservado',
+    condition: 'sucata',
     city,
     auctionStatus,
   })
@@ -117,7 +117,7 @@ function AppPage() {
     priceMin,
     modelBrand: brandModelSearch,
     year,
-    condition: 'sucata',
+    condition: 'conservado',
     city,
     auctionStatus,
   })
@@ -255,7 +255,7 @@ function AppPage() {
           <h2 className="text-2xl font-bold hidden md:block">
             Veículos Disponíveis:
           </h2>
-          <div className="bg-white p-2 md:p-4 rounded-lg shadow-sm w-full md:w-auto flex flex-col items-start gap-2 md:flex-row md:items-center md:gap-4 border">
+          {/* <div className="bg-white p-2 md:p-4 rounded-lg shadow-sm w-full md:w-auto flex flex-col items-start gap-2 md:flex-row md:items-center md:gap-4 border">
             <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">
               Status do leilão:
             </span>
@@ -292,7 +292,7 @@ function AppPage() {
                 </TabsTrigger>
               </TabsList>
             </Tabs>
-          </div>
+          </div> */}
         </div>
         <div className="flex flex-col gap-4 w-full md:w-auto">
           {listNoScrapAuction.isLoading || listScrapAuction.isLoading ? (

@@ -99,7 +99,7 @@ export function AuctionCard({
         <CardContent className="p-4">
           <div className="space-y-3">
             {/* Title */}
-            <div>
+            <div className="min-h-20">
               <h3 className="font-semibold text-lg">{vehicle?.marca_modelo}</h3>
               <p className="text-sm text-gray-600">
                 {vehicle?.ano} • {vehicle?.cor}
