@@ -21,6 +21,13 @@ import { Button } from '@/components/ui/button'
 import { HelpCircle } from 'lucide-react'
 import { PaginationSection } from '@/components/PaginationSection'
 import { useTour } from '@/context/tour.context'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -94,29 +101,49 @@ function AppPage() {
     auctionStatus,
   } = vehicleFiltersState
 
-  const listAuction = useListAuction({
+  const listScrapAuction = useListAuction({
     page,
     priceMax,
     priceMin,
     modelBrand: brandModelSearch,
     year,
-    condition,
+    condition: 'conservado',
     city,
     auctionStatus,
   })
-  const vehicles = listAuction.data?.results
+  const listNoScrapAuction = useListAuction({
+    page,
+    priceMax,
+    priceMin,
+    modelBrand: brandModelSearch,
+    year,
+    condition: 'sucata',
+    city,
+    auctionStatus,
+  })
 
-  const currentVehicleStatus = useListCurrentVehicleStatus({
-    dataList: vehicles?.map((vehicle) => {
+  const scrapVehicles = listScrapAuction.data?.results
+  const noScrapvehicles = listNoScrapAuction.data?.results
+
+  const currentScrapVehicleStatus = useListCurrentVehicleStatus({
+    dataList: scrapVehicles?.map((vehicle) => {
       if (!vehicle) return null
       const vehicleId = getCurrentVehicleId(vehicle.link_lance_atual)
       return vehicleId
     }),
   })
-  const vehicleList = vehicles?.map((vehicle) => {
+  const currentNoScrapVehicleStatus = useListCurrentVehicleStatus({
+    dataList: noScrapvehicles?.map((vehicle) => {
+      if (!vehicle) return null
+      const vehicleId = getCurrentVehicleId(vehicle.link_lance_atual)
+      return vehicleId
+    }),
+  })
+
+  const noScrapVehicleList = noScrapvehicles?.map((vehicle) => {
     const vehicleId = getCurrentVehicleId(vehicle.link_lance_atual)
     const currentVehicle = vehicleId
-      ? currentVehicleStatus?.data?.[Number(vehicleId)]
+      ? currentNoScrapVehicleStatus?.data?.[Number(vehicleId)]
       : null
     const currentValue = currentVehicle?.valor
     return {
@@ -125,6 +152,20 @@ function AppPage() {
       encerrado: !!currentVehicle?.arrematante,
     }
   })
+
+  const scrapVehicleList = scrapVehicles?.map((vehicle) => {
+    const vehicleId = getCurrentVehicleId(vehicle.link_lance_atual)
+    const currentVehicle = vehicleId
+      ? currentScrapVehicleStatus?.data?.[Number(vehicleId)]
+      : null
+    const currentValue = currentVehicle?.valor
+    return {
+      ...vehicle,
+      avaliacao_atualizada: currentValue,
+      encerrado: !!currentVehicle?.arrematante,
+    }
+  })
+
   const cityFilterOptions = useMemo(
     () =>
       listAuctionCities?.map((auction) => ({
@@ -168,7 +209,7 @@ function AppPage() {
     }
   }, [cityParam, setVehicleFiltersState, navigate])
 
-  const firstVehicleId = vehicleList?.[0]?.id
+  const firstVehicleId = noScrapVehicleList?.[0]?.id
 
   return (
     <>
@@ -253,37 +294,91 @@ function AppPage() {
             </Tabs>
           </div>
         </div>
-        <div className="grid grid-cols-12 gap-4">
-          {listAuction.isLoading ? (
+        <div className="flex flex-col gap-4 w-full md:w-auto">
+          {listNoScrapAuction.isLoading || listScrapAuction.isLoading ? (
             <SkeletonLoaderGrid count={24} />
           ) : (
-            vehicleList?.map((item, index) => (
-              <AuctionCard
-                key={item.id}
-                id={index === 0 ? 'tour-card' : undefined}
-                vehicle={item}
-                onToggleFavorite={handleFavorite}
-                isFavorite={favoriteItemids?.includes(item.id)}
-                currentVehicleLoading={currentVehicleStatus.isLoading}
-              />
-            ))
+            <>
+              <div className="mb-8">
+                <h3 className="text-xl font-bold mb-4">Conservados</h3>
+                <Carousel
+                  opts={{
+                    align: 'start',
+                    loop: true,
+                  }}
+                  className="w-full"
+                >
+                  <CarouselContent>
+                    {noScrapVehicleList?.map((item) => (
+                      <CarouselItem
+                        key={item.id}
+                        className="basis-2/3 md:basis-1/2 lg:basis-1/4"
+                      >
+                        <AuctionCard
+                          vehicle={item}
+                          onToggleFavorite={handleFavorite}
+                          isFavorite={favoriteItemids?.includes(item.id)}
+                          currentVehicleLoading={
+                            currentNoScrapVehicleStatus.isLoading
+                          }
+                        />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </Carousel>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold mb-4">Sucatas</h3>
+                <Carousel
+                  opts={{
+                    align: 'start',
+                    loop: true,
+                  }}
+                  className="w-full"
+                >
+                  <CarouselContent>
+                    {scrapVehicleList?.map((item) => (
+                      <CarouselItem
+                        key={item.id}
+                        className="basis-2/3 md:basis-1/2 lg:basis-1/4"
+                      >
+                        <AuctionCard
+                          vehicle={item}
+                          onToggleFavorite={handleFavorite}
+                          isFavorite={favoriteItemids?.includes(item.id)}
+                          currentVehicleLoading={
+                            currentScrapVehicleStatus.isLoading
+                          }
+                        />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </Carousel>
+              </div>
+            </>
           )}
         </div>
-        <div className="w-full flex items-center justify-center mb-8 mt-8">
+        {/* <div className="w-full flex items-center justify-center mb-8 mt-8">
           <PaginationSection
             page={page}
             handleChangePage={handlePageChange}
             totalItems={listAuction.data?.count ?? 0}
           />
-        </div>
+        </div> */}
       </Template>
-      {!listAuction.isLoading && (
-        <AppTour
-          run={runTour}
-          setRun={setRunTour}
-          firstVehicleId={firstVehicleId}
-        />
-      )}
+      {!listNoScrapAuction.isLoading ||
+        (!listScrapAuction.isLoading && (
+          <AppTour
+            run={runTour}
+            setRun={setRunTour}
+            firstVehicleId={firstVehicleId}
+          />
+        ))}
       <Button
         onClick={() => setRunTour(true)}
         className="fixed md:bottom-8 bottom-20 right-6 h-14 w-14 rounded-full shadow-lg z-40"

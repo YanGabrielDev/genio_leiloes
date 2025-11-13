@@ -9,6 +9,7 @@ export interface ListAuctionParams {
   city?: string
   condition?: 'conservado' | 'sucata' | undefined
   auctionStatus?: VehicleFiltersState['auctionStatus']
+  items?: number
 }
 
 export interface FindVehicleById {

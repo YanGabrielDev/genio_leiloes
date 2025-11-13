@@ -21,6 +21,7 @@ const listAuction = async ({
   condition,
   city,
   auctionStatus,
+  items,
 }: ListAuctionParams): Promise<Auction> => {
   const params: Record<string, any> = {
     page,
@@ -30,6 +31,7 @@ const listAuction = async ({
     ano: year ?? null,
     is_sucata: condition ? condition === 'sucata' : undefined,
     cidade: city,
+    items,
   }
 
   if (priceMax && priceMax > 0) {

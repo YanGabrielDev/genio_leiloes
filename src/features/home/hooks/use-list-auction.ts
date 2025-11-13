@@ -11,6 +11,7 @@ export interface UseListAuctionParams {
   city?: string
   condition?: 'conservado' | 'sucata' | undefined
   auctionStatus?: VehicleFiltersState['auctionStatus']
+  items?: number
 }
 
 export const useListAuction = ({
@@ -22,6 +23,7 @@ export const useListAuction = ({
   condition,
   city,
   auctionStatus,
+  items,
 }: UseListAuctionParams) => {
   return useQuery({
     queryKey: [
@@ -34,6 +36,7 @@ export const useListAuction = ({
       condition,
       city,
       auctionStatus,
+      items,
     ],
     queryFn: () =>
       auctionService.listAuction({
@@ -45,6 +48,7 @@ export const useListAuction = ({
         condition,
         city,
         auctionStatus,
+        items,
       }),
     staleTime: 1000 * 60 * 5, // Dados serão considerados 'stale' após 5 minutos
     // cacheTime: 1000 * 60 * 10,
