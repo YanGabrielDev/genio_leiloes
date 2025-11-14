@@ -2,10 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Template } from '@/components/Template'
 import { SkeletonLoaderGrid } from '@/components/SkeletonLoaderGrid'
 import { AuctionCard } from '@/features/home/components/AuctionCard'
-import { PaginationSection } from '@/components/PaginationSection'
-import { useListAuction } from '@/features/home/hooks/use-list-auction'
 import { useVehicleFilters } from '@/context/vehicle-filter.context'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useListAuctionCities } from '@/features/home/hooks/use-list-auction-cities'
 import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
 import { useListCurrentVehicleStatus } from '@/features/home/hooks/use-check-current-vehicle-status'
@@ -13,6 +11,8 @@ import { useFavoriteVehicle } from '@/features/home/hooks/use-favorite-vehicle'
 import { useUserStore } from '@/store/user.store'
 import { toast } from '@/hooks/use-toast'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
+import { useInfiniteListAuction } from '@/features/home/hooks/use-infinite-list-auction'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 export const Route = createFileRoute('/search')({
   component: SearchPage,
@@ -28,10 +28,13 @@ function SearchPage() {
     city,
     auctionStatus,
   } = vehicleFiltersState
-  const [page, setPage] = useState<number>(1)
 
-  const listAuction = useListAuction({
-    page,
+  const {
+    data: listAuction,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+  } = useInfiniteListAuction({
     priceMax,
     priceMin,
     modelBrand: brandModelSearch,
@@ -47,7 +50,6 @@ function SearchPage() {
   const { data: favoriteItems } = useListFavorite()
 
   const favoriteItemids = favoriteItems?.map((item) => item.id)
-  const handlePageChange = (newPage: number) => setPage(newPage)
   const cityFilterOptions = useMemo(
     () =>
       listAuctionCities?.map((auction) => ({
@@ -57,7 +59,7 @@ function SearchPage() {
       })),
     [listAuctionCities, isLoadingListAuctionCities]
   )
-  const vehicles = listAuction.data?.results
+  const vehicles = listAuction?.pages.flatMap((page) => page.results)
   const currentVehicleStatus = useListCurrentVehicleStatus({
     dataList: vehicles?.map((vehicle) => {
       if (!vehicle) return null
@@ -107,28 +109,32 @@ function SearchPage() {
           Veículos Disponíveis:
         </h2>
       </div>
-      <div className="grid grid-cols-12 gap-4">
-        {listAuction.isLoading ? (
-          <SkeletonLoaderGrid count={12} />
-        ) : (
-          vehicleList?.map((item) => (
-            <AuctionCard
-              key={item.id}
-              vehicle={item}
-              onToggleFavorite={handleFavorite}
-              isFavorite={favoriteItemids?.includes(item.id)}
-              currentVehicleLoading={currentVehicleStatus.isLoading}
-            />
-          ))
-        )}
-      </div>
-      <div className="w-full flex items-center justify-center mb-8 mt-8">
-        <PaginationSection
-          page={page}
-          handleChangePage={handlePageChange}
-          totalItems={listAuction.data?.count ?? 0}
-        />
-      </div>
+      <InfiniteScroll
+        dataLength={vehicleList?.length ?? 0}
+        next={fetchNextPage}
+        hasMore={hasNextPage}
+        loader={
+          <div className="grid grid-cols-12 gap-4">
+            <SkeletonLoaderGrid count={12} />
+          </div>
+        }
+      >
+        <div className="grid grid-cols-12 gap-4">
+          {isLoading ? (
+            <SkeletonLoaderGrid count={12} />
+          ) : (
+            vehicleList?.map((item) => (
+              <AuctionCard
+                key={item.id}
+                vehicle={item}
+                onToggleFavorite={handleFavorite}
+                isFavorite={favoriteItemids?.includes(item.id)}
+                currentVehicleLoading={currentVehicleStatus.isLoading}
+              />
+            ))
+          )}
+        </div>
+      </InfiniteScroll>
     </Template>
   )
 }
