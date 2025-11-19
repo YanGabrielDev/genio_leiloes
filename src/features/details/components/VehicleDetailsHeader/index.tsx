@@ -61,7 +61,7 @@ export function VehicleDetailsHeader({
           </h2>
           <p className="text-gray-600">{veihcleYear}</p>
         </div>
-        <div className="flex ">
+        <div className="flex text-xs text-gray-500">
           <span>Leilões</span>
           <span className="mx-2">/</span>
           <span className="truncate max-w-48">{leilaoNome}</span>

@@ -23,6 +23,8 @@ interface VehicleInfoCardsProps {
       data_hora: string
     }>
   }
+  latitude: number
+  longitude: number
 }
 
 const fadeIn = {
@@ -38,6 +40,8 @@ export function VehicleInfoCards({
   leilaoData,
   restTime,
   isLoadingLeilaoData,
+  latitude,
+  longitude,
 }: VehicleInfoCardsProps) {
   return (
     <motion.div variants={fadeIn}>
@@ -64,6 +68,8 @@ export function VehicleInfoCards({
                 color={color}
                 leilaoName={leilaoName}
                 leilaoState={leilaoState}
+                latitude={latitude}
+                longitude={longitude}
               />
             </TabsContent>
             <TabsContent value="leilao">

@@ -21,6 +21,10 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['@tanstack/react-router', '@tanstack/router-plugin/vite'],
+    include: [
+      '@tanstack/react-router',
+      '@tanstack/router-plugin/vite',
+      'react-leaflet',
+    ],
   },
 })

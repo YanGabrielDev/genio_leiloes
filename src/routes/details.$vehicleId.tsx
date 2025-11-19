@@ -13,13 +13,26 @@ import { useFindVehicleCurrentStatusById } from '@/features/details/hooks/use-fi
 import { getCurrentVehicleId } from '@/utils/getCurrentVehicleId'
 import { useListFavorite } from '@/features/home/hooks/use-list-favorite'
 import { useListLastMoves } from '@/features/details/hooks/use-list-last-moves'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import { AppTour } from '@/components/Tour'
 import { RelatedVehicles } from '@/features/details/components/RelatedVehicles'
 import { useTour } from '@/context/tour.context'
 import { Helmet } from 'react-helmet-async'
 import { Badge } from '@/components/ui/badge'
-import { Gavel } from 'lucide-react'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Gavel, MapPin } from 'lucide-react'
+
+const VehicleLocationMap = lazy(() =>
+  import('@/features/details/components/VehicleLocationMap').then((module) => ({
+    default: module.VehicleLocationMap,
+  })),
+)
 
 export const Route = createFileRoute('/details/$vehicleId')({
   component: VehicleDetailsPage,
@@ -187,86 +200,92 @@ function VehicleDetailsPage() {
           )
         }
       />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 ">
-        <VehicleImageCarousel
-          images={vehicle.imagens}
-          marcaModelo={vehicle.marca_modelo}
-        />
-        <motion.div
-          id="tour-detalhes-veiculo"
-          variants={fadeIn}
-          className="space-y-6"
-        >
-          <VehiclePriceDisplay
-            evaluationValue={evaluationValue}
-            loading={vehicleCurrentStatusById.isLoading}
-          />
-          {encerrado && vehicleCurrentStatusById.data?.arrematante && (
-            <AnimatePresence>
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="bg-green-50 border-l-4 border-green-500 text-green-800 p-4 rounded-r-lg my-4"
-                role="alert"
-              >
-                <div className="flex items-center gap-3">
-                  <Gavel className="h-6 w-6" />
-                  <div>
-                    <p className="font-bold">Leilão Encerrado!</p>
-                    <p className="text-sm">
-                      Arrematado por:{' '}
-                      <span className="font-semibold">
-                        {vehicleCurrentStatusById.data.arrematante}
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          )}
-          <VehicleActions
-            vehicleData={{
-              ano: vehicle.ano,
-              avaliacao: evaluationValue,
-              imagens: vehicle.imagens,
-              marca_modelo: vehicle.marca_modelo,
-              lote_id: Number(vehicle.lote),
-              vehicleId: vehicle.id,
-              is_favorite: favoriteItemids?.includes(vehicle.id),
-              encerrado,
-            }}
-            currentLink={vehicle.link_lance_atual}
-          />
-
-          <div className="flex items-center gap-4 flex-col md:flex-row">
-            <span className="text-primary text-sm">
-              Benefícios da Avaliação inteligente:
-            </span>
-            <motion.div
-              key={currentBenefit}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium shadow-sm"
-            >
-              {benefits[currentBenefit]}
-            </motion.div>
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <VehicleImageCarousel
+              images={vehicle.imagens}
+              marcaModelo={vehicle.marca_modelo}
+            />
           </div>
-          <VehicleInfoCards
-            year={vehicle.ano}
-            color={vehicle.cor}
-            leilaoName={vehicle.leilao.nome}
-            leilaoState={vehicle.leilao.cidade}
-            leilaoData={listLastMoves}
-            restTime={vehicle?.tempo_restante}
-            isLoadingLeilaoData={isLoadingListLastMoves}
-          />
-        </motion.div>
+          <motion.div
+            id="tour-detalhes-veiculo"
+            variants={fadeIn}
+            className="space-y-6"
+          >
+            <VehiclePriceDisplay
+              evaluationValue={evaluationValue}
+              loading={vehicleCurrentStatusById.isLoading}
+            />
+            {encerrado && vehicleCurrentStatusById.data?.arrematante && (
+              <AnimatePresence>
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="bg-green-50 border-l-4 border-green-500 text-green-800 p-4 rounded-r-lg my-4"
+                  role="alert"
+                >
+                  <div className="flex items-center gap-3">
+                    <Gavel className="h-6 w-6" />
+                    <div>
+                      <p className="font-bold">Leilão Encerrado!</p>
+                      <p className="text-sm">
+                        Arrematado por:{' '}
+                        <span className="font-semibold">
+                          {vehicleCurrentStatusById.data.arrematante}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            )}
+            <VehicleActions
+              vehicleData={{
+                ano: vehicle.ano,
+                avaliacao: evaluationValue,
+                imagens: vehicle.imagens,
+                marca_modelo: vehicle.marca_modelo,
+                lote_id: Number(vehicle.lote),
+                vehicleId: vehicle.id,
+                is_favorite: favoriteItemids?.includes(vehicle.id),
+                encerrado,
+              }}
+              currentLink={vehicle.link_lance_atual}
+            />
+
+            <div className="flex items-center gap-4 flex-col md:flex-row">
+              <span className="text-primary text-sm">
+                Benefícios da Avaliação inteligente:
+              </span>
+              <motion.div
+                key={currentBenefit}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium shadow-sm"
+              >
+                {benefits[currentBenefit]}
+              </motion.div>
+            </div>
+            <VehicleInfoCards
+              year={vehicle.ano}
+              color={vehicle.cor}
+              leilaoName={vehicle.leilao.nome}
+              leilaoState={vehicle.leilao.cidade}
+              leilaoData={listLastMoves}
+              restTime={vehicle?.tempo_restante}
+              isLoadingLeilaoData={isLoadingListLastMoves}
+              latitude={vehicle.leilao.latitude}
+              longitude={vehicle.leilao.longitude}
+            />
+          </motion.div>
+        </div>
       </div>
       <RelatedVehicles
-        brand={vehicle.marca_modelo.split(' ')[0]} // Passa a marca do veículo
+        brand={vehicle.marca_modelo.split(' ')[0]}
         currentVehicleId={vehicle.id}
       />
       <AppTour run={run} setRun={setRun} />

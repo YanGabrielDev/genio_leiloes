@@ -19,8 +19,12 @@ export interface Vehicles {
   created_at: string
   updated_at: string
   leilao: {
+    id_leilao: number
     nome: string
+    localizacao: string
     estado: string
     cidade: string
+    latitude: number
+    longitude: number
   }
 }
