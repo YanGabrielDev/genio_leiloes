@@ -28,6 +28,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+import { useMediaQuery } from '@/hooks/use-media-query'
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -187,7 +188,7 @@ function AppPage() {
     toggleFavorite(vehicleId)
   }
 
-  const handlePageChange = (newPage: number) => setPage(newPage)
+  const showFiltersInDesktop = useMediaQuery('(min-width: 768px)')
 
   useEffect(() => {
     if (subscriptionPlans) setUserPlan(subscriptionPlans)
@@ -250,7 +251,11 @@ function AppPage() {
         </script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
-      <Template showFilters cityFilterOptions={cityFilterOptions}>
+      <Template
+        showFilters
+        showActionFilters={showFiltersInDesktop}
+        cityFilterOptions={cityFilterOptions}
+      >
         <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
           <h2 className="text-2xl font-bold hidden md:block">
             Veículos Disponíveis:
