@@ -75,12 +75,15 @@ export function DropdownFilter({
     }
   }, [isOpen])
 
-  const Row: React.FC<{ index: number; style: React.CSSProperties }> = ({
+  const Row = ({
     index,
     style,
+  }: {
+    index: number
+    style: React.CSSProperties
   }) => {
     const option = filteredOptions[index]
-    if (!option) return null
+    if (!option) return <div style={style} />
     return (
       <div
         style={style}
@@ -199,7 +202,7 @@ export function DropdownFilter({
                   rowCount={filteredOptions.length}
                   rowHeight={itemHeight}
                   rowComponent={Row}
-                  rowProps={{}}
+                  rowProps={{} as any}
                 />
               ) : (
                 <div className="p-4 text-center text-gray-500 dark:text-gray-400">
