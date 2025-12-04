@@ -39,6 +39,7 @@ export function DropdownFilter({
       option.label.toLowerCase().includes(searchValue.toLowerCase())
     )
   }, [options, searchValue])
+
   const handleSelect = (option: Option) => {
     setSelectedOption(option)
     setSearchValue('')
