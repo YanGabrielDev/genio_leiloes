@@ -1,10 +1,12 @@
 import { Skeleton } from '@/components/ui/skeleton'
-import { CountdownTimer } from './CountdownTimer'
+
 import { LastBids } from './LastBids'
+import { CountdownTimer } from '@/features/home/components/AuctionCard/CountdownTimer'
 
 interface AuctionInformationProps {
   isLoading: boolean
   restTime: string
+  isFinished: boolean
   data?: {
     statusLeilao: string
     valorIncremento: string
@@ -50,6 +52,7 @@ export function AuctionInformation({
   isLoading,
   data,
   restTime,
+  isFinished,
 }: AuctionInformationProps) {
   if (isLoading) {
     return <AuctionInfoSkeleton />
@@ -68,7 +71,9 @@ export function AuctionInformation({
           <p className="text-sm font-medium text-muted-foreground">
             Tempo Restante
           </p>
-          {restTime && <CountdownTimer restTime={restTime} />}
+          {restTime && (
+            <CountdownTimer isFinished={isFinished} targetDate={restTime} />
+          )}
         </div>
         <div className="space-y-1">
           <p className="text-sm font-medium text-muted-foreground">Status</p>

@@ -260,44 +260,6 @@ function AppPage() {
           <h2 className="text-2xl font-bold hidden md:block">
             Veículos Disponíveis:
           </h2>
-          {/* <div className="bg-white p-2 md:p-4 rounded-lg shadow-sm w-full md:w-auto flex flex-col items-start gap-2 md:flex-row md:items-center md:gap-4 border">
-            <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">
-              Status do leilão:
-            </span>
-            <Tabs
-              value={auctionStatus || 'todos'}
-              onValueChange={(value) =>
-                setVehicleFiltersState((prevState) => ({
-                  ...prevState,
-                  auctionStatus:
-                    value === 'todos'
-                      ? undefined
-                      : (value as 'Em andamento' | 'Publicado'),
-                }))
-              }
-            >
-              <TabsList>
-                <TabsTrigger
-                  value="todos"
-                  className="data-[state=active]:bg-primary data-[state=active]:text-white"
-                >
-                  Todos
-                </TabsTrigger>
-                <TabsTrigger
-                  value="Em andamento"
-                  className="data-[state=active]:bg-primary data-[state=active]:text-white"
-                >
-                  Em andamento
-                </TabsTrigger>
-                <TabsTrigger
-                  value="Publicado"
-                  className="data-[state=active]:bg-primary data-[state=active]:text-white"
-                >
-                  Publicado
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div> */}
         </div>
         <div className="flex flex-col gap-4 w-full md:w-auto">
           {listNoScrapAuction.isLoading || listScrapAuction.isLoading ? (
@@ -317,7 +279,7 @@ function AppPage() {
                     {noScrapVehicleList?.map((item) => (
                       <CarouselItem
                         key={item.id}
-                        className="basis-2/3 md:basis-1/2 lg:basis-1/4"
+                        className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
                       >
                         <AuctionCard
                           vehicle={item}
@@ -348,7 +310,7 @@ function AppPage() {
                     {scrapVehicleList?.map((item) => (
                       <CarouselItem
                         key={item.id}
-                        className="basis-2/3 md:basis-1/2 lg:basis-1/4"
+                        className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
                       >
                         <AuctionCard
                           vehicle={item}

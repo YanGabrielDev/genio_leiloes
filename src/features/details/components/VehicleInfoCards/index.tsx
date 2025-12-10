@@ -25,6 +25,7 @@ interface VehicleInfoCardsProps {
   }
   latitude: number
   longitude: number
+  isFinished: boolean
 }
 
 const fadeIn = {
@@ -42,6 +43,7 @@ export function VehicleInfoCards({
   isLoadingLeilaoData,
   latitude,
   longitude,
+  isFinished,
 }: VehicleInfoCardsProps) {
   return (
     <motion.div variants={fadeIn}>
@@ -77,6 +79,7 @@ export function VehicleInfoCards({
                 isLoading={isLoadingLeilaoData}
                 data={leilaoData}
                 restTime={restTime}
+                isFinished={isFinished}
               />
             </TabsContent>
           </CardContent>

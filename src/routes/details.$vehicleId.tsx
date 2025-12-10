@@ -31,7 +31,7 @@ import { Gavel, MapPin } from 'lucide-react'
 const VehicleLocationMap = lazy(() =>
   import('@/features/details/components/VehicleLocationMap').then((module) => ({
     default: module.VehicleLocationMap,
-  })),
+  }))
 )
 
 export const Route = createFileRoute('/details/$vehicleId')({
@@ -257,7 +257,7 @@ function VehicleDetailsPage() {
 
             <div className="flex items-center gap-4 flex-col md:flex-row">
               <span className="text-primary text-sm">
-                Benefícios da Avaliação inteligente:
+                Benefícios da Avaliação Completa:
               </span>
               <motion.div
                 key={currentBenefit}
@@ -275,6 +275,7 @@ function VehicleDetailsPage() {
               color={vehicle.cor}
               leilaoName={vehicle.leilao.nome}
               leilaoState={vehicle.leilao.cidade}
+              isFinished={encerrado}
               leilaoData={listLastMoves}
               restTime={vehicle?.tempo_restante}
               isLoadingLeilaoData={isLoadingListLastMoves}
