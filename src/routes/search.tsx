@@ -133,7 +133,7 @@ function SearchPage() {
         <div className="text-center my-4">
           <h1 className="text-2xl font-bold">Explore Nossos Veículos</h1>
           <p className="text-lg text-gray-600">
-            Encontre o carro dos seus sonhos
+            Explore todas as oportunidades de veículos disponíveis agoras
           </p>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
