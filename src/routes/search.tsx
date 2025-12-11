@@ -130,7 +130,7 @@ function SearchPage() {
 
     return (
       <>
-        <div className="text-center my-8">
+        <div className="text-center my-4">
           <h1 className="text-2xl font-bold">Explore Nossos Veículos</h1>
           <p className="text-lg text-gray-600">
             Encontre o carro dos seus sonhos
