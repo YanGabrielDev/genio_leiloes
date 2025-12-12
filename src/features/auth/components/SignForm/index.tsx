@@ -16,6 +16,8 @@ import { useLoginUser } from '../../hooks/use-login-user'
 import { loginFormSchema } from '../../schemas/login-form.schema'
 import { useGoogleAuth } from '../../hooks/use-google-auth'
 import { useEffect } from 'react'
+import { LegalModal } from '@/components/LegalModal'
+import { privacy, terms } from '@/lib/legal'
 
 interface SignFormProps {
   openSignUpForm: () => void
@@ -103,7 +105,35 @@ export const SignForm = ({ openSignUpForm }: SignFormProps) => {
             />
             <span className="font-normal">Entrar com Google</span>
           </Button>
-
+          <p className="text-xs text-center text-gray-500 mt-4">
+            Ao fazer login, você concorda com nossos{' '}
+            <LegalModal title="Termos de Serviço" content={terms}>
+              <span className="text-blue-600 cursor-pointer">
+                Termos de Serviço
+              </span>
+            </LegalModal>{' '}
+            e{' '}
+            <LegalModal title="Política de Privacidade" content={privacy}>
+              <span className="text-blue-600 cursor-pointer">
+                Política de Privacidade
+              </span>
+            </LegalModal>
+            .
+          </p>
+          {/* <div className="flex w-full justify-between items-center absolute bottom-10 max-w-80">
+            <span className="text-primary text-base opacity-70 font-normal">
+              Não possui conta?
+            </span>
+            <Button
+              variant="outline"
+              onClick={() => {
+                openSignUpForm()
+                form.reset()
+              }}
+            >
+              <span className="font-normal">Criar conta</span>
+            </Button>
+          </div> */}
         </div>
       </form>
     </Form>
