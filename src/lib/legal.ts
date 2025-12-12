@@ -1,6 +1,5 @@
 export const terms = `
 # Termos de Uso — Gênio Leilões
-
 **Última atualização:** 11 de dezembro de 2025
 
 Bem-vindo ao Gênio Leilões! Ao acessar e utilizar nosso site, você concorda com estes **Termos de Uso**. Recomendamos que leia atentamente cada seção.
@@ -71,7 +70,7 @@ Todo conteúdo exibido no site — textos, marcas, logos, imagens e dados — é
 ---
 
 ### 11. Suspensão e Encerramento de Acesso
-Podemos **suspender ou encerrar o acesso** do usuário caso sejam identificadas práticas ilegais, abusivas, ou que descumpram estes Termos.
+Podemos **suspender ou encerrar o acesso** do usuário caso sejam identificadas práticas ilegais, abusivas ou que descumpram estes Termos.
 
 ---
 
@@ -81,16 +80,15 @@ O Gênio Leilões pode **atualizar estes Termos periodicamente**. Alterações t
 ---
 
 ### 13. Contato
-Para dúvidas, suporte ou solicitações:
+Para dúvidas, suporte ou solicitações:  
 **E-mail:** [genioleilao@gmail.com](mailto:genioleilao@gmail.com)
 
 ---
 
 Ao continuar utilizando o Gênio Leilões, você declara estar de acordo com estes Termos de Uso.
-`;
+`
 export const privacy = `
 # Política de Privacidade — Gênio Leilões
-
 **Última atualização:** 11 de dezembro de 2025
 
 A presente **Política de Privacidade** descreve como o Gênio Leilões coleta, utiliza, armazena, compartilha e protege os dados pessoais de seus usuários, em conformidade com a **Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)**.
@@ -115,7 +113,7 @@ Coletamos diferentes tipos de dados para fornecer e melhorar nossos serviços:
 - Ações no site (cliques, páginas visitadas, tempo de permanência)
 
 **1.3. Dados de terceiros:**
-- Podemos receber dados de plataformas de pagamento, provedores de autenticação e parceiros de serviços externos.
+- Podemos receber dados de plataformas de pagamento, provedores de autenticação e parceiros externos.
 
 ---
 
@@ -126,7 +124,7 @@ Utilizamos seus dados pessoais para:
 - Processar pagamentos e assinaturas
 - Exibir conteúdo personalizado
 - Melhorar a performance e segurança do site
-- Entrar em contato em caso de suporte ou dúvidas
+- Entrar em contato em caso de suporte
 - Cumprir obrigações legais
 
 ---
@@ -137,70 +135,66 @@ Podemos compartilhar seus dados com:
 - **Fornecedores de hospedagem e infraestrutura**
 - **Serviços de análise e métricas** (ex.: Google Analytics)
 
-**Nunca vendemos dados pessoais.** O compartilhamento sempre ocorre de forma segura e apenas quando necessário.
+**Nunca vendemos dados pessoais.**
 
 ---
 
 ### 4. Cookies e Tecnologias de Rastreamento
-Utilizamos **cookies** para:
+Utilizamos cookies para:
 - Manter sua sessão ativa
 - Personalizar conteúdo
 - Realizar análises de navegação
 - Melhorar a usabilidade
 
-O usuário pode desativar cookies no navegador, mas isso pode limitar funcionalidades.
+Você pode desativá-los no navegador, mas isso pode limitar funcionalidades.
 
 ---
 
 ### 5. Armazenamento e Segurança
-Adotamos medidas técnicas e organizacionais adequadas para proteger seus dados, incluindo:
-- Criptografia de senhas
-- SSL em todas as páginas
+Adotamos medidas adequadas para proteger seus dados, como:
+- Criptografia
+- SSL
 - Controle de acesso restrito
 - Monitoramento de segurança
 
-Apesar disso, **nenhum sistema é 100% seguro**. Em caso de incidentes, seguiremos os procedimentos legais da LGPD.
+Nenhum sistema é infalível. Em caso de incidente, seguiremos a LGPD.
 
 ---
 
 ### 6. Direitos do Usuário (LGPD)
-O usuário pode, a qualquer momento:
-- Confirmar se tratamos seus dados
-- Solicitar acesso
-- Corrigir informações
-- Solicitar exclusão
-- Revogar consentimento
-- Solicitar portabilidade
+Você pode solicitar:
+- Confirmação de tratamento
+- Acesso aos dados
+- Correção
+- Exclusão
+- Portabilidade
+- Revogação de consentimento
 
-Pedidos podem ser enviados ao e-mail: [genioleilao@gmail.com](mailto:genioleilao@gmail.com)
+Solicitações: [genioleilao@gmail.com](mailto:genioleilao@gmail.com)
 
 ---
 
 ### 7. Retenção dos Dados
-Manteremos os dados pessoais somente pelo tempo necessário para:
-- Cumprir finalidades previstas
-- Cumprir obrigações legais
-- Pelo período de existência da conta
-
-Dados podem ser **anonimizados** para fins estatísticos.
+Os dados são mantidos apenas pelo tempo necessário às finalidades previstas ou obrigações legais.  
+Podem ser **anonimizados** para fins estatísticos.
 
 ---
 
 ### 8. Transferência Internacional
-Alguns serviços utilizados podem estar fora do Brasil. Nesses casos, garantimos que o tratamento seguirá padrões adequados de proteção ao usuário.
+Alguns serviços utilizados podem estar fora do Brasil. Garantimos padrões adequados de proteção.
 
 ---
 
 ### 9. Alterações na Política
-Esta Política pode ser **atualizada periodicamente**. A nova versão entrará em vigor imediatamente após sua publicação no site.
+Atualizações podem ocorrer periodicamente, com efeito imediato após publicação.
 
 ---
 
 ### 10. Contato
-Para dúvidas ou solicitações relacionadas à privacidade:
+Dúvidas sobre privacidade:  
 **E-mail:** [genioleilao@gmail.com](mailto:genioleilao@gmail.com)
 
 ---
 
 Ao utilizar o Gênio Leilões, você concorda com esta Política de Privacidade.
-`;
+`
