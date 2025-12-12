@@ -1,8 +1,10 @@
-import { Instagram } from 'lucide-react'
-import { Link } from '@tanstack/react-router'
+import { Instagram } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { LegalModal } from "../LegalModal";
+import { terms, privacy } from "@/lib/legal";
 
 const instagramUrl =
-  'https://www.instagram.com/genioleilao?igsh=MWppNnhwNGxoY3kyNA=='
+  "https://www.instagram.com/genioleilao?igsh=MWppNnhwNGxoY3kyNA==";
 
 export function Footer() {
   return (
@@ -61,20 +63,18 @@ export function Footer() {
             <h4 className="font-semibold text-gray-200">Legal</h4>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
-                <a
-                  href="#"
-                  className="text-white transition-colors hover:text-white"
-                >
-                  Termos de Serviço
-                </a>
+                <LegalModal title="Termos de Serviço" content={terms}>
+                  <button className="text-white transition-colors hover:text-white">
+                    Termos de Serviço
+                  </button>
+                </LegalModal>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-white transition-colors hover:text-white"
-                >
-                  Política de Privacidade
-                </a>
+                <LegalModal title="Política de Privacidade" content={privacy}>
+                  <button className="text-white transition-colors hover:text-white">
+                    Política de Privacidade
+                  </button>
+                </LegalModal>
               </li>
             </ul>
           </div>
@@ -106,5 +106,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
